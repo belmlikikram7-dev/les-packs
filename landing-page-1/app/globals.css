@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FAF8F5;
+  --foreground: #3A1826;
+  --pink-mist: #F7DAE7;
+  --bubblegum: #E2B4C1;
+  --cherry-soda: #D38C9D;
+  --ruby-petals: #A55166;
+  --deep-wine: #3A1826;
+}
+
+@theme {
+  --font-serif: var(--font-serif), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-sans), "Plus Jakarta Sans", system-ui, sans-serif;
+  --color-pink-mist: #F7DAE7;
+  --color-bubblegum: #E2B4C1;
+  --color-cherry-soda: #D38C9D;
+  --color-ruby-petals: #A55166;
+  --color-deep-wine: #3A1826;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #FAF8F5;
+}
+
+/* ========================================================
+   Harmonisation globale de la typographie & Letter-Spacing
+   ======================================================== */
+body {
+  background-color: #FAF8F5;
+  color: #3A1826;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Format standard et moderne pour tous les chiffres et prix (fini les chiffres élzéviriens/anciens) */
+* {
+  font-variant-numeric: lining-nums tabular-nums;
+  -moz-font-feature-settings: "lnum" 1, "tnum" 1, "onum" 0;
+  -webkit-font-feature-settings: "lnum" 1, "tnum" 1, "onum" 0;
+  font-feature-settings: "lnum" 1, "tnum" 1, "onum" 0;
+}
+
+bdi {
+  font-family: var(--font-sans), "Plus Jakarta Sans", system-ui, sans-serif !important;
+  font-variant-numeric: lining-nums tabular-nums !important;
+}
+
+[dir="rtl"] bdi {
+  font-family: var(--font-arabic), var(--font-sans), system-ui, sans-serif !important;
+}
+
+[dir="rtl"] body,
+[dir="rtl"] {
+  font-family: var(--font-arabic), var(--font-sans), system-ui, sans-serif;
+  letter-spacing: 0em;
+}
+
+[dir="rtl"] .font-serif {
+  font-family: var(--font-arabic), "Cormorant Garamond", serif;
+  font-weight: 600;
+  letter-spacing: 0em;
+}
+
+p {
+  letter-spacing: -0.005em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.015em;
+}
+
+.font-serif {
+  letter-spacing: -0.01em;
+}
+
+/* Éléments en majuscules (Badges, boutons, surtitres) : espacement éditorial équilibré et raffiné */
+.uppercase {
+  letter-spacing: 0.06em;
+}
+
+button, input, select, textarea {
+  letter-spacing: -0.005em;
+}
+
+/* Custom delicate scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF5F7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E2B4C1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D38C9D;
+}
+
+/* Pulsing "tban w tmchi" animation for Free Gift badge */
+@keyframes giftPulseBlink {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 4px 18px rgba(165, 81, 102, 0.45);
+  }
+  50% {
+    opacity: 0.82;
+    transform: scale(1.04);
+    box-shadow: 0 6px 26px rgba(165, 81, 102, 0.75);
+  }
+}
+
+.animate-gift-blink {
+  animation: giftPulseBlink 2.4s ease-in-out infinite;
+}
+
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-gentle-float {
+  animation: gentleFloat 4s ease-in-out infinite;
+}
+
+/* Continuous infinite right-to-left marquee ticker with 3D hardware acceleration */
+@keyframes marqueeScroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee-infinite {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 28s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-infinite:hover {
+  animation-play-state: paused;
+}
+
+/* Eye-catching pumping animation for Gift icon (bomb-a) */
+@keyframes giftPump {
+  0%, 100% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.3) rotate(-8deg);
+  }
+  30% {
+    transform: scale(1.1) rotate(4deg);
+  }
+  45% {
+    transform: scale(1.24) rotate(-4deg);
+  }
+  60% {
+    transform: scale(1);
+  }
+}
+
+.animate-gift-pump {
+  animation: giftPump 2.2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  transform-origin: center;
+  display: inline-block;
+}
+
+
