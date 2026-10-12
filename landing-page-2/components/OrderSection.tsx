@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { MAIN_CITIES, MOROCCAN_CITIES } from "@/data/cities";
+import CitySelect from "@/components/CitySelect";
 import {
   ShoppingBag,
   CheckCircle2,
@@ -251,28 +251,25 @@ export default function OrderSection() {
                   </div>
                 </div>
 
-                {/* City Select */}
+                {/* City Select with Input & Live Search */}
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider text-[#310F10] mb-1.5">
                     {t.form.cityLabel} *
                   </label>
-                  <select
+                  <CitySelect
                     value={formData.ville}
-                    onChange={(e) => setFormData({ ...formData, ville: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#F4EEDC] border border-[#F3E3B2] text-[#310F10] text-sm focus:border-[#74070D] focus:bg-white transition-all cursor-pointer"
-                  >
-                    <option value="">{t.form.cityPlaceholder}</option>
-                    <optgroup label="Grandes Villes">
-                      {MAIN_CITIES.map((c) => (
-                        <option key={c} value={c}>{c}</option>
-                      ))}
-                    </optgroup>
-                    <optgroup label="Toutes les Villes">
-                      {MOROCCAN_CITIES.map((c) => (
-                        <option key={c} value={c}>{c}</option>
-                      ))}
-                    </optgroup>
-                  </select>
+                    onChange={(city) => {
+                      setFormData({ ...formData, ville: city });
+                      if (errors.ville) {
+                        setErrors((prev) => {
+                          const n = { ...prev };
+                          delete n.ville;
+                          return n;
+                        });
+                      }
+                    }}
+                    error={errors.ville}
+                  />
                   {errors.ville && (
                     <p className="mt-1 text-[11px] text-[#74070D] flex items-center gap-1 font-medium">
                       <AlertCircle className="w-3 h-3" />
