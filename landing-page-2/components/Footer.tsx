@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { Sparkles, ShieldCheck, Heart, ExternalLink } from "lucide-react";
+import { ShieldCheck, Heart, ExternalLink } from "lucide-react";
 
 export default function Footer() {
   const { locale, isArabic } = useLanguage();
@@ -19,21 +20,25 @@ export default function Footer() {
         
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#46462A]/60">
           
-          {/* Brand Info */}
+          {/* Brand Info / Vinillia Yellow Logo */}
           <div className="md:col-span-5 flex flex-col items-start">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-10 h-10 rounded-full bg-[#74070D] border border-[#F3E3B2]/50 flex items-center justify-center text-[#F3E3B2] shadow-md">
-                <Sparkles className="w-5 h-5" />
-              </div>
-              <div>
-                <span className="font-serif tracking-widest text-xl font-bold text-[#F3E3B2] block uppercase">
-                  SEOUL 1988
-                </span>
-                <span className="text-[10px] tracking-wider text-[#F3E3B2]/75 uppercase">
-                  K-Secret Premium Routine
-                </span>
-              </div>
-            </div>
+            <a
+              href="#hero"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollTo("#hero");
+              }}
+              className="flex items-center group py-1 mb-4 cursor-pointer"
+              aria-label="Vinillia Beauty & Skincare"
+            >
+              <Image
+                src="/logo.png"
+                alt="Vinillia Beauty & Skincare"
+                width={200}
+                height={70}
+                className="h-12 sm:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
+            </a>
 
             <p className="text-xs sm:text-sm text-[#FAF7EE]/80 leading-relaxed font-light max-w-sm mb-6">
               {t.description}

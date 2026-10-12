@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { Sparkles, Globe, ShoppingBag } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 
 export default function Navbar() {
   const { locale, setLocale, isArabic } = useLanguage();
@@ -16,20 +17,25 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#310F10]/95 backdrop-blur-md border-b border-[#46462A]/40 text-[#FAF7EE] shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
-        {/* Brand / Logo */}
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-full bg-[#74070D] border border-[#F3E3B2]/50 flex items-center justify-center text-[#F3E3B2] shadow-sm">
-            <Sparkles className="w-4 h-4" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-serif tracking-widest text-lg font-bold text-[#F3E3B2] leading-tight uppercase">
-              SEOUL 1988
-            </span>
-            <span className="text-[10px] tracking-wider text-[#F3E3B2]/75 uppercase">
-              K-Secret Edition
-            </span>
-          </div>
-        </div>
+        {/* Brand / Vinillia Yellow Logo */}
+        <a
+          href="#hero"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollTo("#hero");
+          }}
+          className="flex items-center group py-1 cursor-pointer"
+          aria-label="Vinillia Beauty & Skincare"
+        >
+          <Image
+            src="/logo.png"
+            alt="Vinillia Beauty & Skincare"
+            width={180}
+            height={64}
+            priority
+            className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+          />
+        </a>
 
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-7 text-xs font-semibold uppercase tracking-wider text-[#F3E3B2]/85">
