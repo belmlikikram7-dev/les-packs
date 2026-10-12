@@ -67,15 +67,44 @@ export default function Navbar() {
 
         {/* Actions : Language Selector & CTA */}
         <div className="flex items-center gap-3">
-          {/* Language Toggle */}
-          <button
-            onClick={() => setLocale(locale === "ar" ? "fr" : "ar")}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#46462A]/60 hover:bg-[#46462A] text-[#F3E3B2] text-xs font-medium border border-[#F3E3B2]/30 transition-all cursor-pointer"
-            title="Changer de langue"
+          {/* Language Switcher : FR / AR with Flags */}
+          <div
+            className="inline-flex items-center p-1 rounded-full bg-[#310F10] border border-[#F3E3B2]/40 shadow-inner"
+            role="group"
+            aria-label="Sélection de la langue"
           >
-            <Globe className="w-3.5 h-3.5" />
-            <span>{locale === "ar" ? "Français" : "العربية"}</span>
-          </button>
+            {/* Bouton Français */}
+            <button
+              type="button"
+              onClick={() => setLocale("fr")}
+              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase transition-all duration-300 cursor-pointer ${
+                locale === "fr"
+                  ? "bg-[#74070D] text-[#F3E3B2] shadow-md border border-[#F3E3B2]/60 scale-105"
+                  : "text-[#F3E3B2]/70 hover:text-[#F3E3B2]"
+              }`}
+            >
+              <span className="text-sm leading-none" role="img" aria-label="France">
+                🇫🇷
+              </span>
+              <span>FR</span>
+            </button>
+
+            {/* Bouton Arabe */}
+            <button
+              type="button"
+              onClick={() => setLocale("ar")}
+              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase transition-all duration-300 cursor-pointer ${
+                locale === "ar"
+                  ? "bg-[#74070D] text-[#F3E3B2] shadow-md border border-[#F3E3B2]/60 scale-105"
+                  : "text-[#F3E3B2]/70 hover:text-[#F3E3B2]"
+              }`}
+            >
+              <span className="text-sm leading-none" role="img" aria-label="Maroc">
+                🇲🇦
+              </span>
+              <span>AR</span>
+            </button>
+          </div>
 
           {/* Quick CTA */}
           <button
