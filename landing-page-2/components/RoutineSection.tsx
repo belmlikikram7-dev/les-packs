@@ -1,71 +1,153 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { Sun, Moon, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
+import { Sun, Moon, ArrowRight, Sparkles, X, Check, Droplets, ImagePlus } from "lucide-react";
+
+interface StepItem {
+  id: string;
+  step: string;
+  title: string;
+  arabicTitle: string;
+  product: string;
+  arabicProduct: string;
+  volume: string;
+  category: string;
+  desc: string;
+  arabicDesc: string;
+  keyActives: string[];
+  usage: string;
+  image?: string; // Prepared for user's isolated product PNG
+}
 
 export default function RoutineSection() {
-  const { locale } = useLanguage();
+  const { locale, isArabic } = useLanguage();
   const t = TRANSLATIONS[locale].routineSection;
   const [activeTab, setActiveTab] = useState<"morning" | "night">("morning");
+  const [selectedStep, setSelectedStep] = useState<StepItem | null>(null);
 
   const scrollTo = (hash: string) => {
     const el = document.querySelector(hash);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
-  const morningSteps = [
+  const morningSteps: StepItem[] = [
     {
+      id: "cleansing-foam-am",
       step: "01",
       title: "Nettoyage Purifiant",
+      arabicTitle: "تنظيف لطيف وتنقية",
       product: "Seoul 1988 Cleansing Foam",
-      desc: "Élimine le sébum accumulé durant la nuit tout en préservant l'hydratation de la peau.",
+      arabicProduct: "رغوة منظفة سول 1988",
+      volume: "150ml",
+      category: "Nettoyant Doux Purifiant",
+      desc: "Élimine délicatement l'excès de sébum nocturne sans tirailler ni assécher la barrière cutanée.",
+      arabicDesc: "تنظف بلطف الإفرازات الدهنية الليلية دون التسبب في أي جفاف أو شد للبشرة.",
+      keyActives: ["Centella Asiatica", "Acide Hyaluronique", "Extrait de Riz"],
+      usage: "Masser une noisette sur visage humide en mouvements circulaires puis rincer abondamment.",
     },
     {
+      id: "eye-cream-am",
       step: "02",
       title: "Contour des Yeux",
+      arabicTitle: "عناية بمحيط العينين",
       product: "Seoul 1988 Eye Cream",
-      desc: "Dégonfle le regard, estompe les cernes et illumine le contour des yeux.",
+      arabicProduct: "كريم محيط العينين سول 1988",
+      volume: "30ml",
+      category: "Soin Contour des Yeux",
+      desc: "Dégonfle le regard au réveil, illumine les cernes et hydrate la zone fine de l'œil.",
+      arabicDesc: "يخفف انتفاخ الصباح، يفتح الهالات السوداء ويرطب منطقة حول العينين الحساسة.",
+      keyActives: ["Peptides", "Caféine", "Niacinamide"],
+      usage: "Tapoter délicatement une petite perle avec l'annulaire de l'intérieur vers l'extérieur.",
     },
     {
+      id: "cream-snail-am",
       step: "03",
-      title: "Hydratation & Glow Glass Skin",
+      title: "Hydratation Glass Skin",
+      arabicTitle: "ترطيب ونضارة زجاجية",
       product: "Cream Snail Mucin 93% + Rice",
-      desc: "Infuse une hydratation profonde, apaise les rougeurs et procure un éclat radieux non gras.",
+      arabicProduct: "كريم إفرازات الحلزون 93% + الأرز",
+      volume: "100ml",
+      category: "Crème Réparatrice & Glow",
+      desc: "Hydratation intense et effet Glass Skin coréen immédiat, apaise les rougeurs sans fini gras.",
+      arabicDesc: "ترطيب مكثف يمنح البشرة توهجاً كورياً زجاجياً نضراً ويهدئ الاحمرار تماماً.",
+      keyActives: ["Mucine d'Escargot 93%", "Extrait de Riz", "Panthénol"],
+      usage: "Appliquer généreusement sur le visage et le cou en massant jusqu'à pénétration.",
     },
     {
+      id: "sun-pine-am",
       step: "04",
       title: "Bouclier UV Invisible",
-      product: "Seoul 1988 Sun Pine Tree + Ceramide",
-      desc: "Protection solaire SPF 50+ maximale contre les rayons UVA/UVB et la pollution.",
+      arabicTitle: "حماية فائقة من الشمس",
+      product: "Seoul 1988 Sun Pine + Ceramide",
+      arabicProduct: "واقي شمس سول 1988 : الصنوبر + سيراميد",
+      volume: "50ml",
+      category: "Protection Solaire SPF 50+",
+      desc: "Protection solaire SPF 50+ PA++++ ultralégère, non collante, idéale sous le maquillage.",
+      arabicDesc: "حماية قصوى SPF 50+ من أشعة الشمس، خفيفة جداً، غير دهنية ولا تترك أي بياض.",
+      keyActives: ["Extrait de Pin", "Céramides NP", "Filtres Nouvelle Génération"],
+      usage: "Appliquer en dernière étape le matin 15 minutes avant toute exposition extérieure.",
     },
   ];
 
-  const nightSteps = [
+  const nightSteps: StepItem[] = [
     {
+      id: "cleansing-foam-pm",
       step: "01",
       title: "Nettoyage en Profondeur",
+      arabicTitle: "تنظيف المسام بعمق",
       product: "Seoul 1988 Cleansing Foam",
-      desc: "Débarrasse les pores des impuretés, de la sueur et des filtres solaires de la journée.",
+      arabicProduct: "رغوة منظفة سول 1988",
+      volume: "150ml",
+      category: "Nettoyant Doux Purifiant",
+      desc: "Libère les pores des résidus de filtres solaires, du maquillage et de la pollution accumulée.",
+      arabicDesc: "يزيل رواسب واقي الشمس والشوائب والتلوث المتراكمة طوال اليوم وينظف المسام.",
+      keyActives: ["Centella Asiatica", "Acide Hyaluronique", "Extrait de Riz"],
+      usage: "Faire mousser dans les mains avec un peu d'eau puis masser 60 secondes sur le visage.",
     },
     {
+      id: "eye-cream-pm",
       step: "02",
-      title: "Soin Contour des Yeux",
+      title: "Soin Contour Réparateur",
+      arabicTitle: "ترميم محيط العينين ليلاً",
       product: "Seoul 1988 Eye Cream",
-      desc: "Nourrit intensément la peau fine des paupières et prévient le creusement des cernes.",
+      arabicProduct: "كريم محيط العينين سول 1988",
+      volume: "30ml",
+      category: "Soin Contour des Yeux",
+      desc: "Nourrit intensément les paupières et prévient le vieillissement cutané pendant le sommeil.",
+      arabicDesc: "يغذي الجفون بعمق ويحمي من الخطوط التعبيرية وظهور التجاعيد أثناء النوم.",
+      keyActives: ["Peptides", "Caféine", "Niacinamide"],
+      usage: "Appliquer en couche soyeuse avant vos sérums de nuit.",
     },
     {
+      id: "serum-retinal-pm",
       step: "03",
       title: "Activation Anti-Âge Liposomique",
-      product: "Serum Retinal Liposome 2% + Black Ginseng",
-      desc: "Le rétinal encapsulé pénètre en profondeur pour stimuler le collagène et lisser le grain.",
+      arabicTitle: "تجديد الخلايا بالريتينال",
+      product: "Serum Retinal Liposome 2% + Ginseng",
+      arabicProduct: "سيروم ريتينال ليبوزوم 2% + الجينسنغ الأسود",
+      volume: "30ml",
+      category: "Sérum Régénérant Culte",
+      desc: "Stimule la production de collagène, accélère le renouvellement cellulaire et lisse les ridules.",
+      arabicDesc: "يحفز إنتاج الكولاجين، يسرع تجديد خلايا البشرة ويشد الخطوط الرفيعة بفضل الريتينال.",
+      keyActives: ["Retinal Liposome 2%", "Ginseng Noir Fermenté", "Bakuchiol"],
+      usage: "Appliquer 3 à 4 gouttes sur peau sèche en évitant les muqueuses. Utilisation du soir uniquement.",
     },
     {
+      id: "cream-retinal-pm",
       step: "04",
-      title: "Régénération Nocturne & Fermeté",
-      product: "Cream Retinal Liposome 1% + Fermented Rice",
-      desc: "Scelle l'hydratation, régénère les cellules et repulpe l'épiderme durant votre sommeil.",
+      title: "Régénération & Fermeté",
+      arabicTitle: "كريم ليلي لشد البشرة",
+      product: "Cream Retinal Liposome 1% + Rice",
+      arabicProduct: "كريم ريتينال ليبوزوم 1% + الأرز المخمر",
+      volume: "50ml",
+      category: "Crème Nuit Lissante",
+      desc: "Scelle les actifs, nourrit profondément et régénère l'épiderme pour un réveil à la peau repulpée.",
+      arabicDesc: "يحافظ على ترطيب البشرة ويغذيها بالأرز المخمر لتستيقظي ببشرة ممتلئة ومشدودة ومشرقة.",
+      keyActives: ["Retinal Liposome 1%", "Extrait de Riz Fermenté", "Adénosine"],
+      usage: "Appliquer sur l'ensemble du visage et du cou en couche protectrice finale.",
     },
   ];
 
@@ -94,7 +176,7 @@ export default function RoutineSection() {
               onClick={() => setActiveTab("morning")}
               className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "morning"
-                  ? "bg-[#74070D] text-[#F3E3B2] shadow-md"
+                  ? "bg-[#74070D] text-[#F3E3B2] shadow-md scale-102"
                   : "text-[#46462A] hover:text-[#310F10]"
               }`}
             >
@@ -105,7 +187,7 @@ export default function RoutineSection() {
               onClick={() => setActiveTab("night")}
               className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "night"
-                  ? "bg-[#310F10] text-[#F3E3B2] shadow-md"
+                  ? "bg-[#310F10] text-[#F3E3B2] shadow-md scale-102"
                   : "text-[#46462A] hover:text-[#310F10]"
               }`}
             >
@@ -125,35 +207,79 @@ export default function RoutineSection() {
           </p>
         </div>
 
-        {/* Steps Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {currentSteps.map((s, idx) => (
+        {/* Steps Grid : Inspired by the curved luxury card design */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
+          {currentSteps.map((item) => (
             <div
-              key={idx}
-              className="p-6 rounded-3xl bg-[#FAF7EE] border border-[#F3E3B2] shadow-sm hover:shadow-xl hover:border-[#74070D]/40 transition-all flex flex-col justify-between"
+              key={item.id}
+              className="relative p-5 rounded-[2.2rem] bg-gradient-to-b from-[#74070D] to-[#4F0408] text-white shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group overflow-hidden border border-[#F3E3B2]/30"
             >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-serif text-2xl font-bold text-[#74070D]">
-                    {s.step}
+              {/* Top Inner Light Arch / Podium (Spotlight for Product Image) */}
+              <div className="relative w-full aspect-[4/4.2] rounded-[1.8rem] bg-gradient-to-b from-[#F3E3B2]/30 via-[#F3E3B2]/15 to-transparent border border-[#F3E3B2]/20 p-3 flex flex-col justify-between items-center overflow-hidden mb-4 shadow-inner">
+                
+                {/* Top Badge (ECO / Step Number) */}
+                <div className="w-full flex items-center justify-between z-10">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold tracking-wider uppercase">
+                    <Sparkles className="w-3 h-3 text-[#F3E3B2]" />
+                    <span>{t.stepBadge} {item.step}</span>
+                  </div>
+                  <span className="text-[10px] font-medium text-[#F3E3B2] bg-[#310F10]/50 px-2 py-0.5 rounded-full border border-white/10">
+                    {item.volume}
                   </span>
-                  <CheckCircle2 className="w-4 h-4 text-[#46462A]" />
                 </div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#46462A] mb-1">
-                  {s.title}
-                </h4>
-                <h5 className="font-serif text-base font-bold text-[#310F10] mb-3">
-                  {s.product}
-                </h5>
-                <p className="text-xs text-[#46462A] leading-relaxed">
-                  {s.desc}
-                </p>
+
+                {/* Center Product Image Container (Prepared for your isolated transparent image) */}
+                <div className="relative w-full flex-1 flex items-center justify-center my-2">
+                  {item.image ? (
+                    <Image
+                      src={item.image}
+                      alt={item.product}
+                      fill
+                      className="object-contain drop-shadow-[0_12px_20px_rgba(0,0,0,0.35)] group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    /* Placeholder Waiting for User's Product Image */
+                    <div className="flex flex-col items-center justify-center text-center p-3 rounded-2xl bg-white/5 border border-dashed border-[#F3E3B2]/40 w-full h-full">
+                      <ImagePlus className="w-7 h-7 text-[#F3E3B2]/70 mb-1 animate-pulse" />
+                      <span className="text-[11px] font-bold text-[#F3E3B2] leading-tight">
+                        {isArabic ? item.arabicProduct : item.product}
+                      </span>
+                      <span className="text-[9px] text-white/60 mt-0.5">
+                        {isArabic ? "(في انتظار الصورة)" : "(Image du produit)"}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Soft Bottom Glow for the Product */}
+                <div className="w-24 h-4 bg-[#F3E3B2]/20 blur-md rounded-full pointer-events-none" />
               </div>
+
+              {/* Bottom Info & Learn More Button */}
+              <div className="flex items-end justify-between gap-3 pt-1">
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-serif text-sm font-bold text-white truncate leading-snug">
+                    {isArabic ? item.arabicProduct : item.product}
+                  </h4>
+                  <p className="text-[11px] text-[#F3E3B2]/80 truncate">
+                    {isArabic ? item.arabicTitle : item.title}
+                  </p>
+                </div>
+
+                {/* "Learn More" Pill Button */}
+                <button
+                  onClick={() => setSelectedStep(item)}
+                  className="shrink-0 px-4 py-2 rounded-full bg-white text-[#74070D] hover:bg-[#F3E3B2] hover:text-[#310F10] text-[11px] font-bold tracking-wide shadow-md active:scale-95 transition-all cursor-pointer whitespace-nowrap"
+                >
+                  {t.learnMore}
+                </button>
+              </div>
+
             </div>
           ))}
         </div>
 
-        {/* Routine CTA */}
+        {/* Global Routine CTA */}
         <div className="text-center">
           <button
             onClick={() => scrollTo("#commande")}
@@ -165,6 +291,76 @@ export default function RoutineSection() {
         </div>
 
       </div>
+
+      {/* Step Details Modal */}
+      {selectedStep && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="relative w-full max-w-md bg-[#FAF7EE] rounded-3xl border-2 border-[#F3E3B2] shadow-2xl p-6 sm:p-7 text-[#310F10]">
+            
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedStep(null)}
+              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#F3E3B2] text-[#310F10] hover:bg-[#74070D] hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            {/* Step Badge */}
+            <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#74070D] text-[#F3E3B2] text-[10px] font-bold uppercase tracking-wider mb-3">
+              <span>{t.stepBadge} {selectedStep.step}</span>
+              <span>•</span>
+              <span>{selectedStep.volume}</span>
+            </div>
+
+            <h3 className="font-serif text-2xl font-bold text-[#310F10] mb-1 leading-snug">
+              {isArabic ? selectedStep.arabicProduct : selectedStep.product}
+            </h3>
+
+            <p className="text-xs text-[#74070D] font-bold uppercase tracking-wider mb-4">
+              {isArabic ? selectedStep.arabicTitle : selectedStep.title} ({selectedStep.category})
+            </p>
+
+            <p className="text-xs sm:text-sm text-[#46462A] leading-relaxed mb-5">
+              {isArabic ? selectedStep.arabicDesc : selectedStep.desc}
+            </p>
+
+            {/* Actives */}
+            <div className="mb-5">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-[#310F10] block mb-2">
+                Actifs Clés de la Formule :
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {selectedStep.keyActives.map((a, i) => (
+                  <span
+                    key={i}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#F4EEDC] text-[#310F10] text-[11px] font-medium border border-[#F3E3B2]"
+                  >
+                    <Droplets className="w-2.5 h-2.5 text-[#74070D]" />
+                    {a}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Usage */}
+            <div className="p-3.5 rounded-2xl bg-[#F4EEDC] border border-[#F3E3B2] text-xs text-[#46462A] mb-5">
+              <strong className="text-[#310F10] block mb-0.5">Conseils d&apos;application :</strong>
+              {selectedStep.usage}
+            </div>
+
+            <button
+              onClick={() => {
+                setSelectedStep(null);
+                scrollTo("#commande");
+              }}
+              className="w-full py-3 rounded-full bg-[#74070D] text-[#F3E3B2] text-xs font-bold uppercase tracking-wider hover:bg-[#8D0910] transition-colors"
+            >
+              Commander le Pack Complet
+            </button>
+
+          </div>
+        </div>
+      )}
     </section>
   );
 }

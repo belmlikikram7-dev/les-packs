@@ -65,6 +65,8 @@ interface TranslationSet {
     morningDesc: string;
     nightTitle: string;
     nightDesc: string;
+    learnMore: string;
+    stepBadge: string;
   };
   giftsSection: {
     badge: string;
@@ -205,6 +207,8 @@ export const TRANSLATIONS: Record<Locale, TranslationSet> = {
       morningDesc: "Prépare votre peau, infuse une hydratation Glass Skin et forme un bouclier invisible contre le soleil et la pollution.",
       nightTitle: "Régénération Intense & Anti-Âge au Rétinal",
       nightDesc: "Nettoie en profondeur, traite le contour des yeux et active le renouvellement cellulaire grâce au rétinal et ginseng.",
+      learnMore: "En savoir plus",
+      stepBadge: "Étape",
     },
     giftsSection: {
       badge: "Offre Spéciale Limitée",
@@ -343,6 +347,8 @@ export const TRANSLATIONS: Record<Locale, TranslationSet> = {
       morningDesc: "ينظف بلطف، يمنح ترطيباً زجاجياً Glass Skin، ويشكل درعاً واقياً ضد الشمس والتلوث.",
       nightTitle: "تجديد عميق ومقاومة التجاعيد بالريتينال",
       nightDesc: "ينظف المسام، يعالج محيط العين، وينشط تجديد الخلايا وإنتاج الكولاجين أثناء النوم.",
+      learnMore: "اكتشفي المزيد",
+      stepBadge: "الخطوة",
     },
     giftsSection: {
       badge: "عرض حصري لفترة محدودة",
