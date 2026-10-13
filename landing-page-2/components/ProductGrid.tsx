@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
 import { SEOUL_PRODUCTS, type ProductItem } from "@/data/products";
@@ -41,8 +42,21 @@ export default function ProductGrid() {
               key={product.id}
               className="rounded-3xl bg-[#FAF7EE] border border-[#F3E3B2] overflow-hidden shadow-sm hover:shadow-2xl hover:border-[#74070D]/40 transition-all duration-300 flex flex-col justify-between group"
             >
+              {/* Product Image Stage */}
+              {product.image && (
+                <div className="relative w-full aspect-[4/3] bg-gradient-to-b from-[#F4EEDC]/60 to-transparent p-4 flex items-center justify-center">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    width={200}
+                    height={200}
+                    className="max-h-full w-auto object-contain drop-shadow-[0_12px_20px_rgba(49,15,16,0.18)] group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              )}
+
               {/* Product Header & Tag */}
-              <div className="p-6">
+              <div className="p-6 pt-2">
                 <div className="flex items-center justify-between mb-4">
                   <span className="px-3 py-1 rounded-full bg-[#46462A] text-[#F3E3B2] text-[10px] font-bold uppercase tracking-wider">
                     {product.tag}

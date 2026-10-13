@@ -30,6 +30,7 @@ export const SEOUL_PRODUCTS: ProductItem[] = [
       "Laisse la peau fraîche, hydratée et veloutée",
     ],
     usage: "Matin & Soir : masser sur peau humide en mouvements circulaires puis rincer à l'eau tiède.",
+    image: "/products/K-SECRET Cleansing Foam Pine Cica 1% + Probiotics-transparent.png",
   },
   {
     id: "eye-cream",
@@ -46,6 +47,7 @@ export const SEOUL_PRODUCTS: ProductItem[] = [
       "Texture fine qui pénètre instantanément sans fini gras",
     ],
     usage: "Matin & Soir : tapoter délicatement du bout de l'annulaire autour de l'orbite oculaire.",
+    image: "/products/K-SECRET Eye Cream Retinal Liposome 4% + Fermented Bean-transparent.png",
   },
   {
     id: "serum-retinal",
@@ -62,6 +64,7 @@ export const SEOUL_PRODUCTS: ProductItem[] = [
       "Illumine et unifie le teint en profondeur",
     ],
     usage: "Le soir uniquement : appliquer 3 à 4 gouttes sur peau propre avant la crème de nuit.",
+    image: "/products/K-SECRET Serum Retinal Liposome 2% + Black Ginseng-transparent.png",
   },
   {
     id: "cream-retinal",
@@ -78,6 +81,7 @@ export const SEOUL_PRODUCTS: ProductItem[] = [
       "Réveil avec une peau souple, lisse et repulpée",
     ],
     usage: "Le soir : appliquer uniformément sur le visage et le cou après le sérum rétinal.",
+    image: "/products/K-SECRET Cream Retinal Liposome 1% + Fermented Rice-transparent.png",
   },
   {
     id: "cream-snail",
@@ -94,6 +98,7 @@ export const SEOUL_PRODUCTS: ProductItem[] = [
       "Hydratation longue durée non comédogène",
     ],
     usage: "Le matin (et/ou le soir) : masser généreusement jusqu'à absorption complète.",
+    image: "/products/K-SECRET Cream Snail Mucin 93% + Rice-transparent.png",
   },
   {
     id: "sun-pine",

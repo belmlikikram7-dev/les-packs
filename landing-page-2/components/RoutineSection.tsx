@@ -47,6 +47,7 @@ export default function RoutineSection() {
       arabicDesc: "تنظف بلطف الإفرازات الدهنية الليلية دون التسبب في أي جفاف أو شد للبشرة.",
       keyActives: ["Centella Asiatica", "Acide Hyaluronique", "Extrait de Riz"],
       usage: "Masser une noisette sur visage humide en mouvements circulaires puis rincer abondamment.",
+      image: "/products/K-SECRET Cleansing Foam Pine Cica 1% + Probiotics-transparent.png",
     },
     {
       id: "eye-cream-am",
@@ -61,6 +62,7 @@ export default function RoutineSection() {
       arabicDesc: "يخفف انتفاخ الصباح، يفتح الهالات السوداء ويرطب منطقة حول العينين الحساسة.",
       keyActives: ["Peptides", "Caféine", "Niacinamide"],
       usage: "Tapoter délicatement une petite perle avec l'annulaire de l'intérieur vers l'extérieur.",
+      image: "/products/K-SECRET Eye Cream Retinal Liposome 4% + Fermented Bean-transparent.png",
     },
     {
       id: "cream-snail-am",
@@ -75,6 +77,7 @@ export default function RoutineSection() {
       arabicDesc: "ترطيب مكثف يمنح البشرة توهجاً كورياً زجاجياً نضراً ويهدئ الاحمرار تماماً.",
       keyActives: ["Mucine d'Escargot 93%", "Extrait de Riz", "Panthénol"],
       usage: "Appliquer généreusement sur le visage et le cou en massant jusqu'à pénétration.",
+      image: "/products/K-SECRET Cream Snail Mucin 93% + Rice-transparent.png",
     },
     {
       id: "sun-pine-am",
@@ -106,6 +109,7 @@ export default function RoutineSection() {
       arabicDesc: "يزيل رواسب واقي الشمس والشوائب والتلوث المتراكمة طوال اليوم وينظف المسام.",
       keyActives: ["Centella Asiatica", "Acide Hyaluronique", "Extrait de Riz"],
       usage: "Faire mousser dans les mains avec un peu d'eau puis masser 60 secondes sur le visage.",
+      image: "/products/K-SECRET Cleansing Foam Pine Cica 1% + Probiotics-transparent.png",
     },
     {
       id: "eye-cream-pm",
@@ -120,6 +124,7 @@ export default function RoutineSection() {
       arabicDesc: "يغذي الجفون بعمق ويحمي من الخطوط التعبيرية وظهور التجاعيد أثناء النوم.",
       keyActives: ["Peptides", "Caféine", "Niacinamide"],
       usage: "Appliquer en couche soyeuse avant vos sérums de nuit.",
+      image: "/products/K-SECRET Eye Cream Retinal Liposome 4% + Fermented Bean-transparent.png",
     },
     {
       id: "serum-retinal-pm",
@@ -134,6 +139,7 @@ export default function RoutineSection() {
       arabicDesc: "يحفز إنتاج الكولاجين، يسرع تجديد خلايا البشرة ويشد الخطوط الرفيعة بفضل الريتينال.",
       keyActives: ["Retinal Liposome 2%", "Ginseng Noir Fermenté", "Bakuchiol"],
       usage: "Appliquer 3 à 4 gouttes sur peau sèche en évitant les muqueuses. Utilisation du soir uniquement.",
+      image: "/products/K-SECRET Serum Retinal Liposome 2% + Black Ginseng-transparent.png",
     },
     {
       id: "cream-retinal-pm",
@@ -148,6 +154,7 @@ export default function RoutineSection() {
       arabicDesc: "يحافظ على ترطيب البشرة ويغذيها بالأرز المخمر لتستيقظي ببشرة ممتلئة ومشدودة ومشرقة.",
       keyActives: ["Retinal Liposome 1%", "Extrait de Riz Fermenté", "Adénosine"],
       usage: "Appliquer sur l'ensemble du visage et du cou en couche protectrice finale.",
+      image: "/products/K-SECRET Cream Retinal Liposome 1% + Fermented Rice-transparent.png",
     },
   ];
 
