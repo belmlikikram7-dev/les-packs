@@ -71,46 +71,8 @@ export default function Navbar() {
           </button>
         </nav>
 
-        {/* Actions : Language Selector & CTA */}
+        {/* Actions : Quick CTA */}
         <div className="flex items-center gap-3">
-          {/* Language Switcher : FR / AR with Flags */}
-          <div
-            className="inline-flex items-center p-1 rounded-full bg-[#310F10] border border-[#F3E3B2]/40 shadow-inner"
-            role="group"
-            aria-label="Sélection de la langue"
-          >
-            {/* Bouton Français */}
-            <button
-              type="button"
-              onClick={() => setLocale("fr")}
-              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase transition-all duration-300 cursor-pointer ${
-                locale === "fr"
-                  ? "bg-[#74070D] text-[#F3E3B2] shadow-md border border-[#F3E3B2]/60 scale-105"
-                  : "text-[#F3E3B2]/70 hover:text-[#F3E3B2]"
-              }`}
-            >
-              <span className="text-sm leading-none" role="img" aria-label="France">
-                🇫🇷
-              </span>
-              <span>FR</span>
-            </button>
-
-            {/* Bouton Arabe */}
-            <button
-              type="button"
-              onClick={() => setLocale("ar")}
-              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase transition-all duration-300 cursor-pointer ${
-                locale === "ar"
-                  ? "bg-[#74070D] text-[#F3E3B2] shadow-md border border-[#F3E3B2]/60 scale-105"
-                  : "text-[#F3E3B2]/70 hover:text-[#F3E3B2]"
-              }`}
-            >
-              <span className="text-sm leading-none" role="img" aria-label="Maroc">
-                🇲🇦
-              </span>
-              <span>AR</span>
-            </button>
-          </div>
 
           {/* Quick CTA */}
           <button
