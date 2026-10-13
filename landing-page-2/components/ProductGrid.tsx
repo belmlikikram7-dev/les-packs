@@ -95,13 +95,17 @@ export default function ProductGrid() {
 
               {/* Card Footer Button */}
               <div className="px-5 py-3 bg-[#F4EEDC] border-t border-[#F3E3B2] flex items-center justify-between">
-                <button
-                  onClick={() => setSelectedProduct(product)}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#74070D] hover:text-[#310F10] transition-colors cursor-pointer"
-                >
-                  <Info className="w-3.5 h-3.5" />
-                  <span>{t.viewDetails}</span>
-                </button>
+                {["cleansing-foam", "eye-cream", "cream-snail", "sun-pine"].includes(product.id) ? (
+                  <button
+                    onClick={() => setSelectedProduct(product)}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#74070D] hover:text-[#310F10] transition-colors cursor-pointer"
+                  >
+                    <Info className="w-3.5 h-3.5" />
+                    <span>{t.viewDetails}</span>
+                  </button>
+                ) : (
+                  <span />
+                )}
 
                 <button
                   onClick={() => scrollTo("#commande")}

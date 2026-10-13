@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { Sun, Moon, ArrowRight, Sparkles, ImagePlus } from "lucide-react";
+import { Sun, Moon, ArrowRight, Sparkles, Eye, X, Droplets, Check } from "lucide-react";
 
 interface StepItem {
   id: string;
@@ -19,13 +19,40 @@ interface StepItem {
   arabicDesc: string;
   keyActives: string[];
   usage: string;
-  image?: string; // Prepared for user's isolated product PNG
+  image?: string;
 }
 
 export default function RoutineSection() {
   const { locale, isArabic } = useLanguage();
   const t = TRANSLATIONS[locale].routineSection;
   const [activeTab, setActiveTab] = useState<"morning" | "night">("morning");
+  const [selectedStep, setSelectedStep] = useState<StepItem | null>(null);
+
+  // Progressive scroll reveal stage (0 = not seen, 1 = steps 1 & 2, 2 = steps 3 & 4)
+  const sectionRef = useRef<HTMLElement>(null);
+  const [scrollStage, setScrollStage] = useState<number>(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // First stage: steps 1 & 2 appear, line starts drawing
+      if (rect.top <= windowHeight * 0.8) {
+        setScrollStage((prev) => Math.max(prev, 1));
+      }
+      // Second stage: steps 3 & 4 appear, line completes
+      if (rect.top <= windowHeight * 0.45) {
+        setScrollStage((prev) => Math.max(prev, 2));
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const scrollTo = (hash: string) => {
     const el = document.querySelector(hash);
@@ -160,12 +187,16 @@ export default function RoutineSection() {
 
   const currentSteps = activeTab === "morning" ? morningSteps : nightSteps;
 
+  // Calculate stroke dashoffset for the animated wave line
+  // Total length approximated at 1000
+  const lineOffset = scrollStage === 0 ? 1000 : scrollStage === 1 ? 520 : 0;
+
   return (
-    <section id="routine" className="py-20 bg-[#FAF7EE] text-[#310F10] relative">
+    <section ref={sectionRef} id="routine" className="py-20 bg-[#FAF7EE] text-[#310F10] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#46462A]/10 border border-[#46462A]/20 text-[#46462A] text-xs uppercase font-bold tracking-widest mb-3">
             <Sparkles className="w-3.5 h-3.5 text-[#74070D]" />
             <span>{t.badge}</span>
@@ -177,7 +208,7 @@ export default function RoutineSection() {
             {t.subtitle}
           </p>
 
-          {/* Routine Tabs */}
+          {/* Routine Tabs: Routine du matin & Routine du soir */}
           <div className="inline-flex p-1.5 rounded-full bg-[#F4EEDC] border border-[#F3E3B2] shadow-inner">
             <button
               onClick={() => setActiveTab("morning")}
@@ -204,72 +235,117 @@ export default function RoutineSection() {
           </div>
         </div>
 
-        {/* Steps Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
-          {currentSteps.map((item, idx) => (
-            <div
-              key={item.id}
-              className="relative p-4 sm:p-5 rounded-[12px] text-white shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group overflow-hidden border border-[#74070D]/50 bg-[#74070D] bg-cover bg-center"
-              style={{ backgroundImage: `url('/card-pattern.png')` }}
+        {/* ======================================================== */}
+        {/* Winding Circle Routine Path (Matching Hand-Drawn Sketch) */}
+        {/* ======================================================== */}
+        <div className="relative max-w-6xl mx-auto my-6 pb-6">
+
+          {/* Background Connecting Wave SVG (Desktop & Tablet) */}
+          <div className="hidden md:block absolute inset-0 pointer-events-none z-0">
+            <svg
+              viewBox="0 0 1000 380"
+              fill="none"
+              className="w-full h-full overflow-visible"
+              preserveAspectRatio="none"
             >
-              {/* Inner Mirror Arch Podium with Light Transparent Glass and Subtle Blur */}
-              <div className="relative w-full aspect-[4/4.8] rounded-t-[3.6rem] rounded-b-[10px] bg-gradient-to-b from-[#74070D]/20 via-[#5A0408]/20 to-[#310F10]/30 backdrop-blur-[3px] border border-white/25 p-3.5 pb-2 flex flex-col justify-between items-center overflow-hidden mb-4 shadow-[inset_0_2px_12px_rgba(255,255,255,0.15),0_6px_16px_rgba(0,0,0,0.25)]">
-                
-                {/* Top Badge (Clean Step Badge pill + Volume) */}
-                <div className="w-full flex items-center justify-between z-10 pt-0.5">
-                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/25 backdrop-blur-md border border-white/25 text-white text-[11px] font-bold tracking-wider uppercase shadow-sm">
-                    <span>{t.stepBadge} {item.step}</span>
+              {/* Subtle background guide path */}
+              <path
+                d="M 125,230 C 230,230 270,110 375,110 C 480,110 520,230 625,230 C 730,230 770,110 875,110"
+                stroke="#E2D7BE"
+                strokeWidth="4"
+                strokeDasharray="6 8"
+                strokeLinecap="round"
+              />
+              {/* Progressive active animated path flowing from left to right as you scroll */}
+              <path
+                d="M 125,230 C 230,230 270,110 375,110 C 480,110 520,230 625,230 C 730,230 770,110 875,110"
+                stroke="#74070D"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeDasharray="1000"
+                style={{
+                  strokeDashoffset: lineOffset,
+                  transition: "stroke-dashoffset 0.9s cubic-bezier(0.4, 0, 0.2, 1)",
+                }}
+              />
+            </svg>
+          </div>
+
+          {/* 4 Alternating Circles Grid (Wave: Low, High, Low, High) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-4 relative z-10">
+            {currentSteps.map((item, idx) => {
+              // Alternating wave vertical position (matching sketch: 1 low, 2 high, 3 low, 4 high)
+              const isHigh = idx === 1 || idx === 3;
+              // Progressive scroll reveal:
+              // Step 0 & 1 (Etape 1 & 2) appear on scroll stage >= 1
+              // Step 2 & 3 (Etape 3 & 4) appear on scroll stage >= 2
+              const isVisible = idx < 2 ? scrollStage >= 1 : scrollStage >= 2;
+
+              return (
+                <div
+                  key={item.id}
+                  className={`flex flex-col items-center transition-all duration-700 ease-out ${
+                    isHigh ? "md:-translate-y-6 md:pt-2" : "md:translate-y-10 md:pt-10"
+                  } ${
+                    isVisible
+                      ? "opacity-100 scale-100 translate-y-0"
+                      : "opacity-0 scale-85 translate-y-8 pointer-events-none"
+                  }`}
+                >
+                  {/* Step Badge on Top of the Circle (etape 1, etape 2, etc.) */}
+                  <div className="mb-3 text-center">
+                    <span className="inline-block px-3.5 py-1 rounded-full bg-[#74070D] text-[#F3E3B2] text-xs font-bold uppercase tracking-wider shadow-sm">
+                      Étape {item.step}
+                    </span>
                   </div>
-                  <span className="text-[10px] font-semibold text-[#F3E3B2] bg-[#310F10]/70 px-2.5 py-0.5 rounded-full border border-white/10 shadow-sm">
-                    {item.volume}
-                  </span>
+
+                  {/* Circular Container with Product Inside */}
+                  <div className="relative w-40 h-40 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-full bg-gradient-to-b from-[#FAF7EE] via-[#F4EEDC] to-[#EAE0CA] border-[3.5px] border-[#74070D] shadow-[0_12px_24px_rgba(116,7,13,0.18),inset_0_2px_8px_rgba(255,255,255,0.8)] hover:shadow-[0_18px_36px_rgba(116,7,13,0.3)] hover:scale-105 transition-all duration-300 flex items-center justify-center p-3 group">
+                    
+                    {/* Inner gold highlight ring */}
+                    <div className="absolute inset-1.5 rounded-full border border-[#F3E3B2]/80 pointer-events-none" />
+
+                    {/* Isolated Product Image with subtle float */}
+                    {item.image && (
+                      <img
+                        src={item.image}
+                        alt={item.product}
+                        className="h-28 sm:h-32 md:h-36 max-h-[145px] w-auto object-contain drop-shadow-[0_12px_16px_rgba(49,15,16,0.3)] animate-float-product pointer-events-none relative z-10"
+                      />
+                    )}
+
+                    {/* Subtle ground reflection */}
+                    <div className="absolute bottom-3 w-20 h-2 bg-[#74070D]/20 blur-sm rounded-full pointer-events-none" />
+                  </div>
+
+                  {/* Product Info & "Voir" Button below Circle */}
+                  <div className="mt-4 text-center flex flex-col items-center">
+                    <h4 className="font-sans text-xs sm:text-sm font-bold text-[#310F10] leading-snug max-w-[170px] min-h-[36px] flex items-center justify-center">
+                      {item.product}
+                    </h4>
+                    <span className="text-[11px] text-[#46462A] font-semibold mt-0.5">
+                      {item.volume}
+                    </span>
+
+                    {/* Button "Voir" leading to product details */}
+                    <button
+                      onClick={() => setSelectedStep(item)}
+                      className="mt-2.5 px-4 py-1.5 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-xs font-bold tracking-wide shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                      <span>Voir</span>
+                    </button>
+                  </div>
+
                 </div>
+              );
+            })}
+          </div>
 
-                {/* Center Product Image Container - Floating Animation */}
-                <div className="relative w-full flex-1 flex items-center justify-center my-1 min-h-[140px]">
-                  {item.image ? (
-                    <img
-                      src={item.image}
-                      alt={item.product}
-                      style={{ animationDelay: `${idx * 0.35}s` }}
-                      className="h-[120px] sm:h-[132px] md:h-[140px] max-h-[142px] w-auto object-contain drop-shadow-[0_16px_22px_rgba(0,0,0,0.55)] group-hover:scale-106 transition-transform duration-300 pointer-events-none relative z-10 animate-float-product"
-                    />
-                  ) : (
-                    /* Clean & Elegant Product Slot Placeholder */
-                    <div className="flex flex-col items-center justify-center text-center p-4 w-full h-full relative z-10">
-                      <div className="w-12 h-12 rounded-2xl bg-white/10 border border-[#F3E3B2]/30 flex items-center justify-center mb-2 shadow-sm">
-                        <ImagePlus className="w-6 h-6 text-[#F3E3B2]" />
-                      </div>
-                      <span className="text-xs font-bold text-[#F3E3B2] leading-snug max-w-[150px]">
-                        {isArabic ? item.arabicProduct : item.product}
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Subtle Grounding Floor Glow */}
-                <div 
-                  style={{ animationDelay: `${idx * 0.35}s` }}
-                  className="w-24 h-2.5 bg-[#F3E3B2]/35 blur-sm rounded-full pointer-events-none relative z-0 animate-glow-shadow" 
-                />
-              </div>
-
-              {/* Bottom Info - Full Product Name displayed completely */}
-              <div className="p-2.5 px-3 rounded-xl bg-[#310F10]/85 backdrop-blur-md border border-white/15 shadow-md text-center">
-                <h4 className="font-sans text-xs sm:text-sm font-bold text-white leading-snug">
-                  {isArabic ? item.arabicProduct : item.product}
-                </h4>
-                <p className="text-[10px] sm:text-[11px] text-[#F3E3B2]/90 mt-1 leading-tight font-medium">
-                  {isArabic ? item.arabicTitle : item.title}
-                </p>
-              </div>
-
-            </div>
-          ))}
         </div>
 
         {/* Global Routine CTA */}
-        <div className="text-center">
+        <div className="text-center mt-12">
           <button
             onClick={() => scrollTo("#commande")}
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-xs font-bold uppercase tracking-wider shadow-lg hover:shadow-xl active:scale-95 transition-all cursor-pointer"
@@ -280,6 +356,93 @@ export default function RoutineSection() {
         </div>
 
       </div>
+
+      {/* ======================================================== */}
+      {/* Product Details Modal (Opened via the "Voir" Button) */}
+      {/* ======================================================== */}
+      {selectedStep && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="relative w-full max-w-lg bg-[#FAF7EE] rounded-3xl border-2 border-[#F3E3B2] shadow-2xl p-6 sm:p-8 text-[#310F10] max-h-[90vh] overflow-y-auto">
+            
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedStep(null)}
+              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#F3E3B2] text-[#310F10] hover:bg-[#74070D] hover:text-[#F3E3B2] flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            {/* Step & Volume Badges */}
+            <div className="flex items-center gap-2 mb-3">
+              <span className="px-3 py-1 rounded-full bg-[#74070D] text-[#F3E3B2] text-[10px] font-bold uppercase tracking-wider">
+                Étape {selectedStep.step}
+              </span>
+              <span className="px-2.5 py-0.5 rounded-full bg-[#46462A] text-[#F3E3B2] text-[10px] font-semibold">
+                {selectedStep.volume}
+              </span>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-5 mb-5">
+              {selectedStep.image && (
+                <div className="w-28 h-28 shrink-0 rounded-full bg-[#F4EEDC] border-2 border-[#74070D] p-2 flex items-center justify-center shadow-inner">
+                  <img
+                    src={selectedStep.image}
+                    alt={selectedStep.product}
+                    className="max-h-full w-auto object-contain drop-shadow-md"
+                  />
+                </div>
+              )}
+              <div className="text-center sm:text-left">
+                <h3 className="font-serif text-2xl font-bold text-[#310F10] leading-snug">
+                  {selectedStep.product}
+                </h3>
+                <p className="text-xs text-[#74070D] font-bold uppercase tracking-wider mt-1">
+                  {selectedStep.title} • {selectedStep.category}
+                </p>
+              </div>
+            </div>
+
+            <p className="text-xs sm:text-sm text-[#46462A] leading-relaxed mb-5">
+              {selectedStep.desc}
+            </p>
+
+            {/* Actives Clés */}
+            <div className="mb-5">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-[#310F10] block mb-2">
+                Actifs Clés de la Formule :
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {selectedStep.keyActives.map((a, i) => (
+                  <span
+                    key={i}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#F4EEDC] text-[#310F10] text-[11px] font-medium border border-[#F3E3B2]"
+                  >
+                    <Droplets className="w-2.5 h-2.5 text-[#74070D]" />
+                    {a}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Application Advice */}
+            <div className="p-3.5 rounded-2xl bg-[#F4EEDC] border border-[#F3E3B2] text-xs text-[#46462A] mb-6">
+              <strong className="text-[#310F10] block mb-0.5">Conseils d&apos;application :</strong>
+              {selectedStep.usage}
+            </div>
+
+            <button
+              onClick={() => {
+                setSelectedStep(null);
+                scrollTo("#commande");
+              }}
+              className="w-full py-3.5 rounded-full bg-[#74070D] text-[#F3E3B2] text-xs font-bold uppercase tracking-wider hover:bg-[#8D0910] transition-colors shadow-md"
+            >
+              Commander le Pack Complet
+            </button>
+
+          </div>
+        </div>
+      )}
     </section>
   );
 }
