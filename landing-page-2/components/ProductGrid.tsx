@@ -30,8 +30,16 @@ export default function ProductGrid() {
         </p>
       </div>
 
-      {/* 100% True Full-Width Edge-to-Edge Panoramic Image with smooth Bottom fade shadow */}
+      {/* 100% True Full-Width Edge-to-Edge Panoramic Image with smooth Top & Bottom transition */}
       <div className="w-full relative overflow-hidden">
+        
+        {/* Ultra-subtle micro top feather shadow (only 12-16px): blends the top edge without casting any shadow onto the hair */}
+        <div 
+          className="absolute top-0 left-0 right-0 h-3 sm:h-4 z-10 pointer-events-none"
+          style={{
+            background: "linear-gradient(to bottom, #FAF7EE 0%, rgba(250, 247, 238, 0.4) 40%, transparent 100%)"
+          }}
+        />
 
         <div className="relative w-full aspect-[1024/512]">
           <Image
