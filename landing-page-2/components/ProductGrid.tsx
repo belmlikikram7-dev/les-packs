@@ -30,16 +30,8 @@ export default function ProductGrid() {
         </p>
       </div>
 
-      {/* 100% True Full-Width Edge-to-Edge Panoramic Image with smooth Top & Bottom fade shadows */}
+      {/* 100% True Full-Width Edge-to-Edge Panoramic Image with smooth Bottom fade shadow */}
       <div className="w-full relative overflow-hidden">
-        
-        {/* Soft top shadow/gradient for smooth transition from title */}
-        <div 
-          className="absolute top-0 left-0 right-0 h-16 sm:h-24 z-10 pointer-events-none"
-          style={{
-            background: "linear-gradient(to bottom, #FAF7EE 0%, rgba(250, 247, 238, 0.6) 50%, transparent 100%)"
-          }}
-        />
 
         <div className="relative w-full aspect-[1024/512]">
           <Image
