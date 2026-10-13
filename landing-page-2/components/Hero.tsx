@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { ArrowRight, ShieldCheck, Truck, Banknote, Sparkles, Gift } from "lucide-react";
+import { ArrowRight, Gift } from "lucide-react";
 
 export default function Hero() {
   const { locale, isArabic } = useLanguage();
@@ -70,33 +70,6 @@ export default function Hero() {
                 } shrink-0 transition-transform`}
               />
             </button>
-          </div>
-
-          {/* 3 Pillars of Trust */}
-          <div className="pt-6 border-t border-[#F3E3B2]/20 w-full max-w-xl grid grid-cols-3 gap-3 text-center">
-            <div className="flex flex-col items-center">
-              <div className="w-8 h-8 rounded-full bg-[#46462A] border border-[#F3E3B2]/40 flex items-center justify-center text-[#F3E3B2] mb-1.5 shadow-xs">
-                <ShieldCheck className="w-4 h-4" />
-              </div>
-              <h4 className="text-xs font-bold text-[#F3E3B2]">{t.trust1Title}</h4>
-              <p className="text-[10px] text-[#FAF7EE]/70">{t.trust1Sub}</p>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <div className="w-8 h-8 rounded-full bg-[#46462A] border border-[#F3E3B2]/40 flex items-center justify-center text-[#F3E3B2] mb-1.5 shadow-xs">
-                <Truck className="w-4 h-4" />
-              </div>
-              <h4 className="text-xs font-bold text-[#F3E3B2]">{t.trust2Title}</h4>
-              <p className="text-[10px] text-[#FAF7EE]/70">{t.trust2Sub}</p>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <div className="w-8 h-8 rounded-full bg-[#46462A] border border-[#F3E3B2]/40 flex items-center justify-center text-[#F3E3B2] mb-1.5 shadow-xs">
-                <Banknote className="w-4 h-4" />
-              </div>
-              <h4 className="text-xs font-bold text-[#F3E3B2]">{t.trust3Title}</h4>
-              <p className="text-[10px] text-[#FAF7EE]/70">{t.trust3Sub}</p>
-            </div>
           </div>
 
         </div>

@@ -348,6 +348,45 @@ export default function OrderSection() {
           </div>
         )}
 
+        {/* 3 Pillars of Trust (Right before Footer) */}
+        <div className="mt-16 pt-10 border-t border-[#74070D]/15 max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+          <div className="flex flex-col items-center">
+            <div className="w-12 h-12 rounded-full bg-[#FAF7EE] border border-[#74070D]/20 shadow-xs flex items-center justify-center text-[#74070D] mb-3">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <h4 className="text-sm font-bold text-[#310F10] mb-0.5">
+              {TRANSLATIONS[locale].hero.trust1Title}
+            </h4>
+            <p className="text-xs text-[#46462A]">
+              {TRANSLATIONS[locale].hero.trust1Sub}
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <div className="w-12 h-12 rounded-full bg-[#FAF7EE] border border-[#74070D]/20 shadow-xs flex items-center justify-center text-[#74070D] mb-3">
+              <Truck className="w-6 h-6" />
+            </div>
+            <h4 className="text-sm font-bold text-[#310F10] mb-0.5">
+              {TRANSLATIONS[locale].hero.trust2Title}
+            </h4>
+            <p className="text-xs text-[#46462A]">
+              {TRANSLATIONS[locale].hero.trust2Sub}
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <div className="w-12 h-12 rounded-full bg-[#FAF7EE] border border-[#74070D]/20 shadow-xs flex items-center justify-center text-[#74070D] mb-3">
+              <Banknote className="w-6 h-6" />
+            </div>
+            <h4 className="text-sm font-bold text-[#310F10] mb-0.5">
+              {TRANSLATIONS[locale].hero.trust3Title}
+            </h4>
+            <p className="text-xs text-[#46462A]">
+              {TRANSLATIONS[locale].hero.trust3Sub}
+            </p>
+          </div>
+        </div>
+
       </div>
     </section>
   );
