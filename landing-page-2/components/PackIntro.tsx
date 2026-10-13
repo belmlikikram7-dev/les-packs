@@ -1,83 +1,112 @@
 "use client";
 
-import { useLanguage } from "@/context/LanguageContext";
-import { TRANSLATIONS } from "@/translations/content";
-import { Sparkles, Dna, ShieldCheck, SunMedium } from "lucide-react";
+import { Droplets, Sparkles, ShieldCheck, Flame } from "lucide-react";
 
 export default function PackIntro() {
-  const { locale, isArabic } = useLanguage();
-  const t = TRANSLATIONS[locale].packIntro;
-
-  const features = [
+  const results = [
     {
-      icon: Dna,
-      title: t.feature1Title,
-      desc: t.feature1Desc,
+      icon: Droplets,
+      title: "Hydratation Profonde",
+      desc: "Repulpe les tissus cutanés et infuse une souplesse durable tout au long de la journée.",
     },
     {
       icon: Sparkles,
-      title: t.feature2Title,
-      desc: t.feature2Desc,
+      title: "Glow & Éclat Naturel",
+      desc: "Révèle un teint unifié, transparent et radieux sans fini gras ni brillance.",
     },
     {
       icon: ShieldCheck,
-      title: t.feature3Title,
-      desc: t.feature3Desc,
+      title: "Barrière Renforcée",
+      desc: "Apaise les rougeurs, calme les irritations et protège la peau des agressions extérieures.",
     },
     {
-      icon: SunMedium,
-      title: t.feature4Title,
-      desc: t.feature4Desc,
+      icon: Flame,
+      title: "Fermeté & Lissage",
+      desc: "Stimule la synthèse de collagène et estompe visiblement l'apparence des ridules.",
     },
   ];
 
   return (
-    <section id="pack" className="py-20 bg-[#FAF7EE] text-[#310F10] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#46462A]/10 border border-[#46462A]/20 text-[#46462A] text-xs uppercase font-bold tracking-widest mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-[#74070D]" />
-            <span>{t.badge}</span>
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#310F10] leading-tight mb-4">
-            {t.title}
-          </h2>
-          <p className="text-sm sm:text-base text-[#46462A] font-light leading-relaxed">
-            {t.subtitle}
-          </p>
-        </div>
+    <section id="pack" className="relative py-12 lg:py-16 bg-[#FAF7EE] text-[#310F10] overflow-hidden">
+      
+      {/* Top Transition Wave */}
+      <div className="w-full overflow-hidden leading-none -mb-1">
+        <svg
+          viewBox="0 0 1440 120"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-12 sm:h-16 lg:h-20 text-[#EFE7D5] preserve-3d"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,40 C320,110 480,10 760,65 C1040,120 1200,30 1440,75 L1440,120 L0,120 Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
 
-        {/* 4 Feature Pillars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={idx}
-                className="p-6 rounded-3xl bg-[#F4EEDC] border border-[#F3E3B2] shadow-sm hover:shadow-xl hover:border-[#74070D]/40 transition-all duration-300 group flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-12 h-12 rounded-2xl bg-[#74070D] text-[#F3E3B2] flex items-center justify-center mb-5 group-hover:scale-110 transition-transform shadow-md">
-                    <Icon className="w-6 h-6" />
+      {/* Main Organic Wavy Beige Ribbon Container */}
+      <div className="bg-[#EFE7D5] py-14 sm:py-20 px-4 sm:px-6 lg:px-8 relative shadow-[inset_0_2px_12px_rgba(49,15,16,0.03)]">
+        <div className="max-w-6xl mx-auto">
+          
+          {/* Subtle Category Eyebrow & Main Title */}
+          <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-16">
+            <span className="font-mono text-[11px] sm:text-xs uppercase font-bold tracking-[0.25em] text-[#74070D] block mb-2">
+              Résultats Visibles & Cliniques
+            </span>
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-normal text-[#310F10] leading-tight mb-3">
+              Ce que ce rituel apporte à votre peau
+            </h2>
+            <div className="w-12 h-0.5 bg-[#74070D]/40 mx-auto rounded-full mt-3" />
+          </div>
+
+          {/* 4 Pillars in a Flowing Row with Refined Separators (exact style from reference image) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x lg:divide-[#74070D]/15">
+            {results.map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={idx}
+                  className="flex flex-col items-center text-center px-4 lg:px-7 group"
+                >
+                  {/* Minimalist Icon Badge with Subtle Glow */}
+                  <div className="w-14 h-14 rounded-full bg-[#FAF7EE] border border-[#74070D]/20 shadow-xs flex items-center justify-center text-[#74070D] mb-5 group-hover:scale-110 group-hover:bg-[#74070D] group-hover:text-[#F3E3B2] transition-all duration-300">
+                    <Icon className="w-6 h-6 stroke-[1.75]" />
                   </div>
-                  <h3 className="font-serif text-lg font-bold text-[#310F10] mb-2 leading-snug">
+
+                  {/* Benefit Title */}
+                  <h3 className="font-serif text-base sm:text-lg font-bold text-[#310F10] mb-2 leading-snug">
                     {item.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#46462A] leading-relaxed">
+
+                  {/* Concise, impactful description */}
+                  <p className="text-xs sm:text-[13px] text-[#46462A] font-light leading-relaxed max-w-[240px]">
                     {item.desc}
                   </p>
                 </div>
-                <div className="mt-5 pt-3 border-t border-[#46462A]/15 text-[10px] font-bold uppercase tracking-wider text-[#74070D]">
-                  Technologie K-Secret
-                </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
 
+        </div>
       </div>
+
+      {/* Bottom Transition Wave */}
+      <div className="w-full overflow-hidden leading-none -mt-1">
+        <svg
+          viewBox="0 0 1440 120"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-12 sm:h-16 lg:h-20 text-[#EFE7D5]"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,0 L1440,0 L1440,45 C1200,105 1040,15 760,70 C480,125 320,25 0,80 Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+
     </section>
   );
 }
