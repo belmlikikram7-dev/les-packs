@@ -251,7 +251,7 @@ export default function RoutineSection() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-4">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#46462A]/10 border border-[#46462A]/20 text-[#46462A] text-xs uppercase font-bold tracking-widest mb-2">
-            <Sparkles className="w-3.5 h-3.5 text-[#8E3F53]" />
+            <Sparkles className="w-3.5 h-3.5 text-[#74070D]" />
             <span>{t.badge}</span>
           </div>
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-normal text-[#310F10] leading-tight mb-2">
@@ -288,7 +288,7 @@ export default function RoutineSection() {
         {/* Winding Circular Sequence with Curved Connecting Line */}
         <div className="relative max-w-5xl mx-auto w-full my-auto py-2">
 
-          {/* Connecting Curved Wave SVG - Soft elegant line with gentle shadow */}
+          {/* Connecting Curved Wave SVG - Authentic Brand Red #74070D with soft delicate shadow */}
           <div className="hidden md:block absolute inset-0 pointer-events-none z-0">
             <svg
               viewBox="0 0 1000 340"
@@ -297,26 +297,19 @@ export default function RoutineSection() {
               preserveAspectRatio="none"
             >
               <defs>
-                <linearGradient id="softWineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#A8586A" />
-                  <stop offset="50%" stopColor="#8E3F53" />
-                  <stop offset="100%" stopColor="#742A3E" />
-                </linearGradient>
-
-                <filter id="softLineShadow" x="-30%" y="-30%" width="160%" height="160%">
-                  <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#8E3F53" floodOpacity="0.25" />
-                  <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#FAF7EE" floodOpacity="0.5" />
+                <filter id="softRedShadow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="1.5" stdDeviation="2.5" floodColor="#74070D" floodOpacity="0.22" />
                 </filter>
               </defs>
 
-              {/* Active progressive path drawn as user scrolls: soft, thin, subtle shadow */}
+              {/* Active progressive path: thin 2.5px, brand red #74070D, subtle shadow */}
               <path
                 ref={pathRef}
                 d={curvedPathD}
-                stroke="url(#softWineGradient)"
+                stroke="#74070D"
                 strokeWidth="2.5"
                 strokeLinecap="round"
-                filter="url(#softLineShadow)"
+                filter="url(#softRedShadow)"
                 strokeDasharray={`${totalLength + 50} 999999`}
                 strokeDashoffset={Math.max(0, (totalLength + 50) * (1 - scrollProgress))}
                 style={{
@@ -324,21 +317,21 @@ export default function RoutineSection() {
                 }}
               />
 
-              {/* Soft glowing travelling dot at the tip of the line */}
+              {/* Subtle travelling dot at the tip of the line */}
               {tipPosition && scrollProgress > 0.02 && scrollProgress < 0.98 && (
                 <g className="transition-opacity duration-200">
                   <circle
                     cx={tipPosition.x}
                     cy={tipPosition.y}
-                    r="8"
-                    fill="#8E3F53"
-                    opacity="0.2"
+                    r="7"
+                    fill="#74070D"
+                    opacity="0.18"
                   />
                   <circle
                     cx={tipPosition.x}
                     cy={tipPosition.y}
                     r="4"
-                    fill="#8E3F53"
+                    fill="#74070D"
                     stroke="#FAF7EE"
                     strokeWidth="1.5"
                   />
@@ -375,17 +368,14 @@ export default function RoutineSection() {
                 >
                   {/* Step Badge on Top of the Circle */}
                   <div className="mb-2 text-center">
-                    <span className="inline-block px-3 py-0.5 rounded-full bg-[#8E3F53]/90 text-[#F4EEDC] text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-xs">
+                    <span className="inline-block px-3 py-0.5 rounded-full bg-[#74070D] text-[#F3E3B2] text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-xs">
                       Étape {item.step}
                     </span>
                   </div>
 
-                  {/* Circular Container with Product - Soft ambient shadow, NO harsh border */}
-                  <div className="relative w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 rounded-full bg-gradient-to-b from-[#FFFDF9] via-[#F7F2E7] to-[#EFE7D5] shadow-[0_10px_25px_-5px_rgba(142,63,83,0.12),0_8px_10px_-6px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_30px_-6px_rgba(142,63,83,0.18)] hover:scale-105 transition-all duration-300 flex items-center justify-center p-3 group">
+                  {/* Circular Container with Product - Very delicate thin border & soft shadow */}
+                  <div className="relative w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 rounded-full bg-gradient-to-b from-[#FFFDF9] via-[#FAF7EE] to-[#EAE0CA] border border-[#74070D]/25 shadow-[0_8px_20px_-4px_rgba(116,7,13,0.12)] hover:shadow-[0_12px_24px_-4px_rgba(116,7,13,0.2)] hover:border-[#74070D]/40 hover:scale-105 transition-all duration-300 flex items-center justify-center p-3 group">
                     
-                    {/* Soft inner glow ring (no border) */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#8E3F53]/5 to-white/40 pointer-events-none" />
-
                     {/* Isolated Product Image */}
                     {item.image && (
                       <img
@@ -396,7 +386,7 @@ export default function RoutineSection() {
                     )}
 
                     {/* Subtle soft ground reflection */}
-                    <div className="absolute bottom-2.5 w-16 h-2 bg-[#8E3F53]/10 blur-xs rounded-full pointer-events-none" />
+                    <div className="absolute bottom-2.5 w-16 h-2 bg-[#74070D]/10 blur-xs rounded-full pointer-events-none" />
                   </div>
 
                   {/* Product Info & "Voir" Button below Circle */}
@@ -411,7 +401,7 @@ export default function RoutineSection() {
                     {/* Button "Voir" */}
                     <button
                       onClick={() => setSelectedStep(item)}
-                      className="mt-2 px-3.5 py-1 rounded-full bg-[#8E3F53] hover:bg-[#742A3E] text-[#FAF7EE] text-[11px] font-bold tracking-wide shadow-xs hover:shadow-sm transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
+                      className="mt-2 px-3.5 py-1 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-[11px] font-bold tracking-wide shadow-xs hover:shadow-sm transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
                     >
                       <Eye className="w-3 h-3" />
                       <span>Voir</span>
