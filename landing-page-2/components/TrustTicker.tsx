@@ -16,17 +16,35 @@ export default function TrustTicker() {
   ];
 
   return (
-    <div className="bg-[#46462A] text-[#F3E3B2] border-y border-[#F3E3B2]/30 py-3.5 overflow-hidden shadow-inner">
-      <div className="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-around gap-4 text-center">
-        {items.map((item, idx) => {
-          const IconComponent = item.icon;
-          return (
-            <div key={idx} className="flex items-center gap-2 text-xs font-semibold tracking-wider uppercase">
-              <IconComponent className="w-4 h-4 text-[#F3E3B2] shrink-0" />
-              <span>{item.text}</span>
-            </div>
-          );
-        })}
+    <div className="bg-[#46462A] text-[#F3E3B2] border-y border-[#F3E3B2]/30 py-3.5 overflow-hidden shadow-inner relative select-none">
+      <div className="animate-marquee items-center gap-10">
+        {/* First sequence */}
+        <div className="flex items-center gap-10 shrink-0">
+          {items.map((item, idx) => {
+            const IconComponent = item.icon;
+            return (
+              <div key={`a-${idx}`} className="flex items-center gap-2.5 text-xs font-semibold tracking-wider uppercase whitespace-nowrap">
+                <IconComponent className="w-4 h-4 text-[#F3E3B2] shrink-0" />
+                <span>{item.text}</span>
+                <span className="text-[#F3E3B2]/40 ml-6 text-sm">•</span>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Second duplicated sequence for infinite seamless loop */}
+        <div className="flex items-center gap-10 shrink-0" aria-hidden="true">
+          {items.map((item, idx) => {
+            const IconComponent = item.icon;
+            return (
+              <div key={`b-${idx}`} className="flex items-center gap-2.5 text-xs font-semibold tracking-wider uppercase whitespace-nowrap">
+                <IconComponent className="w-4 h-4 text-[#F3E3B2] shrink-0" />
+                <span>{item.text}</span>
+                <span className="text-[#F3E3B2]/40 ml-6 text-sm">•</span>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
