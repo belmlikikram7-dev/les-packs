@@ -16,7 +16,7 @@ export default function TrustTicker() {
   ];
 
   return (
-    <div className="bg-[#310F10] text-[#F3E3B2] border-b border-[#F3E3B2]/15 py-3 overflow-hidden relative select-none">
+    <div className="bg-[#310F10] text-[#F3E3B2] py-3 overflow-hidden relative select-none">
       <div className="animate-marquee items-center gap-10">
         {/* First sequence */}
         <div className="flex items-center gap-10 shrink-0">
