@@ -35,30 +35,30 @@ export default function ProductGrid() {
           </p>
         </div>
 
-        {/* 6 Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* 6 Products Grid - Compact, harmonious cards & scaled products */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 max-w-6xl mx-auto">
           {SEOUL_PRODUCTS.map((product) => (
             <div
               key={product.id}
-              className="rounded-3xl bg-[#FAF7EE] border border-[#F3E3B2] overflow-hidden shadow-sm hover:shadow-2xl hover:border-[#74070D]/40 transition-all duration-300 flex flex-col justify-between group"
+              className="rounded-2xl bg-[#FAF7EE] border border-[#F3E3B2] overflow-hidden shadow-sm hover:shadow-xl hover:border-[#74070D]/40 transition-all duration-300 flex flex-col justify-between group"
             >
-              {/* Product Image Stage */}
+              {/* Product Image Stage - Compact & Refined */}
               {product.image && (
-                <div className="relative w-full aspect-[4/3] bg-gradient-to-b from-[#F4EEDC]/60 to-transparent p-4 flex items-center justify-center">
+                <div className="relative w-full h-44 sm:h-48 bg-gradient-to-b from-[#F4EEDC]/60 to-transparent p-4 flex items-center justify-center">
                   <Image
                     src={product.image}
                     alt={product.name}
-                    width={200}
-                    height={200}
-                    className="max-h-full w-auto object-contain drop-shadow-[0_12px_20px_rgba(49,15,16,0.18)] group-hover:scale-105 transition-transform duration-300"
+                    width={180}
+                    height={180}
+                    className="h-32 sm:h-36 max-h-[135px] w-auto object-contain drop-shadow-[0_10px_16px_rgba(49,15,16,0.16)] group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
               )}
 
               {/* Product Header & Tag */}
-              <div className="p-6 pt-2">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="px-3 py-1 rounded-full bg-[#46462A] text-[#F3E3B2] text-[10px] font-bold uppercase tracking-wider">
+              <div className="p-5 pt-1">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#46462A] text-[#F3E3B2] text-[10px] font-bold uppercase tracking-wider">
                     {product.tag}
                   </span>
                   <span className="text-xs font-semibold text-[#74070D]">
@@ -66,25 +66,25 @@ export default function ProductGrid() {
                   </span>
                 </div>
 
-                <div className="mb-4">
-                  <span className="text-[11px] uppercase font-bold tracking-wider text-[#46462A] block mb-1">
+                <div className="mb-3">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#46462A] block mb-0.5">
                     {product.category}
                   </span>
-                  <h3 className="font-serif text-xl font-bold text-[#310F10] leading-snug group-hover:text-[#74070D] transition-colors">
-                    {isArabic ? product.arabicName : product.name}
+                  <h3 className="font-serif text-lg font-bold text-[#310F10] leading-snug group-hover:text-[#74070D] transition-colors">
+                    {product.name}
                   </h3>
                 </div>
 
-                <p className="text-xs sm:text-sm text-[#46462A] leading-relaxed mb-5 line-clamp-3">
+                <p className="text-xs text-[#46462A] leading-relaxed mb-4 line-clamp-2">
                   {product.description}
                 </p>
 
                 {/* Key Actives Pills */}
-                <div className="flex flex-wrap gap-1.5 mb-5">
+                <div className="flex flex-wrap gap-1.5 mb-4">
                   {product.keyActives.map((active, i) => (
                     <span
                       key={i}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#F3E3B2]/60 text-[#310F10] text-[11px] font-medium"
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#F3E3B2]/60 text-[#310F10] text-[10px] font-medium"
                     >
                       <Droplets className="w-2.5 h-2.5 text-[#74070D]" />
                       {active}
@@ -94,12 +94,12 @@ export default function ProductGrid() {
               </div>
 
               {/* Card Footer Button */}
-              <div className="px-6 py-4 bg-[#F4EEDC] border-t border-[#F3E3B2] flex items-center justify-between">
+              <div className="px-5 py-3 bg-[#F4EEDC] border-t border-[#F3E3B2] flex items-center justify-between">
                 <button
                   onClick={() => setSelectedProduct(product)}
                   className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#74070D] hover:text-[#310F10] transition-colors cursor-pointer"
                 >
-                  <Info className="w-4 h-4" />
+                  <Info className="w-3.5 h-3.5" />
                   <span>{t.viewDetails}</span>
                 </button>
 
