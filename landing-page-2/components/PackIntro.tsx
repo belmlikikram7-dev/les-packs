@@ -2,89 +2,68 @@
 
 import React from "react";
 
-// Professional & Cute K-Beauty Icons with refined curves and sparkles
-// 1. Cute Dewdrop with little sparkle for Deep Hydration
-function CuteHydrationIcon({ className = "w-7 h-7" }: { className?: string }) {
+// Minimalist, high-end Korean beauty & botanical line-art icons (inspired by luxury editorial skincare & the reference image)
+// 1. Botanical Ginkgo / Dew Leaf for Deep Hydration
+function EditorialHydrationIcon({ className = "w-9 h-9" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-      {/* Plump, cute water droplet */}
-      <path
-        d="M16 4 C16 4 8 13.5 8 19.5 C8 24.2 11.6 28 16 28 C20.4 28 24 24.2 24 19.5 C24 13.5 16 4 16 4 Z"
-        strokeWidth="2"
-      />
-      {/* Cute inner moisture shine curve */}
-      <path
-        d="M12.5 18 C12.5 15.5 14 13 16 11.5"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-      {/* Tiny companion sparkle drop */}
-      <circle cx="21" cy="11" r="1.5" fill="currentColor" stroke="none" />
+    <svg className={className} viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+      {/* Delicate botanical leaf branch */}
+      <path d="M20 34V12" strokeWidth="1.4" />
+      <path d="M20 28C16 28 12 25 12 21C15 21 18 23 20 25" strokeWidth="1.3" />
+      <path d="M20 23C24 23 28 20 28 16C25 16 22 18 20 20" strokeWidth="1.3" />
+      <path d="M20 17C17 17 14 14 14 11C16.5 11 18.5 12.5 20 14" strokeWidth="1.3" />
+      {/* Top micro dewdrop */}
+      <circle cx="20" cy="8" r="2" strokeWidth="1.3" />
     </svg>
   );
 }
 
-// 2. Cute Glass-Skin 4-Point Star Sparkle (matching user's uploaded reference exactly)
-function CuteGlowIcon({ className = "w-7 h-7" }: { className?: string }) {
+// 2. High-End Sparkle & Radiance (Luxury 4-Point Star + Accent Twinkle matching the reference image)
+function EditorialGlowIcon({ className = "w-9 h-9" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-      {/* Rounded 4-point organic star */}
+    <svg className={className} viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+      {/* Center 4-point organic radiant star */}
       <path
-        d="M15 5 C15.2 11 11 14.8 5 15 C11 15.2 14.8 19 15 25 C15.2 19 19 15.2 25 15 C19 14.8 15.2 11 15 5 Z"
-        strokeWidth="2.2"
+        d="M20 6C20.2 13.5 15 19 7 19.2C15 19.4 19.8 25 20 33C20.2 25 25 19.4 33 19.2C25 19 20.2 13.5 20 6Z"
+        strokeWidth="1.6"
       />
-      {/* Cute tiny top-right star twinkle (+) */}
-      <path d="M24 6.5 V10 M22.2 8.25 H25.8" strokeWidth="2" strokeLinecap="round" />
-      {/* Cute tiny bottom-left soft sparkle dot */}
-      <circle cx="7.5" cy="22.5" r="1.8" fill="currentColor" stroke="none" />
+      {/* Top right delicate secondary twinkle */}
+      <path d="M30 8V13M27.5 10.5H32.5" strokeWidth="1.4" />
+      {/* Subtle bottom left pearl dot */}
+      <circle cx="10" cy="29" r="1.5" fill="currentColor" stroke="none" />
     </svg>
   );
 }
 
-// 3. Cute Protective Heart-Shield / Barrier Protection
-function CuteBarrierIcon({ className = "w-7 h-7" }: { className?: string }) {
+// 3. Hanbang Arch / Protective Pavilion Shield (matching the architectural/natural arches in the reference)
+function EditorialBarrierIcon({ className = "w-9 h-9" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-      {/* Smooth rounded shield */}
-      <path
-        d="M16 4.5 C21.5 7 24.5 7 24.5 12.5 C24.5 19.5 19 25 16 27.5 C13 25 7.5 19.5 7.5 12.5 C7.5 7 10.5 7 16 4.5 Z"
-        strokeWidth="2"
-      />
-      {/* Gentle protective checkmark with soft dot */}
-      <path
-        d="M12 15.5 L15 18.5 L20.5 12.5"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
+    <svg className={className} viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+      {/* Elegant Korean archway */}
+      <path d="M12 34V18C12 13.5 15.5 10 20 10C24.5 10 28 13.5 28 18V34" strokeWidth="1.4" />
+      {/* Inner slender arch */}
+      <path d="M16 34V20C16 17.8 17.8 16 20 16C22.2 16 24 17.8 24 20V34" strokeWidth="1.2" opacity="0.75" />
+      {/* Top botanical finial / protective blossom */}
+      <path d="M20 6V10M17.5 7.5C18.5 6.5 21.5 6.5 22.5 7.5" strokeWidth="1.3" />
+      {/* Base baseline */}
+      <path d="M9 34H31" strokeWidth="1.4" />
     </svg>
   );
 }
 
-// 4. Cute Collagen Lotus Blossom / Firmness & Rejuvenation
-function CuteFirmnessIcon({ className = "w-7 h-7" }: { className?: string }) {
+// 4. Korean Lotus / Collagen Rebirth Blossom
+function EditorialFirmnessIcon({ className = "w-9 h-9" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-      {/* Center upright petal */}
-      <path
-        d="M16 6 C13 11 13 17 16 22 C19 17 19 11 16 6 Z"
-        strokeWidth="2"
-      />
-      {/* Left blooming petal */}
-      <path
-        d="M13.5 13 C8 15 6 18.5 8.5 22 C11.5 22 14 19.5 15 17"
-        strokeWidth="1.9"
-      />
-      {/* Right blooming petal */}
-      <path
-        d="M18.5 13 C24 15 26 18.5 23.5 22 C20.5 22 18 19.5 17 17"
-        strokeWidth="1.9"
-      />
-      {/* Cute base support curve */}
-      <path
-        d="M12 25.5 C14.5 26.5 17.5 26.5 20 25.5"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
+    <svg className={className} viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+      {/* Central petal */}
+      <path d="M20 8C16.5 14 16.5 22 20 28C23.5 22 23.5 14 20 8Z" strokeWidth="1.4" />
+      {/* Left side blooming petal */}
+      <path d="M17 18C10 20 8 25 11 28C14 28 17 25 18 22" strokeWidth="1.3" />
+      {/* Right side blooming petal */}
+      <path d="M23 18C30 20 32 25 29 28C26 28 23 25 22 22" strokeWidth="1.3" />
+      {/* Base pedestal cup */}
+      <path d="M14 31C17 33 23 33 26 31" strokeWidth="1.4" />
+      <path d="M20 31V34" strokeWidth="1.4" />
     </svg>
   );
 }
@@ -92,22 +71,22 @@ function CuteFirmnessIcon({ className = "w-7 h-7" }: { className?: string }) {
 export default function PackIntro() {
   const results = [
     {
-      icon: CuteHydrationIcon,
+      icon: EditorialHydrationIcon,
       title: "Hydratation Profonde",
       desc: "Repulpe les tissus cutanés et infuse une souplesse durable tout au long de la journée.",
     },
     {
-      icon: CuteGlowIcon,
+      icon: EditorialGlowIcon,
       title: "Glow & Éclat Naturel",
       desc: "Révèle un teint unifié, transparent et radieux sans fini gras ni brillance.",
     },
     {
-      icon: CuteBarrierIcon,
+      icon: EditorialBarrierIcon,
       title: "Barrière Renforcée",
       desc: "Apaise les rougeurs, calme les irritations et protège la peau des agressions extérieures.",
     },
     {
-      icon: CuteFirmnessIcon,
+      icon: EditorialFirmnessIcon,
       title: "Fermeté & Lissage",
       desc: "Stimule la synthèse de collagène et estompe visiblement l'apparence des ridules.",
     },
@@ -136,19 +115,20 @@ export default function PackIntro() {
       <div className="bg-[#EFE7D5] py-14 sm:py-20 px-4 sm:px-6 lg:px-8 relative shadow-[inset_0_2px_12px_rgba(49,15,16,0.03)]">
         <div className="max-w-6xl mx-auto">
           
-          {/* Subtle Category Eyebrow & Main Title */}
-          <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-16">
-            <span className="font-mono text-[11px] sm:text-xs uppercase font-bold tracking-[0.25em] text-[#74070D] block mb-2">
+          {/* Subtle Category Eyebrow & Main Title with LOWERED DIVIDER LINE */}
+          <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+            <span className="font-mono text-[11px] sm:text-xs uppercase font-bold tracking-[0.25em] text-[#74070D] block mb-3">
               Résultats Visibles & Cliniques
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-normal text-[#310F10] leading-tight mb-3">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-normal text-[#310F10] leading-tight mb-6">
               Ce que ce rituel apporte à votre peau
             </h2>
-            <div className="w-12 h-0.5 bg-[#74070D]/40 mx-auto rounded-full mt-3" />
+            {/* Lowered line: mt-6 with delicate styling */}
+            <div className="w-16 h-[2px] bg-[#74070D]/35 mx-auto rounded-full mt-6" />
           </div>
 
           {/* 4 Pillars in a Flowing Row with Refined Separators (exact style from reference image) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x lg:divide-[#74070D]/15">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-0 lg:divide-x lg:divide-[#74070D]/15">
             {results.map((item, idx) => {
               const Icon = item.icon;
               return (
@@ -156,12 +136,9 @@ export default function PackIntro() {
                   key={idx}
                   className="flex flex-col items-center text-center px-4 lg:px-7 group"
                 >
-                  {/* Circular badge exactly matching the user's reference image:
-                      - Clean circular disk in #FAF7EE
-                      - Ultra delicate rosy/burgundy border in #74070D/25
-                      - Elegant cute icon centered in deep wine red #74070D */}
-                  <div className="w-16 h-16 sm:w-[70px] sm:h-[70px] rounded-full bg-[#FAF7EE] border border-[#74070D]/25 shadow-xs flex items-center justify-center text-[#74070D] mb-5 group-hover:scale-105 group-hover:border-[#74070D]/50 transition-all duration-300">
-                    <Icon className="w-7 h-7 sm:w-8 sm:h-8" />
+                  {/* Clean, high-end circular badge with soft subtle ring */}
+                  <div className="w-18 h-18 sm:w-20 sm:h-20 rounded-full bg-[#FAF7EE] border border-[#74070D]/20 shadow-[0_4px_16px_rgba(116,7,13,0.04)] flex items-center justify-center text-[#74070D] mb-6 group-hover:scale-105 group-hover:border-[#74070D]/40 transition-all duration-300">
+                    <Icon className="w-9 h-9 sm:w-10 sm:h-10" />
                   </div>
 
                   {/* Benefit Title */}
