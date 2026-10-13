@@ -30,18 +30,36 @@ export default function ProductGrid() {
         </p>
       </div>
 
-      {/* 100% True Full-Width Edge-to-Edge Panoramic Image (من اليمين لليسار 100vw) */}
+      {/* 100% True Full-Width Edge-to-Edge Panoramic Image with smooth Top & Bottom fade shadows */}
       <div className="w-full relative overflow-hidden">
+        
+        {/* Soft top shadow/gradient for smooth transition from title */}
+        <div 
+          className="absolute top-0 left-0 right-0 h-16 sm:h-24 z-10 pointer-events-none"
+          style={{
+            background: "linear-gradient(to bottom, #FAF7EE 0%, rgba(250, 247, 238, 0.6) 50%, transparent 100%)"
+          }}
+        />
+
         <div className="relative w-full aspect-[1024/512]">
           <Image
-            src="/images/pack-excellence-full.png"
+            src="/images/pack-excellence-full.webp"
             alt="L'Excellence Coréenne Réunie en un Seul Pack - Seoul 1988"
             fill
             priority
+            quality={95}
             sizes="100vw"
             className="object-cover sm:object-contain object-bottom w-full h-full select-none pointer-events-none"
           />
         </div>
+
+        {/* Soft bottom blend shadow - prevents harsh horizontal cut line and melts smoothly into the beige background */}
+        <div 
+          className="absolute bottom-0 left-0 right-0 h-20 sm:h-28 z-10 pointer-events-none"
+          style={{
+            background: "linear-gradient(to top, #FAF7EE 15%, rgba(250, 247, 238, 0.85) 55%, rgba(250, 247, 238, 0.3) 80%, transparent 100%)"
+          }}
+        />
       </div>
     </section>
   );
