@@ -205,7 +205,7 @@ export default function RoutineSection() {
   // Arched & bowed bezier wave (cresting high between 1 & 2, dipping low between 2 & 3, cresting high between 3 & 4)
   // Matching the user's hand sketch in media_1791895270485_fbd7af4d.png
   const curvedPathD =
-    "M 125,230 C 180,60 320,60 375,110 C 430,280 570,280 625,230 C 680,60 820,60 875,110";
+    "M 100,230 C 160,50 310,50 370,110 C 430,290 570,290 630,230 C 690,50 830,50 890,110";
 
   return (
     <section
@@ -256,7 +256,7 @@ export default function RoutineSection() {
         {/* Winding Circular Sequence with Curved Connecting Line */}
         <div className="relative max-w-5xl mx-auto w-full my-auto py-2">
 
-          {/* Background Connecting Curved Wave SVG */}
+          {/* Connecting Curved Wave SVG - only active line drawn on scroll */}
           <div className="hidden md:block absolute inset-0 pointer-events-none z-0">
             <svg
               viewBox="0 0 1000 340"
@@ -264,14 +264,6 @@ export default function RoutineSection() {
               className="w-full h-full overflow-visible"
               preserveAspectRatio="none"
             >
-              {/* Subtle background guide path */}
-              <path
-                d={curvedPathD}
-                stroke="#E5DAC2"
-                strokeWidth="3"
-                strokeDasharray="4 6"
-                strokeLinecap="round"
-              />
               {/* Active progressive path drawn as user scrolls */}
               <path
                 ref={pathRef}
@@ -298,7 +290,7 @@ export default function RoutineSection() {
             </svg>
           </div>
 
-          {/* 4 Refined Compact Circles Grid */}
+          {/* 4 Circles Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4 relative z-10 items-start">
             {currentSteps.map((item, idx) => {
               // Alternating wave height: idx 0 (low), idx 1 (high), idx 2 (low), idx 3 (high)
@@ -316,6 +308,8 @@ export default function RoutineSection() {
                 <div
                   key={item.id}
                   className={`flex flex-col items-center transition-all duration-500 ease-out ${
+                    idx === 0 ? "md:-translate-x-5" : ""
+                  } ${
                     isHigh ? "md:-translate-y-4 md:pt-0" : "md:translate-y-8 md:pt-6"
                   } ${
                     isRevealed
@@ -330,28 +324,28 @@ export default function RoutineSection() {
                     </span>
                   </div>
 
-                  {/* Refined, Compact Circular Container with Product */}
-                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full bg-gradient-to-b from-[#FAF7EE] via-[#F4EEDC] to-[#EAE0CA] border-2 border-[#74070D] shadow-[0_8px_18px_rgba(116,7,13,0.14)] hover:shadow-[0_12px_24px_rgba(116,7,13,0.25)] hover:scale-105 transition-all duration-300 flex items-center justify-center p-2.5 group">
+                  {/* Circular Container with Product */}
+                  <div className="relative w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 rounded-full bg-gradient-to-b from-[#FAF7EE] via-[#F4EEDC] to-[#EAE0CA] border-2 border-[#74070D] shadow-[0_8px_18px_rgba(116,7,13,0.14)] hover:shadow-[0_12px_24px_rgba(116,7,13,0.25)] hover:scale-105 transition-all duration-300 flex items-center justify-center p-3 group">
                     
                     {/* Inner gold accent ring */}
-                    <div className="absolute inset-1 rounded-full border border-[#F3E3B2] pointer-events-none" />
+                    <div className="absolute inset-1.5 rounded-full border border-[#F3E3B2] pointer-events-none" />
 
                     {/* Isolated Product Image */}
                     {item.image && (
                       <img
                         src={item.image}
                         alt={item.product}
-                        className="h-20 sm:h-22 md:h-24 max-h-[96px] w-auto object-contain drop-shadow-[0_8px_12px_rgba(49,15,16,0.25)] animate-float-product pointer-events-none relative z-10"
+                        className="h-24 sm:h-28 md:h-32 max-h-[125px] w-auto object-contain drop-shadow-[0_8px_12px_rgba(49,15,16,0.25)] animate-float-product pointer-events-none relative z-10"
                       />
                     )}
 
                     {/* Subtle ground reflection */}
-                    <div className="absolute bottom-2 w-14 h-1.5 bg-[#74070D]/15 blur-xs rounded-full pointer-events-none" />
+                    <div className="absolute bottom-2.5 w-16 h-2 bg-[#74070D]/15 blur-xs rounded-full pointer-events-none" />
                   </div>
 
                   {/* Product Info & "Voir" Button below Circle */}
                   <div className="mt-3 text-center flex flex-col items-center">
-                    <h4 className="font-sans text-xs sm:text-[13px] font-bold text-[#310F10] leading-snug max-w-[150px] min-h-[34px] flex items-center justify-center text-center">
+                    <h4 className="font-sans text-xs sm:text-[13px] font-bold text-[#310F10] leading-snug max-w-[160px] min-h-[34px] flex items-center justify-center text-center">
                       {item.product}
                     </h4>
                     <span className="text-[10px] sm:text-[11px] text-[#46462A] font-semibold mt-0.5">
@@ -373,17 +367,6 @@ export default function RoutineSection() {
             })}
           </div>
 
-        </div>
-
-        {/* Global Routine CTA at Bottom of Stage */}
-        <div className="text-center mt-4">
-          <button
-            onClick={() => scrollTo("#commande")}
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg active:scale-95 transition-all cursor-pointer"
-          >
-            <span>Commander le Pack & Ses 2 Cadeaux</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
         </div>
 
       </div>
