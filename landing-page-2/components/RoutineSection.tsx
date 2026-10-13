@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { Sun, Moon, ArrowRight, Sparkles, Eye, X, Droplets, Check } from "lucide-react";
+import { Sun, Moon, ArrowRight, Sparkles, Eye, X, Droplets } from "lucide-react";
 
 interface StepItem {
   id: string;
@@ -23,36 +23,17 @@ interface StepItem {
 }
 
 export default function RoutineSection() {
-  const { locale, isArabic } = useLanguage();
+  const { locale } = useLanguage();
   const t = TRANSLATIONS[locale].routineSection;
   const [activeTab, setActiveTab] = useState<"morning" | "night">("morning");
   const [selectedStep, setSelectedStep] = useState<StepItem | null>(null);
 
-  // Progressive scroll reveal stage (0 = not seen, 1 = steps 1 & 2, 2 = steps 3 & 4)
-  const sectionRef = useRef<HTMLElement>(null);
-  const [scrollStage, setScrollStage] = useState<number>(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const pathRef = useRef<SVGPathElement>(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      // First stage: steps 1 & 2 appear, line starts drawing
-      if (rect.top <= windowHeight * 0.8) {
-        setScrollStage((prev) => Math.max(prev, 1));
-      }
-      // Second stage: steps 3 & 4 appear, line completes
-      if (rect.top <= windowHeight * 0.45) {
-        setScrollStage((prev) => Math.max(prev, 2));
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
+  const [totalLength, setTotalLength] = useState<number>(1000);
+  const [tipPosition, setTipPosition] = useState<{ x: number; y: number } | null>(null);
 
   const scrollTo = (hash: string) => {
     const el = document.querySelector(hash);
@@ -187,152 +168,202 @@ export default function RoutineSection() {
 
   const currentSteps = activeTab === "morning" ? morningSteps : nightSteps;
 
-  // Calculate stroke dashoffset for the animated wave line
-  // Total length approximated at 1000
-  const lineOffset = scrollStage === 0 ? 1000 : scrollStage === 1 ? 520 : 0;
+  // Measure path length and track sticky scroll progress
+  useEffect(() => {
+    if (pathRef.current) {
+      try {
+        const len = pathRef.current.getTotalLength();
+        if (len > 0) setTotalLength(len);
+      } catch {}
+    }
+
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const totalScrollable = rect.height - window.innerHeight;
+      if (totalScrollable <= 0) return;
+
+      const current = -rect.top;
+      const progress = Math.min(Math.max(current / totalScrollable, 0), 1);
+      setScrollProgress(progress);
+
+      // Compute exact tip coordinates on SVG wave
+      if (pathRef.current && totalLength > 0) {
+        try {
+          const pt = pathRef.current.getPointAtLength(Math.min(totalLength, Math.max(0, totalLength * progress)));
+          setTipPosition({ x: pt.x, y: pt.y });
+        } catch {}
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [totalLength]);
+
+  // Arched & bowed bezier wave (cresting high between 1 & 2, dipping low between 2 & 3, cresting high between 3 & 4)
+  // Matching the user's hand sketch in media_1791895270485_fbd7af4d.png
+  const curvedPathD =
+    "M 125,230 C 180,60 320,60 375,110 C 430,280 570,280 625,230 C 680,60 820,60 875,110";
 
   return (
-    <section ref={sectionRef} id="routine" className="py-20 bg-[#FAF7EE] text-[#310F10] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      ref={containerRef}
+      id="routine"
+      className="relative bg-[#FAF7EE] text-[#310F10] min-h-[175vh]"
+    >
+      {/* Pinned Sticky Stage during the scroll sequence */}
+      <div className="sticky top-16 md:top-20 min-h-[calc(100vh-80px)] flex flex-col justify-between py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#46462A]/10 border border-[#46462A]/20 text-[#46462A] text-xs uppercase font-bold tracking-widest mb-3">
+        <div className="text-center max-w-3xl mx-auto mb-4">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#46462A]/10 border border-[#46462A]/20 text-[#46462A] text-xs uppercase font-bold tracking-widest mb-2">
             <Sparkles className="w-3.5 h-3.5 text-[#74070D]" />
             <span>{t.badge}</span>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#310F10] leading-tight mb-4">
+          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-normal text-[#310F10] leading-tight mb-2">
             {t.title}
           </h2>
-          <p className="text-sm sm:text-base text-[#46462A] font-light leading-relaxed mb-8">
-            {t.subtitle}
-          </p>
 
           {/* Routine Tabs: Routine du matin & Routine du soir */}
-          <div className="inline-flex p-1.5 rounded-full bg-[#F4EEDC] border border-[#F3E3B2] shadow-inner">
+          <div className="inline-flex p-1 rounded-full bg-[#F4EEDC] border border-[#F3E3B2] shadow-inner mt-2">
             <button
               onClick={() => setActiveTab("morning")}
-              className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer ${
+              className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "morning"
                   ? "bg-[#74070D] text-[#F3E3B2] shadow-md scale-102"
                   : "text-[#46462A] hover:text-[#310F10]"
               }`}
             >
-              <Sun className="w-4 h-4" />
+              <Sun className="w-3.5 h-3.5" />
               <span>{t.morningTab}</span>
             </button>
             <button
               onClick={() => setActiveTab("night")}
-              className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer ${
+              className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "night"
                   ? "bg-[#310F10] text-[#F3E3B2] shadow-md scale-102"
                   : "text-[#46462A] hover:text-[#310F10]"
               }`}
             >
-              <Moon className="w-4 h-4" />
+              <Moon className="w-3.5 h-3.5" />
               <span>{t.nightTab}</span>
             </button>
           </div>
         </div>
 
-        {/* ======================================================== */}
-        {/* Winding Circle Routine Path (Matching Hand-Drawn Sketch) */}
-        {/* ======================================================== */}
-        <div className="relative max-w-6xl mx-auto my-6 pb-6">
+        {/* Winding Circular Sequence with Curved Connecting Line */}
+        <div className="relative max-w-5xl mx-auto w-full my-auto py-2">
 
-          {/* Background Connecting Wave SVG (Desktop & Tablet) */}
+          {/* Background Connecting Curved Wave SVG */}
           <div className="hidden md:block absolute inset-0 pointer-events-none z-0">
             <svg
-              viewBox="0 0 1000 380"
+              viewBox="0 0 1000 340"
               fill="none"
               className="w-full h-full overflow-visible"
               preserveAspectRatio="none"
             >
               {/* Subtle background guide path */}
               <path
-                d="M 125,230 C 230,230 270,110 375,110 C 480,110 520,230 625,230 C 730,230 770,110 875,110"
-                stroke="#E2D7BE"
-                strokeWidth="4"
-                strokeDasharray="6 8"
+                d={curvedPathD}
+                stroke="#E5DAC2"
+                strokeWidth="3"
+                strokeDasharray="4 6"
                 strokeLinecap="round"
               />
-              {/* Progressive active animated path flowing from left to right as you scroll */}
+              {/* Active progressive path drawn as user scrolls */}
               <path
-                d="M 125,230 C 230,230 270,110 375,110 C 480,110 520,230 625,230 C 730,230 770,110 875,110"
+                ref={pathRef}
+                d={curvedPathD}
                 stroke="#74070D"
-                strokeWidth="4"
+                strokeWidth="3.5"
                 strokeLinecap="round"
-                strokeDasharray="1000"
+                strokeDasharray={totalLength}
                 style={{
-                  strokeDashoffset: lineOffset,
-                  transition: "stroke-dashoffset 0.9s cubic-bezier(0.4, 0, 0.2, 1)",
+                  strokeDashoffset: totalLength * (1 - scrollProgress),
+                  transition: "stroke-dashoffset 0.15s ease-out",
                 }}
               />
+              {/* Animated glowing travelling dot at the tip of the line */}
+              {tipPosition && scrollProgress > 0.02 && scrollProgress < 0.98 && (
+                <circle
+                  cx={tipPosition.x}
+                  cy={tipPosition.y}
+                  r="5"
+                  fill="#74070D"
+                  className="filter drop-shadow-[0_0_8px_rgba(116,7,13,0.8)] animate-pulse"
+                />
+              )}
             </svg>
           </div>
 
-          {/* 4 Alternating Circles Grid (Wave: Low, High, Low, High) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-4 relative z-10">
+          {/* 4 Refined Compact Circles Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4 relative z-10 items-start">
             {currentSteps.map((item, idx) => {
-              // Alternating wave vertical position (matching sketch: 1 low, 2 high, 3 low, 4 high)
+              // Alternating wave height: idx 0 (low), idx 1 (high), idx 2 (low), idx 3 (high)
               const isHigh = idx === 1 || idx === 3;
-              // Progressive scroll reveal:
-              // Step 0 & 1 (Etape 1 & 2) appear on scroll stage >= 1
-              // Step 2 & 3 (Etape 3 & 4) appear on scroll stage >= 2
-              const isVisible = idx < 2 ? scrollStage >= 1 : scrollStage >= 2;
+              
+              // Progressive scroll reveal thresholds:
+              // Step 0: always visible once in section (progress >= 0.0)
+              // Step 1: appears as line reaches circle 2 (progress >= 0.22)
+              // Step 2: appears as line reaches circle 3 (progress >= 0.52)
+              // Step 3: appears as line reaches circle 4 (progress >= 0.80)
+              const threshold = idx === 0 ? 0 : idx === 1 ? 0.22 : idx === 2 ? 0.52 : 0.80;
+              const isRevealed = scrollProgress >= threshold;
 
               return (
                 <div
                   key={item.id}
-                  className={`flex flex-col items-center transition-all duration-700 ease-out ${
-                    isHigh ? "md:-translate-y-6 md:pt-2" : "md:translate-y-10 md:pt-10"
+                  className={`flex flex-col items-center transition-all duration-500 ease-out ${
+                    isHigh ? "md:-translate-y-4 md:pt-0" : "md:translate-y-8 md:pt-6"
                   } ${
-                    isVisible
+                    isRevealed
                       ? "opacity-100 scale-100 translate-y-0"
-                      : "opacity-0 scale-85 translate-y-8 pointer-events-none"
+                      : "opacity-0 scale-80 translate-y-6 pointer-events-none"
                   }`}
                 >
-                  {/* Step Badge on Top of the Circle (etape 1, etape 2, etc.) */}
-                  <div className="mb-3 text-center">
-                    <span className="inline-block px-3.5 py-1 rounded-full bg-[#74070D] text-[#F3E3B2] text-xs font-bold uppercase tracking-wider shadow-sm">
+                  {/* Step Badge on Top of the Circle */}
+                  <div className="mb-2 text-center">
+                    <span className="inline-block px-3 py-0.5 rounded-full bg-[#74070D] text-[#F3E3B2] text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-xs">
                       Étape {item.step}
                     </span>
                   </div>
 
-                  {/* Circular Container with Product Inside */}
-                  <div className="relative w-40 h-40 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-full bg-gradient-to-b from-[#FAF7EE] via-[#F4EEDC] to-[#EAE0CA] border-[3.5px] border-[#74070D] shadow-[0_12px_24px_rgba(116,7,13,0.18),inset_0_2px_8px_rgba(255,255,255,0.8)] hover:shadow-[0_18px_36px_rgba(116,7,13,0.3)] hover:scale-105 transition-all duration-300 flex items-center justify-center p-3 group">
+                  {/* Refined, Compact Circular Container with Product */}
+                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full bg-gradient-to-b from-[#FAF7EE] via-[#F4EEDC] to-[#EAE0CA] border-2 border-[#74070D] shadow-[0_8px_18px_rgba(116,7,13,0.14)] hover:shadow-[0_12px_24px_rgba(116,7,13,0.25)] hover:scale-105 transition-all duration-300 flex items-center justify-center p-2.5 group">
                     
-                    {/* Inner gold highlight ring */}
-                    <div className="absolute inset-1.5 rounded-full border border-[#F3E3B2]/80 pointer-events-none" />
+                    {/* Inner gold accent ring */}
+                    <div className="absolute inset-1 rounded-full border border-[#F3E3B2] pointer-events-none" />
 
-                    {/* Isolated Product Image with subtle float */}
+                    {/* Isolated Product Image */}
                     {item.image && (
                       <img
                         src={item.image}
                         alt={item.product}
-                        className="h-28 sm:h-32 md:h-36 max-h-[145px] w-auto object-contain drop-shadow-[0_12px_16px_rgba(49,15,16,0.3)] animate-float-product pointer-events-none relative z-10"
+                        className="h-20 sm:h-22 md:h-24 max-h-[96px] w-auto object-contain drop-shadow-[0_8px_12px_rgba(49,15,16,0.25)] animate-float-product pointer-events-none relative z-10"
                       />
                     )}
 
                     {/* Subtle ground reflection */}
-                    <div className="absolute bottom-3 w-20 h-2 bg-[#74070D]/20 blur-sm rounded-full pointer-events-none" />
+                    <div className="absolute bottom-2 w-14 h-1.5 bg-[#74070D]/15 blur-xs rounded-full pointer-events-none" />
                   </div>
 
                   {/* Product Info & "Voir" Button below Circle */}
-                  <div className="mt-4 text-center flex flex-col items-center">
-                    <h4 className="font-sans text-xs sm:text-sm font-bold text-[#310F10] leading-snug max-w-[170px] min-h-[36px] flex items-center justify-center">
+                  <div className="mt-3 text-center flex flex-col items-center">
+                    <h4 className="font-sans text-xs sm:text-[13px] font-bold text-[#310F10] leading-snug max-w-[150px] min-h-[34px] flex items-center justify-center text-center">
                       {item.product}
                     </h4>
-                    <span className="text-[11px] text-[#46462A] font-semibold mt-0.5">
+                    <span className="text-[10px] sm:text-[11px] text-[#46462A] font-semibold mt-0.5">
                       {item.volume}
                     </span>
 
-                    {/* Button "Voir" leading to product details */}
+                    {/* Button "Voir" */}
                     <button
                       onClick={() => setSelectedStep(item)}
-                      className="mt-2.5 px-4 py-1.5 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-xs font-bold tracking-wide shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
+                      className="mt-2 px-3.5 py-1 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-[11px] font-bold tracking-wide shadow-xs hover:shadow-sm transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
                     >
-                      <Eye className="w-3.5 h-3.5" />
+                      <Eye className="w-3 h-3" />
                       <span>Voir</span>
                     </button>
                   </div>
@@ -344,22 +375,20 @@ export default function RoutineSection() {
 
         </div>
 
-        {/* Global Routine CTA */}
-        <div className="text-center mt-12">
+        {/* Global Routine CTA at Bottom of Stage */}
+        <div className="text-center mt-4">
           <button
             onClick={() => scrollTo("#commande")}
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-xs font-bold uppercase tracking-wider shadow-lg hover:shadow-xl active:scale-95 transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg active:scale-95 transition-all cursor-pointer"
           >
             <span>Commander le Pack & Ses 2 Cadeaux</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
       </div>
 
-      {/* ======================================================== */}
       {/* Product Details Modal (Opened via the "Voir" Button) */}
-      {/* ======================================================== */}
       {selectedStep && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="relative w-full max-w-lg bg-[#FAF7EE] rounded-3xl border-2 border-[#F3E3B2] shadow-2xl p-6 sm:p-8 text-[#310F10] max-h-[90vh] overflow-y-auto">
@@ -384,7 +413,7 @@ export default function RoutineSection() {
 
             <div className="flex flex-col sm:flex-row items-center gap-5 mb-5">
               {selectedStep.image && (
-                <div className="w-28 h-28 shrink-0 rounded-full bg-[#F4EEDC] border-2 border-[#74070D] p-2 flex items-center justify-center shadow-inner">
+                <div className="w-24 h-24 shrink-0 rounded-full bg-[#F4EEDC] border-2 border-[#74070D] p-2 flex items-center justify-center shadow-inner">
                   <img
                     src={selectedStep.image}
                     alt={selectedStep.product}
