@@ -42,12 +42,12 @@ export default function GiftsSection() {
               <div className="absolute inset-0 bg-radial from-[#74070D]/15 via-[#FAF7EE]/50 to-transparent blur-2xl rounded-full pointer-events-none" />
 
               {/* 3D Duo Image */}
-              <div className="relative z-10 w-full max-w-[420px] aspect-[773/566] drop-shadow-[0_16px_30px_rgba(49,15,16,0.15)] group">
+              <div className="relative z-10 w-full max-w-[440px] aspect-[850/620] drop-shadow-[0_16px_30px_rgba(49,15,16,0.15)] group">
                 <Image
-                  src="/gifts/kado-duo.png"
+                  src="/gifts/kado-duo-clean.png"
                   alt="Vos 2 Cadeaux Inclus - Fino Hair Mask & Vaseline Lip Therapy"
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 420px"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 440px"
                   className="object-contain transition-transform duration-500 ease-out group-hover:scale-105"
                   priority
                 />
