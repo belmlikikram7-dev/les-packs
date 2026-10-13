@@ -42,7 +42,7 @@ input:focus, select:focus, button:focus-visible {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-7px);
+    transform: translateY(-4px);
   }
 }
 
@@ -52,15 +52,15 @@ input:focus, select:focus, button:focus-visible {
     opacity: 0.35;
   }
   50% {
-    transform: scale(0.85);
-    opacity: 0.18;
+    transform: scale(0.92);
+    opacity: 0.22;
   }
 }
 
 .animate-float-product {
-  animation: gentle-float 3.2s ease-in-out infinite;
+  animation: gentle-float 3.8s ease-in-out infinite;
 }
 
 .animate-glow-shadow {
-  animation: gentle-ground-glow 3.2s ease-in-out infinite;
+  animation: gentle-ground-glow 3.8s ease-in-out infinite;
 }

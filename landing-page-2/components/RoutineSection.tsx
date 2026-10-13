@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { Sun, Moon, ArrowRight, Sparkles, X, Check, Droplets, ImagePlus } from "lucide-react";
+import { Sun, Moon, ArrowRight, Sparkles, ImagePlus } from "lucide-react";
 
 interface StepItem {
   id: string;
@@ -26,7 +26,6 @@ export default function RoutineSection() {
   const { locale, isArabic } = useLanguage();
   const t = TRANSLATIONS[locale].routineSection;
   const [activeTab, setActiveTab] = useState<"morning" | "night">("morning");
-  const [selectedStep, setSelectedStep] = useState<StepItem | null>(null);
 
   const scrollTo = (hash: string) => {
     const el = document.querySelector(hash);
@@ -255,24 +254,14 @@ export default function RoutineSection() {
                 />
               </div>
 
-              {/* Bottom Info & Learn More Button - Frosted Glass Container for perfect readability */}
-              <div className="flex items-center justify-between gap-2 p-2 px-2.5 rounded-xl bg-[#310F10]/85 backdrop-blur-md border border-white/15 shadow-md">
-                <div className="flex-1 min-w-0">
-                  <h4 className="font-sans text-xs sm:text-sm font-bold text-white truncate leading-tight">
-                    {isArabic ? item.arabicProduct : item.product}
-                  </h4>
-                  <p className="text-[10px] sm:text-[11px] text-[#F3E3B2]/90 truncate mt-0.5">
-                    {isArabic ? item.arabicTitle : item.title}
-                  </p>
-                </div>
-
-                {/* "Learn More" Pill Button */}
-                <button
-                  onClick={() => setSelectedStep(item)}
-                  className="shrink-0 px-3.5 py-1.5 rounded-full bg-white text-[#74070D] hover:bg-[#F3E3B2] hover:text-[#310F10] text-[11px] font-bold tracking-wide shadow-md active:scale-95 transition-all cursor-pointer whitespace-nowrap"
-                >
-                  {t.learnMore}
-                </button>
+              {/* Bottom Info - Full Product Name displayed completely */}
+              <div className="p-2.5 px-3 rounded-xl bg-[#310F10]/85 backdrop-blur-md border border-white/15 shadow-md text-center">
+                <h4 className="font-sans text-xs sm:text-sm font-bold text-white leading-snug">
+                  {isArabic ? item.arabicProduct : item.product}
+                </h4>
+                <p className="text-[10px] sm:text-[11px] text-[#F3E3B2]/90 mt-1 leading-tight font-medium">
+                  {isArabic ? item.arabicTitle : item.title}
+                </p>
               </div>
 
             </div>
@@ -291,76 +280,6 @@ export default function RoutineSection() {
         </div>
 
       </div>
-
-      {/* Step Details Modal */}
-      {selectedStep && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="relative w-full max-w-md bg-[#FAF7EE] rounded-3xl border-2 border-[#F3E3B2] shadow-2xl p-6 sm:p-7 text-[#310F10]">
-            
-            {/* Close Button */}
-            <button
-              onClick={() => setSelectedStep(null)}
-              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#F3E3B2] text-[#310F10] hover:bg-[#74070D] hover:text-white flex items-center justify-center transition-colors cursor-pointer"
-            >
-              <X className="w-4 h-4" />
-            </button>
-
-            {/* Step Badge */}
-            <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#74070D] text-[#F3E3B2] text-[10px] font-bold uppercase tracking-wider mb-3">
-              <span>{t.stepBadge} {selectedStep.step}</span>
-              <span>•</span>
-              <span>{selectedStep.volume}</span>
-            </div>
-
-            <h3 className="font-serif text-2xl font-bold text-[#310F10] mb-1 leading-snug">
-              {isArabic ? selectedStep.arabicProduct : selectedStep.product}
-            </h3>
-
-            <p className="text-xs text-[#74070D] font-bold uppercase tracking-wider mb-4">
-              {isArabic ? selectedStep.arabicTitle : selectedStep.title} ({selectedStep.category})
-            </p>
-
-            <p className="text-xs sm:text-sm text-[#46462A] leading-relaxed mb-5">
-              {isArabic ? selectedStep.arabicDesc : selectedStep.desc}
-            </p>
-
-            {/* Actives */}
-            <div className="mb-5">
-              <span className="text-[10px] uppercase font-bold tracking-wider text-[#310F10] block mb-2">
-                Actifs Clés de la Formule :
-              </span>
-              <div className="flex flex-wrap gap-1.5">
-                {selectedStep.keyActives.map((a, i) => (
-                  <span
-                    key={i}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#F4EEDC] text-[#310F10] text-[11px] font-medium border border-[#F3E3B2]"
-                  >
-                    <Droplets className="w-2.5 h-2.5 text-[#74070D]" />
-                    {a}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Usage */}
-            <div className="p-3.5 rounded-2xl bg-[#F4EEDC] border border-[#F3E3B2] text-xs text-[#46462A] mb-5">
-              <strong className="text-[#310F10] block mb-0.5">Conseils d&apos;application :</strong>
-              {selectedStep.usage}
-            </div>
-
-            <button
-              onClick={() => {
-                setSelectedStep(null);
-                scrollTo("#commande");
-              }}
-              className="w-full py-3 rounded-full bg-[#74070D] text-[#F3E3B2] text-xs font-bold uppercase tracking-wider hover:bg-[#8D0910] transition-colors"
-            >
-              Commander le Pack Complet
-            </button>
-
-          </div>
-        </div>
-      )}
     </section>
   );
 }
