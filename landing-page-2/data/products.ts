@@ -139,7 +139,7 @@ export const GIFTS: GiftItem[] = [
     category: "Masque Capillaire Réparateur Intense",
     description: "Le masque capillaire culte japonais enrichi en gelée royale et squalane pour réparer les cheveux abîmés, leur redonner une brillance miroir et une douceur incomparable.",
     value: "180 DH",
-    image: "/images/kado-2-fino.png",
+    image: "/gifts/kado-2-fino.png",
   },
   {
     id: "vaseline-lip",
@@ -149,6 +149,6 @@ export const GIFTS: GiftItem[] = [
     category: "Soin des Lèvres Nourrissant",
     description: "Le baume à lèvres indispensable pour apaiser, hydrater et protéger les lèvres sèches ou gercées pour un sourire doux et repulpé toute la journée.",
     value: "60 DH",
-    image: "/images/kado-1-vaseline.png",
+    image: "/gifts/kado-1-vaseline.png",
   },
 ];

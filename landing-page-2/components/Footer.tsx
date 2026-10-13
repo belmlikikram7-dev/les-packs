@@ -16,7 +16,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#310F10] text-[#FAF7EE] border-t-2 border-[#46462A] relative overflow-hidden">
+    <footer className="bg-[#310F10] text-[#FAF7EE] border-t border-[#F3E3B2]/20 relative overflow-hidden">
       {/* Infinite scrolling ticker at the very top of Footer */}
       <TrustTicker />
 
@@ -97,19 +97,19 @@ export default function Footer() {
               Rejoignez notre communauté sur les réseaux sociaux pour découvrir nos tutoriels et avis clients.
             </p>
 
-            <div className="flex flex-col gap-2.5">
+            <div className="flex items-center gap-3">
               {/* TikTok */}
               <a
                 href="https://www.tiktok.com/@vinillia_shop?_r=1&_t=ZS-9AM4ON5mJaX"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-between px-4 py-2.5 rounded-xl bg-[#46462A]/60 hover:bg-[#46462A] border border-[#F3E3B2]/30 text-[#F3E3B2] text-xs font-semibold transition-all group"
+                aria-label="TikTok @vinillia_shop"
+                className="w-11 h-11 rounded-full bg-[#FAF7EE]/10 hover:bg-[#74070D] border border-[#F3E3B2]/30 flex items-center justify-center text-[#F3E3B2] hover:text-white transition-all duration-300 hover:scale-110 shadow-sm group"
               >
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#F3E3B2] group-hover:scale-125 transition-transform" />
-                  <span>{t.tiktok} (@vinillia_shop)</span>
-                </div>
-                <ExternalLink className="w-3.5 h-3.5 text-[#F3E3B2]/70 group-hover:text-white" />
+                {/* Official TikTok Icon */}
+                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .58.04.85.12V9.32a6.34 6.34 0 0 0-.85-.06 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.58a8.28 8.28 0 0 0 4.83 1.56V6.69z" />
+                </svg>
               </a>
 
               {/* Instagram */}
@@ -117,13 +117,15 @@ export default function Footer() {
                 href="https://www.instagram.com/vinillia_shop?stkn=MWMwczhwenJ3ZWNjOQ=="
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-between px-4 py-2.5 rounded-xl bg-[#46462A]/60 hover:bg-[#46462A] border border-[#F3E3B2]/30 text-[#F3E3B2] text-xs font-semibold transition-all group"
+                aria-label="Instagram @vinillia_shop"
+                className="w-11 h-11 rounded-full bg-[#FAF7EE]/10 hover:bg-[#74070D] border border-[#F3E3B2]/30 flex items-center justify-center text-[#F3E3B2] hover:text-white transition-all duration-300 hover:scale-110 shadow-sm group"
               >
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#74070D] group-hover:scale-125 transition-transform" />
-                  <span>{t.instagram} (@vinillia_shop)</span>
-                </div>
-                <ExternalLink className="w-3.5 h-3.5 text-[#F3E3B2]/70 group-hover:text-white" />
+                {/* Official Instagram Icon */}
+                <svg className="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
               </a>
             </div>
           </div>

@@ -14,7 +14,6 @@ import {
   Gift,
   ArrowRight,
   Loader2,
-  Sparkles,
 } from "lucide-react";
 
 export default function OrderSection() {

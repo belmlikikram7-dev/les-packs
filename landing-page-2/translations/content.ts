@@ -75,6 +75,9 @@ interface TranslationSet {
     gift1Tag: string;
     gift2Tag: string;
     valueLabel: string;
+    totalValueBadge: string;
+    includedNote: string;
+    offered: string;
   };
   order: {
     badge: string;
@@ -217,6 +220,9 @@ export const TRANSLATIONS: Record<Locale, TranslationSet> = {
       gift1Tag: "Cadeau 1 • Masque Culte Japonais",
       gift2Tag: "Cadeau 2 • Soin Lèvres Réparateur",
       valueLabel: "Valeur :",
+      totalValueBadge: "Valeur 240 DH • 100% Offerts",
+      includedNote: "Livrés automatiquement dans votre colis sans frais supplémentaires",
+      offered: "OFFERT",
     },
     order: {
       badge: "Commande Express",
@@ -357,6 +363,9 @@ export const TRANSLATIONS: Record<Locale, TranslationSet> = {
       gift1Tag: "الهدية 1 • ماسك الشعر الياباني الشهير",
       gift2Tag: "الهدية 2 • مرطب الشفاه المغذي",
       valueLabel: "القيمة :",
+      totalValueBadge: "بقيمة 240 درهم • مجاناً 100%",
+      includedNote: "تصلك الهدايا تلقائياً داخل طردك مجاناً مع التوصيل",
+      offered: "هدية مجانية",
     },
     order: {
       badge: "طلب سريع",

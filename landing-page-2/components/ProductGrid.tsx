@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { ShieldCheck, ArrowRight } from "lucide-react";
 
 export default function ProductGrid() {
   const { locale } = useLanguage();
@@ -19,7 +19,7 @@ export default function ProductGrid() {
       {/* Section Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl mb-6 lg:mb-8">
         <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#74070D]/10 border border-[#74070D]/20 text-[#74070D] text-xs uppercase font-bold tracking-widest mb-3">
-          <Sparkles className="w-3.5 h-3.5" />
+          <ShieldCheck className="w-3.5 h-3.5" />
           <span>Rituel K-Beauty Culte</span>
         </div>
         <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#310F10] leading-tight mb-3">

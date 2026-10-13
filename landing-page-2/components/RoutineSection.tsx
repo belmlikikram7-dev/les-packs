@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { Sun, Moon, ArrowRight, Sparkles, Eye, X, Droplets } from "lucide-react";
+import { Sun, Moon, ArrowRight, Eye, X, Droplets } from "lucide-react";
 
 interface StepItem {
   id: string;

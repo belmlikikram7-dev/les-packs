@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import TrustTicker from "@/components/TrustTicker";
 import PackIntro from "@/components/PackIntro";
 import ProductGrid from "@/components/ProductGrid";
 import RoutineSection from "@/components/RoutineSection";
