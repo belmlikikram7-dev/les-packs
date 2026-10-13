@@ -47,29 +47,29 @@ export default function ProductGrid() {
             className="object-cover sm:object-contain object-bottom w-full h-full select-none pointer-events-none"
           />
 
-          {/* Clean, Elegant Side Editorial Statement */}
-          <div className="absolute top-[14%] sm:top-[18%] md:top-[22%] left-[4%] sm:left-[6%] md:left-[8%] lg:left-[10%] z-20 max-w-[220px] sm:max-w-[300px] md:max-w-[360px] lg:max-w-[420px] pointer-events-none select-none">
+          {/* Clean, Elegant Side Editorial Statement - Enlarged & Prominent */}
+          <div className="absolute top-[10%] sm:top-[14%] md:top-[16%] lg:top-[18%] left-[4%] sm:left-[6%] md:left-[7%] lg:left-[8%] z-20 max-w-[280px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px] xl:max-w-[680px] pointer-events-none select-none">
             {/* Subtle Eyebrow */}
-            <div className="flex items-center gap-2 mb-2 sm:mb-2.5">
-              <span className="w-5 sm:w-7 h-[1.5px] bg-[#74070D]/40" />
-              <span className="font-mono text-[9px] sm:text-[11px] uppercase tracking-[0.25em] text-[#74070D] font-bold">
+            <div className="flex items-center gap-2.5 mb-2.5 sm:mb-3.5">
+              <span className="w-6 sm:w-10 h-[2px] bg-[#74070D]/50" />
+              <span className="font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.28em] text-[#74070D] font-bold">
                 {isArabic ? "التزامنا" : "Notre Engagement"}
               </span>
             </div>
 
-            {/* High-End Serif Quote */}
-            <h3 className="font-serif italic text-lg sm:text-2xl md:text-3xl lg:text-4xl text-[#310F10] leading-[1.25] sm:leading-[1.2] font-normal tracking-wide drop-shadow-sm">
+            {/* High-End Large Serif Quote */}
+            <h3 className="font-serif italic text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[54px] 2xl:text-[60px] text-[#310F10] leading-[1.2] sm:leading-[1.15] font-normal tracking-wide drop-shadow-sm">
               {isArabic ? (
                 <>
                   « صحة بشرتكم،
-                  <span className="block not-italic font-medium text-[#74070D] mt-1 sm:mt-1.5">
+                  <span className="block not-italic font-semibold text-[#74070D] mt-1.5 sm:mt-2.5">
                     مسؤوليتنا. »
                   </span>
                 </>
               ) : (
                 <>
                   «&nbsp;La santé de votre peau,
-                  <span className="block not-italic font-medium text-[#74070D] mt-1 sm:mt-1.5">
+                  <span className="block not-italic font-semibold text-[#74070D] mt-1.5 sm:mt-2.5">
                     notre responsabilité.&nbsp;»
                   </span>
                 </>
@@ -77,9 +77,9 @@ export default function ProductGrid() {
             </h3>
 
             {/* Minimal Gold Underline Accent */}
-            <div className="flex items-center gap-2 mt-2 sm:mt-3 opacity-60">
-              <div className="w-8 sm:w-12 h-[1.5px] bg-gradient-to-r from-[#74070D] to-transparent rounded-full" />
-              <span className="text-[9px] text-[#74070D]">✦</span>
+            <div className="flex items-center gap-2.5 mt-3 sm:mt-4 md:mt-5 opacity-70">
+              <div className="w-12 sm:w-20 md:w-24 h-[2px] bg-gradient-to-r from-[#74070D] to-transparent rounded-full" />
+              <span className="text-xs sm:text-sm text-[#74070D]">✦</span>
             </div>
           </div>
         </div>
