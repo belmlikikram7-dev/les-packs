@@ -1,16 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { SEOUL_PRODUCTS, type ProductItem } from "@/data/products";
-import { Sparkles, Info, X, Check, Droplets } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 export default function ProductGrid() {
-  const { locale, isArabic } = useLanguage();
+  const { locale } = useLanguage();
   const t = TRANSLATIONS[locale].productsSection;
-  const [selectedProduct, setSelectedProduct] = useState<ProductItem | null>(null);
 
   const scrollTo = (hash: string) => {
     const el = document.querySelector(hash);
@@ -18,11 +15,11 @@ export default function ProductGrid() {
   };
 
   return (
-    <section id="produits" className="py-20 bg-[#F4EEDC] text-[#310F10] relative">
+    <section id="produits" className="py-20 lg:py-28 bg-[#FAF7EE] text-[#310F10] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#74070D]/10 border border-[#74070D]/20 text-[#74070D] text-xs uppercase font-bold tracking-widest mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             <span>{t.badge}</span>
@@ -30,165 +27,73 @@ export default function ProductGrid() {
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#310F10] leading-tight mb-4">
             {t.title}
           </h2>
-          <p className="text-sm sm:text-base text-[#46462A] font-light leading-relaxed">
+          <p className="text-sm sm:text-base text-[#46462A] font-light leading-relaxed max-w-2xl mx-auto">
             {t.subtitle}
           </p>
         </div>
 
-        {/* 6 Products Grid - Compact, harmonious cards & scaled products */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 max-w-6xl mx-auto">
-          {SEOUL_PRODUCTS.map((product) => (
-            <div
-              key={product.id}
-              className="rounded-2xl bg-[#FAF7EE] border border-[#F3E3B2] overflow-hidden shadow-sm hover:shadow-xl hover:border-[#74070D]/40 transition-all duration-300 flex flex-col justify-between group"
-            >
-              {/* Product Image Stage - Compact & Refined */}
-              {product.image && (
-                <div className="relative w-full h-44 sm:h-48 bg-gradient-to-b from-[#F4EEDC]/60 to-transparent p-4 flex items-center justify-center">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    width={180}
-                    height={180}
-                    className="h-32 sm:h-36 max-h-[135px] w-auto object-contain drop-shadow-[0_10px_16px_rgba(49,15,16,0.16)] group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-              )}
+        {/* Hero Model Showcase with Soft Warm Red Circle Backdrop */}
+        <div className="relative max-w-4xl mx-auto flex items-center justify-center min-h-[480px] sm:min-h-[560px] lg:min-h-[620px]">
+          
+          {/* 1. Large Soft Red/Rose Sun Halo Circle (identical to reference media_1791907244120_30023638.png) */}
+          <div 
+            className="absolute w-[340px] h-[340px] sm:w-[460px] sm:h-[460px] lg:w-[540px] lg:h-[540px] rounded-full pointer-events-none"
+            style={{
+              background: "radial-gradient(circle, rgba(116,7,13,0.32) 0%, rgba(142,63,83,0.22) 45%, rgba(229,140,158,0.12) 70%, transparent 85%)",
+              filter: "blur(20px)",
+            }}
+          />
 
-              {/* Product Header & Tag */}
-              <div className="p-5 pt-1">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="px-2.5 py-0.5 rounded-full bg-[#46462A] text-[#F3E3B2] text-[10px] font-bold uppercase tracking-wider">
-                    {product.tag}
-                  </span>
-                  <span className="text-xs font-semibold text-[#74070D]">
-                    {product.volume}
-                  </span>
-                </div>
+          {/* 2. Inner Refined Warm Rosy Gradient Disk */}
+          <div 
+            className="absolute w-[290px] h-[290px] sm:w-[390px] sm:h-[390px] lg:w-[460px] lg:h-[460px] rounded-full pointer-events-none shadow-[0_20px_60px_-15px_rgba(116,7,13,0.22)]"
+            style={{
+              background: "linear-gradient(135deg, rgba(243,184,196,0.55) 0%, rgba(186,88,106,0.38) 50%, rgba(116,7,13,0.25) 100%)",
+            }}
+          />
 
-                <div className="mb-3">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#46462A] block mb-0.5">
-                    {product.category}
-                  </span>
-                  <h3 className="font-serif text-lg font-bold text-[#310F10] leading-snug group-hover:text-[#74070D] transition-colors">
-                    {product.name}
-                  </h3>
-                </div>
+          {/* 3. Subtle ambient light reflection ring */}
+          <div className="absolute w-[310px] h-[310px] sm:w-[420px] sm:h-[420px] lg:w-[490px] lg:h-[490px] rounded-full border border-[#74070D]/15 pointer-events-none" />
 
-                <p className="text-xs text-[#46462A] leading-relaxed mb-4 line-clamp-2">
-                  {product.description}
-                </p>
+          {/* 4. Model Image - Transparent cut-out placed cleanly in front */}
+          <div className="relative z-10 w-full max-w-[340px] sm:max-w-[440px] lg:max-w-[540px] flex items-center justify-center">
+            <Image
+              src="/images/model-glow.png"
+              alt="Résultat Peau Parfaite Seoul 1988"
+              width={1024}
+              height={576}
+              priority
+              className="w-full h-auto object-contain drop-shadow-[0_16px_32px_rgba(49,15,16,0.2)] select-none pointer-events-none"
+            />
+          </div>
 
-                {/* Key Actives Pills */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {product.keyActives.map((active, i) => (
-                    <span
-                      key={i}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#F3E3B2]/60 text-[#310F10] text-[10px] font-medium"
-                    >
-                      <Droplets className="w-2.5 h-2.5 text-[#74070D]" />
-                      {active}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Card Footer Button */}
-              <div className="px-5 py-3 bg-[#F4EEDC] border-t border-[#F3E3B2] flex items-center justify-between">
-                {["cleansing-foam", "eye-cream", "cream-snail", "sun-pine"].includes(product.id) ? (
-                  <button
-                    onClick={() => setSelectedProduct(product)}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#74070D] hover:text-[#310F10] transition-colors cursor-pointer"
-                  >
-                    <Info className="w-3.5 h-3.5" />
-                    <span>{t.viewDetails}</span>
-                  </button>
-                ) : (
-                  <span />
-                )}
-
-                <button
-                  onClick={() => scrollTo("#commande")}
-                  className="px-3.5 py-1.5 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
-                >
-                  Commander
-                </button>
-              </div>
+          {/* 5. Minimalist floating badge accent (like in the reference design) */}
+          <div className="absolute bottom-4 right-4 sm:bottom-8 sm:right-12 lg:right-16 z-20">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white/80 backdrop-blur-md border border-[#F3E3B2] shadow-lg flex flex-col items-center justify-center text-center p-2">
+              <span className="font-serif text-[11px] sm:text-xs font-bold text-[#74070D] leading-tight">
+                Glass Skin
+              </span>
+              <span className="text-[9px] sm:text-[10px] font-sans text-[#46462A] mt-0.5">
+                K-Beauty Culte
+              </span>
+              <div className="w-4 h-0.5 bg-[#74070D]/40 mt-1 rounded-full" />
             </div>
-          ))}
+          </div>
+
+        </div>
+
+        {/* Bottom CTA to anchor the transition to the next section */}
+        <div className="text-center mt-8 lg:mt-12">
+          <button
+            onClick={() => scrollTo("#routine")}
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg active:scale-95 transition-all cursor-pointer"
+          >
+            <span>Découvrir le Protocole d'Application</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
         </div>
 
       </div>
-
-      {/* Product Detail Modal */}
-      {selectedProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-          <div className="relative w-full max-w-lg bg-[#FAF7EE] rounded-3xl border-2 border-[#F3E3B2] shadow-2xl p-6 sm:p-8 text-[#310F10] max-h-[90vh] overflow-y-auto">
-            
-            {/* Close Button */}
-            <button
-              onClick={() => setSelectedProduct(null)}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#F3E3B2] text-[#310F10] hover:bg-[#74070D] hover:text-[#F3E3B2] flex items-center justify-center transition-colors cursor-pointer"
-            >
-              <X className="w-4 h-4" />
-            </button>
-
-            {/* Modal Content */}
-            <span className="px-3 py-1 rounded-full bg-[#46462A] text-[#F3E3B2] text-[10px] font-bold uppercase tracking-wider inline-block mb-3">
-              {selectedProduct.tag} • {selectedProduct.volume}
-            </span>
-
-            <h3 className="font-serif text-2xl font-bold text-[#310F10] mb-2 leading-tight">
-              {isArabic ? selectedProduct.arabicName : selectedProduct.name}
-            </h3>
-
-            <p className="text-xs text-[#74070D] font-bold uppercase tracking-wider mb-4">
-              {selectedProduct.category}
-            </p>
-
-            <p className="text-sm text-[#46462A] leading-relaxed mb-6">
-              {selectedProduct.description}
-            </p>
-
-            {/* Benefits */}
-            <div className="mb-6">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#310F10] mb-3 flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5 text-[#74070D]" />
-                {t.benefitsTitle}
-              </h4>
-              <ul className="space-y-2">
-                {selectedProduct.benefits.map((b, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-xs text-[#46462A]">
-                    <Check className="w-4 h-4 text-[#74070D] shrink-0 mt-0.5" />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Usage */}
-            <div className="p-4 rounded-2xl bg-[#F4EEDC] border border-[#F3E3B2] mb-6">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#310F10] mb-1">
-                {t.usageTitle}
-              </h4>
-              <p className="text-xs text-[#46462A] leading-relaxed">
-                {selectedProduct.usage}
-              </p>
-            </div>
-
-            {/* Action inside modal */}
-            <button
-              onClick={() => {
-                setSelectedProduct(null);
-                scrollTo("#commande");
-              }}
-              className="w-full py-3.5 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-xs uppercase font-bold tracking-wider shadow-lg hover:shadow-xl transition-all cursor-pointer"
-            >
-              Commander le Pack Complet
-            </button>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
