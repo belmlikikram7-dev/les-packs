@@ -213,8 +213,8 @@ export default function RoutineSection() {
               className="relative p-4 sm:p-5 rounded-[12px] text-white shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group overflow-hidden border border-[#74070D]/50 bg-[#74070D] bg-cover bg-center"
               style={{ backgroundImage: `url('/card-pattern.png')` }}
             >
-              {/* Inner Mirror Arch Podium with Frosted Glass over Pattern */}
-              <div className="relative w-full aspect-[4/4.8] rounded-t-[3.6rem] rounded-b-[10px] bg-gradient-to-b from-[#74070D]/80 via-[#5A0408]/82 to-[#310F10]/88 backdrop-blur-md border border-white/20 p-3.5 pb-2 flex flex-col justify-between items-center overflow-hidden mb-4 shadow-[inset_0_2px_14px_rgba(243,227,178,0.2),0_8px_20px_rgba(0,0,0,0.35)]">
+              {/* Inner Mirror Arch Podium with Light Transparent Glass and Subtle Blur */}
+              <div className="relative w-full aspect-[4/4.8] rounded-t-[3.6rem] rounded-b-[10px] bg-gradient-to-b from-[#74070D]/20 via-[#5A0408]/20 to-[#310F10]/30 backdrop-blur-[3px] border border-white/25 p-3.5 pb-2 flex flex-col justify-between items-center overflow-hidden mb-4 shadow-[inset_0_2px_12px_rgba(255,255,255,0.15),0_6px_16px_rgba(0,0,0,0.25)]">
                 
                 {/* Top Badge (Clean Step Badge pill + Volume) */}
                 <div className="w-full flex items-center justify-between z-10 pt-0.5">
