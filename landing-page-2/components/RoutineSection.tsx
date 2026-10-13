@@ -210,12 +210,13 @@ export default function RoutineSection() {
           {currentSteps.map((item, idx) => (
             <div
               key={item.id}
-              className="relative p-4 sm:p-5 rounded-[12px] bg-gradient-to-b from-[#74070D] to-[#4F0408] text-white shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group overflow-hidden border border-[#F3E3B2]/30"
+              className="relative p-4 sm:p-5 rounded-[12px] text-white shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group overflow-hidden border border-[#74070D]/50 bg-[#74070D] bg-cover bg-center"
+              style={{ backgroundImage: `url('/card-pattern.png')` }}
             >
-              {/* Inner Mirror Arch Podium */}
-              <div className="relative w-full aspect-[4/4.8] rounded-t-[3.6rem] rounded-b-[10px] bg-gradient-to-b from-[#F3E3B2]/22 via-[#F3E3B2]/12 to-[#310F10]/30 border border-[#F3E3B2]/35 p-3.5 pb-2 flex flex-col justify-between items-center overflow-hidden mb-4 shadow-[inset_0_2px_12px_rgba(243,227,178,0.15)]">
+              {/* Inner Mirror Arch Podium with Frosted Glass over Pattern */}
+              <div className="relative w-full aspect-[4/4.8] rounded-t-[3.6rem] rounded-b-[10px] bg-gradient-to-b from-[#74070D]/80 via-[#5A0408]/82 to-[#310F10]/88 backdrop-blur-md border border-white/20 p-3.5 pb-2 flex flex-col justify-between items-center overflow-hidden mb-4 shadow-[inset_0_2px_14px_rgba(243,227,178,0.2),0_8px_20px_rgba(0,0,0,0.35)]">
                 
-                {/* Top Badge (Clean Step Badge pill without star + Volume) */}
+                {/* Top Badge (Clean Step Badge pill + Volume) */}
                 <div className="w-full flex items-center justify-between z-10 pt-0.5">
                   <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/25 backdrop-blur-md border border-white/25 text-white text-[11px] font-bold tracking-wider uppercase shadow-sm">
                     <span>{t.stepBadge} {item.step}</span>
@@ -225,7 +226,7 @@ export default function RoutineSection() {
                   </span>
                 </div>
 
-                {/* Center Product Image Container - Floating Animation (Bhala Tayr / Kitbomba) */}
+                {/* Center Product Image Container - Floating Animation */}
                 <div className="relative w-full flex-1 flex items-center justify-center my-1 min-h-[140px]">
                   {item.image ? (
                     <img
@@ -247,20 +248,20 @@ export default function RoutineSection() {
                   )}
                 </div>
 
-                {/* Subtle Grounding Floor Glow with Syncing Breathing Glow */}
+                {/* Subtle Grounding Floor Glow */}
                 <div 
                   style={{ animationDelay: `${idx * 0.35}s` }}
                   className="w-24 h-2.5 bg-[#F3E3B2]/35 blur-sm rounded-full pointer-events-none relative z-0 animate-glow-shadow" 
                 />
               </div>
 
-              {/* Bottom Info & Learn More Button (Exact matching layout from reference) */}
-              <div className="flex items-center justify-between gap-2 px-1">
+              {/* Bottom Info & Learn More Button - Frosted Glass Container for perfect readability */}
+              <div className="flex items-center justify-between gap-2 p-2 px-2.5 rounded-xl bg-[#310F10]/85 backdrop-blur-md border border-white/15 shadow-md">
                 <div className="flex-1 min-w-0">
-                  <h4 className="font-sans text-sm font-bold text-white truncate leading-tight">
+                  <h4 className="font-sans text-xs sm:text-sm font-bold text-white truncate leading-tight">
                     {isArabic ? item.arabicProduct : item.product}
                   </h4>
-                  <p className="text-[11px] text-[#F3E3B2]/80 truncate mt-0.5">
+                  <p className="text-[10px] sm:text-[11px] text-[#F3E3B2]/90 truncate mt-0.5">
                     {isArabic ? item.arabicTitle : item.title}
                   </p>
                 </div>
@@ -268,7 +269,7 @@ export default function RoutineSection() {
                 {/* "Learn More" Pill Button */}
                 <button
                   onClick={() => setSelectedStep(item)}
-                  className="shrink-0 px-4 py-2 rounded-full bg-white text-[#74070D] hover:bg-[#F3E3B2] hover:text-[#310F10] text-[11px] font-bold tracking-wide shadow-md active:scale-95 transition-all cursor-pointer whitespace-nowrap"
+                  className="shrink-0 px-3.5 py-1.5 rounded-full bg-white text-[#74070D] hover:bg-[#F3E3B2] hover:text-[#310F10] text-[11px] font-bold tracking-wide shadow-md active:scale-95 transition-all cursor-pointer whitespace-nowrap"
                 >
                   {t.learnMore}
                 </button>
