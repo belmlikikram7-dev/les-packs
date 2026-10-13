@@ -170,12 +170,20 @@ export default function RoutineSection() {
 
   // Measure path length and track sticky scroll progress
   useEffect(() => {
-    if (pathRef.current) {
-      try {
-        const len = pathRef.current.getTotalLength();
-        if (len > 0) setTotalLength(len);
-      } catch {}
-    }
+    const updatePathLength = () => {
+      if (pathRef.current) {
+        try {
+          const len = pathRef.current.getTotalLength();
+          if (len && len > 0) {
+            setTotalLength(len);
+            return len;
+          }
+        } catch {}
+      }
+      return totalLength;
+    };
+
+    const actualLen = updatePathLength();
 
     const handleScroll = () => {
       if (!containerRef.current) return;
@@ -188,19 +196,28 @@ export default function RoutineSection() {
       setScrollProgress(progress);
 
       // Compute exact tip coordinates on SVG wave
-      if (pathRef.current && totalLength > 0) {
+      const len = pathRef.current ? pathRef.current.getTotalLength() : actualLen;
+      if (pathRef.current && len > 0 && progress > 0.01 && progress < 0.99) {
         try {
-          const pt = pathRef.current.getPointAtLength(Math.min(totalLength, Math.max(0, totalLength * progress)));
+          const pt = pathRef.current.getPointAtLength(Math.min(len, Math.max(0, len * progress)));
           setTipPosition({ x: pt.x, y: pt.y });
-        } catch {}
+        } catch {
+          setTipPosition(null);
+        }
+      } else {
+        setTipPosition(null);
       }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
     handleScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [totalLength]);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
 
   // Arched & bowed bezier wave (cresting high between 1 & 2, dipping low between 2 & 3, cresting high between 3 & 4)
   // Matching the user's hand sketch in media_1791895270485_fbd7af4d.png
@@ -271,14 +288,14 @@ export default function RoutineSection() {
                 stroke="#74070D"
                 strokeWidth="3.5"
                 strokeLinecap="round"
-                strokeDasharray={totalLength}
+                strokeDasharray={`${totalLength} ${totalLength}`}
+                strokeDashoffset={Math.max(0, totalLength * (1 - scrollProgress))}
                 style={{
-                  strokeDashoffset: totalLength * (1 - scrollProgress),
-                  transition: "stroke-dashoffset 0.15s ease-out",
+                  transition: "stroke-dashoffset 0.1s linear",
                 }}
               />
               {/* Animated glowing travelling dot at the tip of the line */}
-              {tipPosition && scrollProgress > 0.02 && scrollProgress < 0.98 && (
+              {tipPosition && scrollProgress > 0.03 && scrollProgress < 0.97 && (
                 <circle
                   cx={tipPosition.x}
                   cy={tipPosition.y}
@@ -296,12 +313,13 @@ export default function RoutineSection() {
               // Alternating wave height: idx 0 (low), idx 1 (high), idx 2 (low), idx 3 (high)
               const isHigh = idx === 1 || idx === 3;
               
-              // Progressive scroll reveal thresholds:
-              // Step 0: always visible once in section (progress >= 0.0)
-              // Step 1: appears as line reaches circle 2 (progress >= 0.22)
-              // Step 2: appears as line reaches circle 3 (progress >= 0.52)
-              // Step 3: appears as line reaches circle 4 (progress >= 0.80)
-              const threshold = idx === 0 ? 0 : idx === 1 ? 0.22 : idx === 2 ? 0.52 : 0.80;
+              // Progressive scroll reveal thresholds tightly synchronized with wave endpoints:
+              // Step 0: Étape 01 is always visible from the start
+              // Step 1: Étape 02 appears exactly as the line reaches it (~34% scroll)
+              // Step 2: Étape 03 appears exactly as the line reaches it (~67% scroll)
+              // Step 3: Étape 04 appears exactly as the line reaches it (~92% scroll)
+              // When scrolling back up, each step disappears smoothly in reverse order!
+              const threshold = idx === 0 ? 0 : idx === 1 ? 0.32 : idx === 2 ? 0.65 : 0.90;
               const isRevealed = scrollProgress >= threshold;
 
               return (
