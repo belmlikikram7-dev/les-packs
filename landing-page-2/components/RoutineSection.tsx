@@ -207,61 +207,60 @@ export default function RoutineSection() {
           </p>
         </div>
 
-        {/* Steps Grid : Inspired by the curved luxury card design */}
+        {/* Steps Grid : Faithful translation of reference design into luxury palette */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
           {currentSteps.map((item) => (
             <div
               key={item.id}
               className="relative p-5 rounded-[2.2rem] bg-gradient-to-b from-[#74070D] to-[#4F0408] text-white shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group overflow-hidden border border-[#F3E3B2]/30"
             >
-              {/* Top Inner Light Arch / Podium (Spotlight for Product Image) */}
-              <div className="relative w-full aspect-[4/4.2] rounded-[1.8rem] bg-gradient-to-b from-[#F3E3B2]/30 via-[#F3E3B2]/15 to-transparent border border-[#F3E3B2]/20 p-3 flex flex-col justify-between items-center overflow-hidden mb-4 shadow-inner">
+              {/* Pill Arch Dome (identical to the rounded arched podium in reference) */}
+              <div className="relative w-full aspect-[4/4.7] rounded-t-[4.5rem] rounded-b-[2rem] bg-[#F3E3B2]/20 border border-[#F3E3B2]/30 p-4 flex flex-col justify-between items-center overflow-hidden mb-4 shadow-inner">
                 
-                {/* Top Badge (ECO / Step Number) */}
-                <div className="w-full flex items-center justify-between z-10">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold tracking-wider uppercase">
+                {/* Top Badge (ECO pill in reference -> Step Badge pill) */}
+                <div className="w-full flex items-center justify-between z-10 pt-1">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/25 backdrop-blur-md border border-white/25 text-white text-[11px] font-bold tracking-wider uppercase">
                     <Sparkles className="w-3 h-3 text-[#F3E3B2]" />
                     <span>{t.stepBadge} {item.step}</span>
                   </div>
-                  <span className="text-[10px] font-medium text-[#F3E3B2] bg-[#310F10]/50 px-2 py-0.5 rounded-full border border-white/10">
+                  <span className="text-[10px] font-semibold text-[#F3E3B2] bg-[#310F10]/60 px-2.5 py-0.5 rounded-full border border-white/10">
                     {item.volume}
                   </span>
                 </div>
 
-                {/* Center Product Image Container (Prepared for your isolated transparent image) */}
-                <div className="relative w-full flex-1 flex items-center justify-center my-2">
+                {/* Center Product Image Container (Waiting for transparent PNG) */}
+                <div className="relative w-full flex-1 flex items-center justify-center my-3">
                   {item.image ? (
                     <Image
                       src={item.image}
                       alt={item.product}
                       fill
-                      className="object-contain drop-shadow-[0_12px_20px_rgba(0,0,0,0.35)] group-hover:scale-105 transition-transform duration-300"
+                      className="object-contain drop-shadow-[0_16px_24px_rgba(0,0,0,0.4)] group-hover:scale-105 transition-transform duration-300"
                     />
                   ) : (
-                    /* Placeholder Waiting for User's Product Image */
-                    <div className="flex flex-col items-center justify-center text-center p-3 rounded-2xl bg-white/5 border border-dashed border-[#F3E3B2]/40 w-full h-full">
-                      <ImagePlus className="w-7 h-7 text-[#F3E3B2]/70 mb-1 animate-pulse" />
-                      <span className="text-[11px] font-bold text-[#F3E3B2] leading-tight">
+                    /* Clean & Elegant Product Slot Placeholder */
+                    <div className="flex flex-col items-center justify-center text-center p-4 w-full h-full">
+                      <div className="w-12 h-12 rounded-2xl bg-white/10 border border-[#F3E3B2]/30 flex items-center justify-center mb-2 shadow-sm">
+                        <ImagePlus className="w-6 h-6 text-[#F3E3B2]" />
+                      </div>
+                      <span className="text-xs font-bold text-[#F3E3B2] leading-snug max-w-[150px]">
                         {isArabic ? item.arabicProduct : item.product}
-                      </span>
-                      <span className="text-[9px] text-white/60 mt-0.5">
-                        {isArabic ? "(في انتظار الصورة)" : "(Image du produit)"}
                       </span>
                     </div>
                   )}
                 </div>
 
-                {/* Soft Bottom Glow for the Product */}
-                <div className="w-24 h-4 bg-[#F3E3B2]/20 blur-md rounded-full pointer-events-none" />
+                {/* Subtle Grounding Floor Glow for the Product */}
+                <div className="w-28 h-3 bg-[#F3E3B2]/25 blur-sm rounded-full pointer-events-none" />
               </div>
 
-              {/* Bottom Info & Learn More Button */}
-              <div className="flex items-end justify-between gap-3 pt-1">
+              {/* Bottom Info & Learn More Button (Exact matching layout from reference) */}
+              <div className="flex items-center justify-between gap-2 px-1">
                 <div className="flex-1 min-w-0">
-                  <h4 className="font-serif text-sm font-bold text-white truncate leading-snug">
+                  <h4 className="font-sans text-sm font-bold text-white truncate leading-tight">
                     {isArabic ? item.arabicProduct : item.product}
                   </h4>
-                  <p className="text-[11px] text-[#F3E3B2]/80 truncate">
+                  <p className="text-[11px] text-[#F3E3B2]/80 truncate mt-0.5">
                     {isArabic ? item.arabicTitle : item.title}
                   </p>
                 </div>
