@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
 import { ShieldCheck, Heart, ExternalLink } from "lucide-react";
+import TrustTicker from "@/components/TrustTicker";
 
 export default function Footer() {
   const { locale, isArabic } = useLanguage();
@@ -15,8 +16,11 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#310F10] text-[#FAF7EE] border-t-2 border-[#46462A] pt-16 pb-12 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-[#310F10] text-[#FAF7EE] border-t-2 border-[#46462A] relative overflow-hidden">
+      {/* Infinite scrolling ticker at the very top of Footer */}
+      <TrustTicker />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-12">
         
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#46462A]/60">
           

@@ -37,7 +37,6 @@ export default function Home() {
     <main className="min-h-screen flex flex-col relative bg-[#FAF7EE]">
       <Navbar />
       <Hero />
-      <TrustTicker />
       <PackIntro />
       <ProductGrid />
       <RoutineSection />
