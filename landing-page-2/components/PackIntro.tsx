@@ -1,33 +1,77 @@
 "use client";
 
-import { Droplets, Sparkles, ShieldCheck, Flame } from "lucide-react";
+import React from "react";
+
+// Custom SVG Icons matching the exact aesthetic of the user's uploaded reference (refined outline, star sparkle, delicate lines)
+function HydrationIcon({ className = "w-7 h-7" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+      <path d="M12 9v5" strokeWidth="1.5" />
+      <circle cx="12" cy="17" r="0.75" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function GlowIcon({ className = "w-7 h-7" }: { className?: string }) {
+  // Exact replica of user's media_1791912018300_45a071d6.png
+  return (
+    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      {/* 4-point smooth sparkle */}
+      <path d="M15 4 C15 11 11 15 4 15 C11 15 15 19 15 26 C15 19 19 15 26 15 C19 15 15 11 15 4 Z" />
+      {/* Small top-right plus */}
+      <path d="M25 6 v4 M23 8 h4" strokeWidth="2" />
+      {/* Small bottom-left dot */}
+      <circle cx="7" cy="24" r="1.6" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function BarrierIcon({ className = "w-7 h-7" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="m9 12 2 2 4-4" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function FirmnessIcon({ className = "w-7 h-7" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" strokeWidth="1.4" opacity="0.6" />
+      <circle cx="12" cy="12" r="5" strokeWidth="2" />
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
 
 export default function PackIntro() {
   const results = [
     {
-      icon: Droplets,
+      icon: HydrationIcon,
       title: "Hydratation Profonde",
       desc: "Repulpe les tissus cutanés et infuse une souplesse durable tout au long de la journée.",
     },
     {
-      icon: Sparkles,
+      icon: GlowIcon,
       title: "Glow & Éclat Naturel",
       desc: "Révèle un teint unifié, transparent et radieux sans fini gras ni brillance.",
     },
     {
-      icon: ShieldCheck,
+      icon: BarrierIcon,
       title: "Barrière Renforcée",
       desc: "Apaise les rougeurs, calme les irritations et protège la peau des agressions extérieures.",
     },
     {
-      icon: Flame,
+      icon: FirmnessIcon,
       title: "Fermeté & Lissage",
       desc: "Stimule la synthèse de collagène et estompe visiblement l'apparence des ridules.",
     },
   ];
 
   return (
-    <section id="pack" className="relative py-12 lg:py-16 bg-[#FAF7EE] text-[#310F10] overflow-hidden">
+    <section id="pack" className="relative py-10 lg:py-14 bg-[#FAF7EE] text-[#310F10] overflow-hidden">
       
       {/* Top Transition Wave */}
       <div className="w-full overflow-hidden leading-none -mb-1">
@@ -69,9 +113,12 @@ export default function PackIntro() {
                   key={idx}
                   className="flex flex-col items-center text-center px-4 lg:px-7 group"
                 >
-                  {/* Minimalist Icon Badge with Subtle Glow */}
-                  <div className="w-14 h-14 rounded-full bg-[#FAF7EE] border border-[#74070D]/20 shadow-xs flex items-center justify-center text-[#74070D] mb-5 group-hover:scale-110 group-hover:bg-[#74070D] group-hover:text-[#F3E3B2] transition-all duration-300">
-                    <Icon className="w-6 h-6 stroke-[1.75]" />
+                  {/* Circular badge exactly matching the user's reference image:
+                      - Round circular disk in #FAF7EE
+                      - Ultra delicate border in #74070D/25
+                      - Elegant icon centered in deep wine red #74070D */}
+                  <div className="w-16 h-16 sm:w-[70px] sm:h-[70px] rounded-full bg-[#FAF7EE] border border-[#74070D]/25 shadow-xs flex items-center justify-center text-[#74070D] mb-5 group-hover:scale-105 group-hover:border-[#74070D]/50 transition-all duration-300">
+                    <Icon className="w-7 h-7 sm:w-8 sm:h-8" />
                   </div>
 
                   {/* Benefit Title */}
