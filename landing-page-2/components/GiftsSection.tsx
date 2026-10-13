@@ -36,16 +36,10 @@ export default function GiftsSection() {
         <div className="max-w-6xl mx-auto rounded-3xl bg-[#EFE7D5] border border-[#74070D]/15 shadow-[0_12px_40px_rgba(49,15,16,0.06)] overflow-hidden p-6 sm:p-10 lg:p-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
-            {/* Left Column: 3D Visual with Ribbon */}
+            {/* Left Column: Clean 3D Visual with Ribbon */}
             <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
               {/* Soft rosy/warm aura backdrop highlight */}
               <div className="absolute inset-0 bg-radial from-[#74070D]/15 via-[#FAF7EE]/50 to-transparent blur-2xl rounded-full pointer-events-none" />
-              
-              {/* Floating Top Badge */}
-              <div className="absolute -top-3 sm:-top-4 z-20 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#74070D] text-[#FAF7EE] border border-[#FAF7EE]/40 text-[11px] sm:text-xs font-bold uppercase tracking-wider shadow-md">
-                <Sparkles className="w-3.5 h-3.5 text-[#F3E3B2]" />
-                <span>{t.totalValueBadge}</span>
-              </div>
 
               {/* 3D Duo Image */}
               <div className="relative z-10 w-full max-w-[420px] aspect-[773/566] drop-shadow-[0_16px_30px_rgba(49,15,16,0.15)] group">
@@ -57,15 +51,6 @@ export default function GiftsSection() {
                   className="object-contain transition-transform duration-500 ease-out group-hover:scale-105"
                   priority
                 />
-              </div>
-
-              {/* Bottom pill tag */}
-              <div className="relative z-10 mt-4 text-center">
-                <span className="inline-block px-3 py-1 rounded-full bg-[#FAF7EE] border border-[#74070D]/15 text-[11px] text-[#46462A] font-medium shadow-xs">
-                  {isArabic
-                    ? "✨ عناية متكاملة مرفقة مجاناً في طردك"
-                    : "✨ 2 Soins Cultes Réparateurs Inclus dans Chaque Pack"}
-                </span>
               </div>
             </div>
 
@@ -121,18 +106,6 @@ export default function GiftsSection() {
                     </p>
                   </div>
                 ))}
-              </div>
-
-              {/* Reassurance Footer Box */}
-              <div className="pt-4 border-t border-[#74070D]/15 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-                <div className="flex items-center gap-2 text-[#46462A]">
-                  <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span className="font-light">{t.includedNote}</span>
-                </div>
-                <div className="flex items-center gap-1.5 font-bold text-[#74070D] uppercase tracking-wider shrink-0">
-                  <Heart className="w-3.5 h-3.5 text-[#74070D] fill-[#74070D]" />
-                  <span>{isArabic ? "قيمة 240 درهم مجاناً" : "Valeur 240 DH Offerte"}</span>
-                </div>
               </div>
 
             </div>
