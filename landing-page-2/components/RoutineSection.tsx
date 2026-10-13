@@ -223,7 +223,7 @@ export default function RoutineSection() {
               className="relative p-4 sm:p-5 rounded-[12px] bg-gradient-to-b from-[#74070D] to-[#4F0408] text-white shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group overflow-hidden border border-[#F3E3B2]/30"
             >
               {/* Inner Mirror Arch Podium */}
-              <div className="relative w-full aspect-[4/5.4] rounded-t-[3.8rem] rounded-b-[10px] bg-gradient-to-b from-[#F3E3B2]/22 via-[#F3E3B2]/12 to-[#310F10]/30 border border-[#F3E3B2]/35 p-3.5 pb-2 flex flex-col justify-between items-center overflow-hidden mb-4 shadow-[inset_0_2px_12px_rgba(243,227,178,0.15)]">
+              <div className="relative w-full aspect-[4/4.8] rounded-t-[3.6rem] rounded-b-[10px] bg-gradient-to-b from-[#F3E3B2]/22 via-[#F3E3B2]/12 to-[#310F10]/30 border border-[#F3E3B2]/35 p-3.5 pb-2 flex flex-col justify-between items-center overflow-hidden mb-4 shadow-[inset_0_2px_12px_rgba(243,227,178,0.15)]">
                 
                 {/* Top Badge (Step Badge pill + Volume) */}
                 <div className="w-full flex items-center justify-between z-10 pt-0.5">
@@ -236,13 +236,13 @@ export default function RoutineSection() {
                   </span>
                 </div>
 
-                {/* Center Product Image Container - Enriched & Enlarged between Red Card & Inner Mirror */}
-                <div className="relative w-full flex-1 flex items-center justify-center my-1 min-h-[210px]">
+                {/* Center Product Image Container - Scaled by Golden Ratio (1.618) for perfect visual harmony */}
+                <div className="relative w-full flex-1 flex items-center justify-center my-1 min-h-[140px]">
                   {item.image ? (
                     <img
                       src={item.image}
                       alt={item.product}
-                      className="h-48 sm:h-52 md:h-56 max-h-[230px] w-auto object-contain drop-shadow-[0_20px_28px_rgba(0,0,0,0.6)] group-hover:scale-108 transition-transform duration-300 pointer-events-none relative z-10"
+                      className="h-[120px] sm:h-[132px] md:h-[140px] max-h-[142px] w-auto object-contain drop-shadow-[0_16px_22px_rgba(0,0,0,0.55)] group-hover:scale-106 transition-transform duration-300 pointer-events-none relative z-10"
                     />
                   ) : (
                     /* Clean & Elegant Product Slot Placeholder */
@@ -258,7 +258,7 @@ export default function RoutineSection() {
                 </div>
 
                 {/* Subtle Grounding Floor Glow for the Product */}
-                <div className="w-32 h-3 bg-[#F3E3B2]/30 blur-sm rounded-full pointer-events-none relative z-0" />
+                <div className="w-24 h-2.5 bg-[#F3E3B2]/30 blur-sm rounded-full pointer-events-none relative z-0" />
               </div>
 
               {/* Bottom Info & Learn More Button (Exact matching layout from reference) */}
