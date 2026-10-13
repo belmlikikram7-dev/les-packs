@@ -168,53 +168,104 @@ export default function RoutineSection() {
 
   const currentSteps = activeTab === "morning" ? morningSteps : nightSteps;
 
-  // Measure path length and track sticky scroll progress
+  // Exact 4 Node Coordinates matching the wave (viewBox="0 90 1600 740")
+  const nodeCoords = [
+    [220, 560],
+    [610, 340],
+    [1000, 560],
+    [1390, 340],
+  ];
+
+  // Exact wave path from Mediast:
+  // Starts flat at 60,560 -> node 1 at 220,560 -> rises to node 2 at 610,340 -> dips to node 3 at 1000,560 -> rises to node 4 at 1390,340 -> exits flat at 1540,340
+  const mediastWavePath =
+    "M 60,560 L 220,560 C 400,560 430,340 610,340 C 790,340 820,560 1000,560 C 1180,560 1210,340 1390,340 L 1540,340";
+
+  // Dedicated refs for high-performance direct manipulation (identical to Mediast architecture)
+  const markerRef = useRef<SVGGElement>(null);
+  const activePathRef = useRef<SVGPathElement>(null);
+  const stepCircleRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const pathMetaRef = useRef<{ len: number; at: number[] }>({ len: 0, at: [] });
+
   useEffect(() => {
     let ticking = false;
 
-    const updatePathLength = () => {
-      if (pathRef.current) {
-        try {
-          const len = pathRef.current.getTotalLength();
-          if (len && len > 0) {
-            setTotalLength(len);
-            return len;
-          }
-        } catch {}
-      }
-      return totalLength;
-    };
+    // 1. Measure path and find normalized position (0 to 1) for each step
+    const path = activePathRef.current;
+    if (path) {
+      try {
+        const totalLen = path.getTotalLength();
+        if (totalLen > 0) {
+          path.style.strokeDasharray = `${totalLen}`;
+          path.style.strokeDashoffset = `${totalLen}`;
 
-    const actualLen = updatePathLength();
+          // Find exact normalized length t for each of the 4 circle centers
+          const at = nodeCoords.map(([nx, ny]) => {
+            let bestT = 0;
+            let minDist = Infinity;
+            for (let s = 0; s <= 600; s++) {
+              const pt = path.getPointAtLength((totalLen * s) / 600);
+              const dist = (pt.x - nx) ** 2 + (pt.y - ny) ** 2;
+              if (dist < minDist) {
+                minDist = dist;
+                bestT = s / 600;
+              }
+            }
+            return bestT;
+          });
 
-    const updateScroll = () => {
+          pathMetaRef.current = { len: totalLen, at };
+        }
+      } catch {}
+    }
+
+    // 2. High performance render function called on scroll
+    const render = () => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const totalScrollable = rect.height - window.innerHeight;
       if (totalScrollable <= 0) return;
 
-      const current = -rect.top;
-      const progress = Math.min(Math.max(current / totalScrollable, 0), 1);
-      setScrollProgress(progress);
+      const rawProgress = Math.min(Math.max(-rect.top / totalScrollable, 0), 1);
+      setScrollProgress(rawProgress);
 
-      // Compute exact tip coordinates on SVG wave
-      const len = pathRef.current ? pathRef.current.getTotalLength() : actualLen;
-      if (pathRef.current && len > 0 && progress > 0.01 && progress < 0.99) {
-        try {
-          const pt = pathRef.current.getPointAtLength(Math.min(len, Math.max(0, len * progress)));
-          setTipPosition({ x: pt.x, y: pt.y });
-        } catch {
-          setTipPosition(null);
-        }
-      } else {
-        setTipPosition(null);
-      }
+      const pathEl = activePathRef.current;
+      const markerEl = markerRef.current;
+      const { len, at } = pathMetaRef.current;
+
+      if (!pathEl || !markerEl || !len) return;
+
+      // Progress normalized along the line
+      const c = Math.min(1, rawProgress / 0.95);
+
+      // Draw the path exactly with the scroll
+      pathEl.style.strokeDashoffset = String(len * (1 - c));
+
+      // Move marker exactly to the front tip of the line
+      const pt = pathEl.getPointAtLength(len * c);
+      markerEl.setAttribute("transform", `translate(${pt.x} ${pt.y})`);
+
+      // Reveal / hide circles with smoothstep easing: c smoothly drives each circle
+      at.forEach((stepT, idx) => {
+        const el = stepCircleRefs.current[idx];
+        if (!el) return;
+
+        // Start reveal 0.08 before reaching node, complete when reached
+        const startT = stepT - 0.08;
+        const norm = Math.min(1, Math.max(0, (c - startT) / (stepT - startT)));
+        // Smoothstep interpolation (Hermite: 3n^2 - 2n^3)
+        const smoothVal = norm * norm * (3 - 2 * norm);
+
+        el.style.opacity = String(smoothVal);
+        el.style.transform = `scale(${0.75 + smoothVal * 0.25}) translateY(${(1 - smoothVal) * 16}px)`;
+        el.style.pointerEvents = smoothVal > 0.5 ? "auto" : "none";
+      });
     };
 
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          updateScroll();
+          render();
           ticking = false;
         });
         ticking = true;
@@ -223,7 +274,7 @@ export default function RoutineSection() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll);
-    updateScroll();
+    render();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -231,25 +282,17 @@ export default function RoutineSection() {
     };
   }, []);
 
-  // Perfectly calculated S-curve passing right through the center of the 4 circles:
-  // Circle 1: (125, 195)
-  // Circle 2: (375, 140)
-  // Circle 3: (625, 195)
-  // Circle 4: (875, 140)
-  const curvedPathD =
-    "M 125,195 C 185,55 315,55 375,140 C 435,285 565,285 625,195 C 685,55 815,55 875,140";
-
   return (
     <section
       ref={containerRef}
       id="routine"
-      className="relative bg-[#FAF7EE] text-[#310F10] min-h-[190vh]"
+      className="relative bg-[#FAF7EE] text-[#310F10] min-h-[220vh]"
     >
       {/* Pinned Sticky Stage during the scroll sequence */}
-      <div className="sticky top-16 md:top-20 min-h-[calc(100vh-80px)] flex flex-col justify-between py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+      <div className="sticky top-16 md:top-20 min-h-[calc(100vh-80px)] flex flex-col justify-between py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-2">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#46462A]/10 border border-[#46462A]/20 text-[#46462A] text-xs uppercase font-bold tracking-widest mb-2">
             <Sparkles className="w-3.5 h-3.5 text-[#74070D]" />
             <span>{t.badge}</span>
@@ -285,86 +328,78 @@ export default function RoutineSection() {
           </div>
         </div>
 
-        {/* Winding Circular Sequence with Curved Connecting Line */}
-        <div className="relative max-w-5xl mx-auto w-full my-auto py-2">
+        {/* Winding Circular Sequence with Curved Connecting Line (Mediast Architecture) */}
+        <div className="relative max-w-6xl mx-auto w-full my-auto py-4">
 
-          {/* Connecting Curved Wave SVG - Authentic Brand Red #74070D with soft delicate shadow */}
-          <div className="hidden md:block absolute inset-0 pointer-events-none z-0">
+          {/* Mediast SVG Wave Canvas with Dotted Guide & Active Red Line & Radial Glow Marker */}
+          <div className="hidden lg:block absolute inset-0 pointer-events-none z-0">
             <svg
-              viewBox="0 0 1000 340"
-              fill="none"
-              className="w-full h-full overflow-visible"
+              viewBox="0 90 1600 740"
+              className="absolute inset-0 h-full w-full overflow-visible"
+              aria-hidden="true"
+              focusable="false"
               preserveAspectRatio="none"
             >
               <defs>
-                <filter id="softRedShadow" x="-30%" y="-30%" width="160%" height="160%">
-                  <feDropShadow dx="0" dy="1.5" stdDeviation="2.5" floodColor="#74070D" floodOpacity="0.22" />
-                </filter>
+                {/* Radial Glow Gradient for the leading process-marker (identical to Mediast) */}
+                <radialGradient id="routine-process-marker" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#74070D" stopOpacity="0.45" />
+                  <stop offset="100%" stopColor="#74070D" stopOpacity="0" />
+                </radialGradient>
               </defs>
 
-              {/* Active progressive path: thin 2.5px, brand red #74070D, subtle shadow */}
+              {/* 1. Dotted Background Guide Track (Exact Mediast style: stroke-dasharray="2 10") */}
               <path
-                ref={pathRef}
-                d={curvedPathD}
-                stroke="#74070D"
+                d={mediastWavePath}
+                fill="none"
+                stroke="#310F10"
+                strokeOpacity="0.15"
                 strokeWidth="2.5"
+                strokeDasharray="3 10"
                 strokeLinecap="round"
-                filter="url(#softRedShadow)"
-                strokeDasharray={`${totalLength + 50} 999999`}
-                strokeDashoffset={Math.max(0, (totalLength + 50) * (1 - scrollProgress))}
-                style={{
-                  transition: "stroke-dashoffset 0.05s linear",
-                }}
               />
 
-              {/* Subtle travelling dot at the tip of the line */}
-              {tipPosition && scrollProgress > 0.02 && scrollProgress < 0.98 && (
-                <g className="transition-opacity duration-200">
-                  <circle
-                    cx={tipPosition.x}
-                    cy={tipPosition.y}
-                    r="7"
-                    fill="#74070D"
-                    opacity="0.18"
-                  />
-                  <circle
-                    cx={tipPosition.x}
-                    cy={tipPosition.y}
-                    r="4"
-                    fill="#74070D"
-                    stroke="#FAF7EE"
-                    strokeWidth="1.5"
-                  />
-                </g>
-              )}
+              {/* 2. Active Progressive Line Drawn on Scroll in Brand Red #74070D */}
+              <path
+                ref={activePathRef}
+                d={mediastWavePath}
+                fill="none"
+                stroke="#74070D"
+                strokeWidth="4"
+                strokeLinecap="round"
+              />
+
+              {/* 3. Leading Marker Attached Directly to the Tip (Exact Mediast structure: glow circle r=44 + core circle r=12) */}
+              <g ref={markerRef} transform="translate(60 560)">
+                <circle r="44" fill="url(#routine-process-marker)" />
+                <circle r="11" fill="#74070D" stroke="#FAF7EE" strokeWidth="2.5" />
+              </g>
             </svg>
           </div>
 
-          {/* 4 Circles Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4 relative z-10 items-start">
+          {/* 4 Large Product Circles Grid */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 relative z-10 items-start">
             {currentSteps.map((item, idx) => {
-              // Alternating wave height: idx 0 (low), idx 1 (high), idx 2 (low), idx 3 (high)
+              // Alternating wave height to match node coordinates:
+              // idx 0: y=560 (lower)
+              // idx 1: y=340 (higher)
+              // idx 2: y=560 (lower)
+              // idx 3: y=340 (higher)
               const isHigh = idx === 1 || idx === 3;
-              
-              // Progressive scroll reveal thresholds:
-              // Step 0: Étape 01 is always visible from the start
-              // Step 1: Étape 02 appears exactly as the line reaches its circle center (33%)
-              // Step 2: Étape 03 appears exactly as the line reaches its circle center (67%)
-              // Step 3: Étape 04 appears exactly as the line reaches its circle center (95%)
-              // When scrolling back up, each circle seamlessly hides with the retracting line!
-              const threshold = idx === 0 ? 0 : idx === 1 ? 0.33 : idx === 2 ? 0.67 : 0.95;
-              const isRevealed = scrollProgress >= threshold;
 
               return (
                 <div
                   key={item.id}
-                  className={`flex flex-col items-center transition-all duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] ${
-                    isHigh ? "md:-translate-y-4 md:pt-0" : "md:translate-y-8 md:pt-6"
-                  } ${
-                    isRevealed
-                      ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
-                      : "opacity-0 scale-75 translate-y-4 pointer-events-none"
+                  ref={(el) => {
+                    stepCircleRefs.current[idx] = el;
+                  }}
+                  className={`flex flex-col items-center will-change-transform will-change-opacity ${
+                    isHigh ? "lg:-translate-y-6 lg:pt-0" : "lg:translate-y-8 lg:pt-6"
                   }`}
+                  style={{
+                    opacity: idx === 0 ? 1 : 0,
+                    transform: idx === 0 ? "scale(1) translateY(0px)" : "scale(0.75) translateY(16px)",
+                  }}
                 >
                   {/* Step Badge on Top of the Circle */}
                   <div className="mb-2 text-center">
@@ -373,7 +408,7 @@ export default function RoutineSection() {
                     </span>
                   </div>
 
-                  {/* Circular Container with Product - Very delicate thin border & soft shadow */}
+                  {/* Large Circular Container with Product - Soft ambient shadow & delicate border */}
                   <div className="relative w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 rounded-full bg-gradient-to-b from-[#FFFDF9] via-[#FAF7EE] to-[#EAE0CA] border border-[#74070D]/25 shadow-[0_8px_20px_-4px_rgba(116,7,13,0.12)] hover:shadow-[0_12px_24px_-4px_rgba(116,7,13,0.2)] hover:border-[#74070D]/40 hover:scale-105 transition-all duration-300 flex items-center justify-center p-3 group">
                     
                     {/* Isolated Product Image */}
