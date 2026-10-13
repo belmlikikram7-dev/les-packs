@@ -3,17 +3,11 @@
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { ShieldCheck, ArrowRight } from "lucide-react";
-import SuspendedTag3D from "@/components/SuspendedTag3D";
+import { ShieldCheck } from "lucide-react";
 
 export default function ProductGrid() {
-  const { locale } = useLanguage();
+  const { locale, isArabic } = useLanguage();
   const t = TRANSLATIONS[locale].productsSection;
-
-  const scrollTo = (hash: string) => {
-    const el = document.querySelector(hash);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <section id="produits" className="pt-8 pb-10 lg:pt-12 lg:pb-14 bg-[#FAF7EE] text-[#310F10] relative overflow-hidden">
@@ -53,8 +47,41 @@ export default function ProductGrid() {
             className="object-cover sm:object-contain object-bottom w-full h-full select-none pointer-events-none"
           />
 
-          {/* 3D Suspended & Animated Luxury Gift Tag */}
-          <SuspendedTag3D />
+          {/* Clean, Elegant Side Editorial Statement */}
+          <div className="absolute top-[14%] sm:top-[18%] md:top-[22%] left-[4%] sm:left-[6%] md:left-[8%] lg:left-[10%] z-20 max-w-[220px] sm:max-w-[300px] md:max-w-[360px] lg:max-w-[420px] pointer-events-none select-none">
+            {/* Subtle Eyebrow */}
+            <div className="flex items-center gap-2 mb-2 sm:mb-2.5">
+              <span className="w-5 sm:w-7 h-[1.5px] bg-[#74070D]/40" />
+              <span className="font-mono text-[9px] sm:text-[11px] uppercase tracking-[0.25em] text-[#74070D] font-bold">
+                {isArabic ? "التزامنا" : "Notre Engagement"}
+              </span>
+            </div>
+
+            {/* High-End Serif Quote */}
+            <h3 className="font-serif italic text-lg sm:text-2xl md:text-3xl lg:text-4xl text-[#310F10] leading-[1.25] sm:leading-[1.2] font-normal tracking-wide drop-shadow-sm">
+              {isArabic ? (
+                <>
+                  « صحة بشرتكم،
+                  <span className="block not-italic font-medium text-[#74070D] mt-1 sm:mt-1.5">
+                    مسؤوليتنا. »
+                  </span>
+                </>
+              ) : (
+                <>
+                  «&nbsp;La santé de votre peau,
+                  <span className="block not-italic font-medium text-[#74070D] mt-1 sm:mt-1.5">
+                    notre responsabilité.&nbsp;»
+                  </span>
+                </>
+              )}
+            </h3>
+
+            {/* Minimal Gold Underline Accent */}
+            <div className="flex items-center gap-2 mt-2 sm:mt-3 opacity-60">
+              <div className="w-8 sm:w-12 h-[1.5px] bg-gradient-to-r from-[#74070D] to-transparent rounded-full" />
+              <span className="text-[9px] text-[#74070D]">✦</span>
+            </div>
+          </div>
         </div>
 
         {/* Soft bottom blend shadow - prevents harsh horizontal cut line and melts smoothly into the beige background */}
