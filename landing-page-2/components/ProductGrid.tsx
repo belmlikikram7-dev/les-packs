@@ -82,17 +82,6 @@ export default function ProductGrid() {
 
         </div>
 
-        {/* Bottom CTA to anchor the transition to the next section */}
-        <div className="text-center mt-8 lg:mt-12">
-          <button
-            onClick={() => scrollTo("#routine")}
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg active:scale-95 transition-all cursor-pointer"
-          >
-            <span>Découvrir le Protocole d'Application</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
-
       </div>
     </section>
   );
