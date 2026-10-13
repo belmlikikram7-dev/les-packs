@@ -15,9 +15,9 @@ export default function ProductGrid() {
   };
 
   return (
-    <section id="produits" className="pt-16 pb-12 lg:pt-24 lg:pb-16 bg-[#FAF7EE] text-[#310F10] relative overflow-hidden">
+    <section id="produits" className="pt-8 pb-10 lg:pt-12 lg:pb-14 bg-[#FAF7EE] text-[#310F10] relative overflow-hidden">
       {/* Section Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl mb-8 lg:mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl mb-6 lg:mb-8">
         <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#74070D]/10 border border-[#74070D]/20 text-[#74070D] text-xs uppercase font-bold tracking-widest mb-3">
           <Sparkles className="w-3.5 h-3.5" />
           <span>Rituel K-Beauty Culte</span>

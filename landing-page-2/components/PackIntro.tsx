@@ -28,7 +28,7 @@ export default function PackIntro() {
   ];
 
   return (
-    <section id="pack" className="relative py-10 lg:py-14 bg-[#FAF7EE] text-[#310F10] overflow-hidden">
+    <section id="pack" className="relative pt-6 pb-2 lg:pt-8 lg:pb-2 bg-[#FAF7EE] text-[#310F10] overflow-hidden">
       
       {/* Top Transition Wave */}
       <div className="w-full overflow-hidden leading-none -mb-1">
@@ -36,7 +36,7 @@ export default function PackIntro() {
           viewBox="0 0 1440 120"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-12 sm:h-16 lg:h-20 text-[#EFE7D5] preserve-3d"
+          className="w-full h-8 sm:h-12 lg:h-14 text-[#EFE7D5] preserve-3d"
           preserveAspectRatio="none"
         >
           <path
@@ -47,23 +47,23 @@ export default function PackIntro() {
       </div>
 
       {/* Main Organic Wavy Beige Ribbon Container */}
-      <div className="bg-[#EFE7D5] py-14 sm:py-20 px-4 sm:px-6 lg:px-8 relative shadow-[inset_0_2px_12px_rgba(49,15,16,0.03)]">
+      <div className="bg-[#EFE7D5] pt-10 pb-6 sm:pt-14 sm:pb-8 px-4 sm:px-6 lg:px-8 relative shadow-[inset_0_2px_12px_rgba(49,15,16,0.03)]">
         <div className="max-w-6xl mx-auto">
           
           {/* Subtle Category Eyebrow & Main Title with LOWERED DIVIDER LINE */}
-          <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
             <span className="font-mono text-[11px] sm:text-xs uppercase font-bold tracking-[0.25em] text-[#74070D] block mb-3">
               Résultats Visibles & Cliniques
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-normal text-[#310F10] leading-tight mb-6">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-normal text-[#310F10] leading-tight mb-4">
               Ce que ce rituel apporte à votre peau
             </h2>
-            {/* Lowered line: mt-6 with delicate styling */}
-            <div className="w-16 h-[2px] bg-[#74070D]/35 mx-auto rounded-full mt-6" />
+            {/* Lowered line: mt-4 with delicate styling */}
+            <div className="w-16 h-[2px] bg-[#74070D]/35 mx-auto rounded-full mt-4" />
           </div>
 
           {/* 4 Pillars in a Flowing Row with Refined Separators (exact style from reference image) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-0 lg:divide-x lg:divide-[#74070D]/15">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x lg:divide-[#74070D]/15">
             {results.map((item, idx) => {
               const Icon = item.icon;
               return (
@@ -99,7 +99,7 @@ export default function PackIntro() {
           viewBox="0 0 1440 120"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-12 sm:h-16 lg:h-20 text-[#EFE7D5]"
+          className="w-full h-8 sm:h-12 lg:h-14 text-[#EFE7D5]"
           preserveAspectRatio="none"
         >
           <path
