@@ -304,7 +304,15 @@ export default function RoutineSection() {
           {/* Routine Tabs: Routine du matin & Routine du soir */}
           <div className="inline-flex p-1 rounded-full bg-[#F4EEDC] border border-[#F3E3B2] shadow-inner mt-2">
             <button
-              onClick={() => setActiveTab("morning")}
+              onClick={() => {
+                if (activeTab !== "morning") {
+                  setActiveTab("morning");
+                  if (containerRef.current) {
+                    const top = containerRef.current.offsetTop;
+                    window.scrollTo({ top: top, behavior: "smooth" });
+                  }
+                }
+              }}
               className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "morning"
                   ? "bg-[#74070D] text-[#F3E3B2] shadow-md scale-102"
@@ -315,7 +323,15 @@ export default function RoutineSection() {
               <span>{t.morningTab}</span>
             </button>
             <button
-              onClick={() => setActiveTab("night")}
+              onClick={() => {
+                if (activeTab !== "night") {
+                  setActiveTab("night");
+                  if (containerRef.current) {
+                    const top = containerRef.current.offsetTop;
+                    window.scrollTo({ top: top, behavior: "smooth" });
+                  }
+                }
+              }}
               className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "night"
                   ? "bg-[#310F10] text-[#F3E3B2] shadow-md scale-102"
