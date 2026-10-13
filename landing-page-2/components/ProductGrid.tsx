@@ -30,19 +30,17 @@ export default function ProductGrid() {
         </p>
       </div>
 
-      {/* Full-Width Edge-to-Edge Panoramic Image (من اليمين لليسار) */}
-      <div className="w-full relative overflow-hidden shadow-xs">
-        <div className="w-full max-w-[1440px] mx-auto px-0 sm:px-4 lg:px-6">
-          <div className="relative w-full aspect-[1024/512] sm:rounded-2xl overflow-hidden shadow-[0_15px_35px_rgba(49,15,16,0.06)]">
-            <Image
-              src="/images/pack-excellence-full.png"
-              alt="L'Excellence Coréenne Réunie en un Seul Pack - Seoul 1988"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover sm:object-contain object-bottom w-full h-full select-none pointer-events-none"
-            />
-          </div>
+      {/* 100% True Full-Width Edge-to-Edge Panoramic Image (من اليمين لليسار 100vw) */}
+      <div className="w-full relative overflow-hidden">
+        <div className="relative w-full aspect-[1024/512]">
+          <Image
+            src="/images/pack-excellence-full.png"
+            alt="L'Excellence Coréenne Réunie en un Seul Pack - Seoul 1988"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover sm:object-contain object-bottom w-full h-full select-none pointer-events-none"
+          />
         </div>
       </div>
     </section>
