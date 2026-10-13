@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Droplets, Sparkles, ShieldCheck, HeartPulse } from "lucide-react";
+import { Droplets, SunMedium, ShieldCheck, HeartPulse } from "lucide-react";
 
 export default function PackIntro() {
   const results = [
@@ -11,7 +11,7 @@ export default function PackIntro() {
       desc: "Repulpe les tissus cutanés et infuse une souplesse durable tout au long de la journée.",
     },
     {
-      icon: Sparkles,
+      icon: SunMedium,
       title: "Glow & Éclat Naturel",
       desc: "Révèle un teint unifié, transparent et radieux sans fini gras ni brillance.",
     },
