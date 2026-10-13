@@ -219,10 +219,13 @@ export default function RoutineSection() {
     };
   }, []);
 
-  // Arched & bowed bezier wave (cresting high between 1 & 2, dipping low between 2 & 3, cresting high between 3 & 4)
-  // Matching the user's hand sketch in media_1791895270485_fbd7af4d.png
+  // Perfectly calculated S-curve passing right through the center of the 4 circles:
+  // Circle 1: (125, 195)
+  // Circle 2: (375, 140)
+  // Circle 3: (625, 195)
+  // Circle 4: (875, 140)
   const curvedPathD =
-    "M 100,230 C 160,50 310,50 370,110 C 430,290 570,290 630,230 C 690,50 830,50 890,110";
+    "M 125,195 C 185,55 315,55 375,140 C 435,285 565,285 625,195 C 685,55 815,55 875,140";
 
   return (
     <section
@@ -288,14 +291,14 @@ export default function RoutineSection() {
                 stroke="#74070D"
                 strokeWidth="3.5"
                 strokeLinecap="round"
-                strokeDasharray={`${totalLength} ${totalLength}`}
-                strokeDashoffset={Math.max(0, totalLength * (1 - scrollProgress))}
+                strokeDasharray={`${totalLength + 50} 999999`}
+                strokeDashoffset={Math.max(0, (totalLength + 50) * (1 - scrollProgress))}
                 style={{
-                  transition: "stroke-dashoffset 0.1s linear",
+                  transition: "stroke-dashoffset 0.08s linear",
                 }}
               />
               {/* Animated glowing travelling dot at the tip of the line */}
-              {tipPosition && scrollProgress > 0.03 && scrollProgress < 0.97 && (
+              {tipPosition && scrollProgress > 0.02 && scrollProgress < 0.98 && (
                 <circle
                   cx={tipPosition.x}
                   cy={tipPosition.y}
@@ -315,19 +318,17 @@ export default function RoutineSection() {
               
               // Progressive scroll reveal thresholds tightly synchronized with wave endpoints:
               // Step 0: Étape 01 is always visible from the start
-              // Step 1: Étape 02 appears exactly as the line reaches it (~34% scroll)
+              // Step 1: Étape 02 appears exactly as the line reaches it (~33% scroll)
               // Step 2: Étape 03 appears exactly as the line reaches it (~67% scroll)
-              // Step 3: Étape 04 appears exactly as the line reaches it (~92% scroll)
+              // Step 3: Étape 04 appears exactly as the line reaches it (~95% scroll)
               // When scrolling back up, each step disappears smoothly in reverse order!
-              const threshold = idx === 0 ? 0 : idx === 1 ? 0.32 : idx === 2 ? 0.65 : 0.90;
+              const threshold = idx === 0 ? 0 : idx === 1 ? 0.33 : idx === 2 ? 0.67 : 0.92;
               const isRevealed = scrollProgress >= threshold;
 
               return (
                 <div
                   key={item.id}
                   className={`flex flex-col items-center transition-all duration-500 ease-out ${
-                    idx === 0 ? "md:-translate-x-5" : ""
-                  } ${
                     isHigh ? "md:-translate-y-4 md:pt-0" : "md:translate-y-8 md:pt-6"
                   } ${
                     isRevealed
