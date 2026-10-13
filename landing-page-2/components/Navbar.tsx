@@ -28,7 +28,7 @@ export default function Navbar() {
           aria-label="Vinillia Beauty & Skincare"
         >
           <Image
-            src="/logo.png"
+            src="/logo-gold.png"
             alt="Vinillia Beauty & Skincare"
             width={180}
             height={64}

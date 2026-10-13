@@ -36,7 +36,7 @@ export default function Footer() {
               aria-label="Vinillia Beauty & Skincare"
             >
               <Image
-                src="/logo.png"
+                src="/logo-gold.png"
                 alt="Vinillia Beauty & Skincare"
                 width={200}
                 height={70}
