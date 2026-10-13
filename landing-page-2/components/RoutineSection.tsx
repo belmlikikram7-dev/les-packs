@@ -205,19 +205,9 @@ export default function RoutineSection() {
           </div>
         </div>
 
-        {/* Routine Banner */}
-        <div className="max-w-2xl mx-auto mb-12 p-4 rounded-2xl bg-[#F4EEDC] border border-[#F3E3B2] text-center">
-          <h3 className="font-serif text-lg font-bold text-[#310F10] mb-1">
-            {activeTab === "morning" ? t.morningTitle : t.nightTitle}
-          </h3>
-          <p className="text-xs sm:text-sm text-[#46462A]">
-            {activeTab === "morning" ? t.morningDesc : t.nightDesc}
-          </p>
-        </div>
-
-        {/* Steps Grid : Faithful translation of reference design into luxury palette */}
+        {/* Steps Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
-          {currentSteps.map((item) => (
+          {currentSteps.map((item, idx) => (
             <div
               key={item.id}
               className="relative p-4 sm:p-5 rounded-[12px] bg-gradient-to-b from-[#74070D] to-[#4F0408] text-white shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group overflow-hidden border border-[#F3E3B2]/30"
@@ -225,10 +215,9 @@ export default function RoutineSection() {
               {/* Inner Mirror Arch Podium */}
               <div className="relative w-full aspect-[4/4.8] rounded-t-[3.6rem] rounded-b-[10px] bg-gradient-to-b from-[#F3E3B2]/22 via-[#F3E3B2]/12 to-[#310F10]/30 border border-[#F3E3B2]/35 p-3.5 pb-2 flex flex-col justify-between items-center overflow-hidden mb-4 shadow-[inset_0_2px_12px_rgba(243,227,178,0.15)]">
                 
-                {/* Top Badge (Step Badge pill + Volume) */}
+                {/* Top Badge (Clean Step Badge pill without star + Volume) */}
                 <div className="w-full flex items-center justify-between z-10 pt-0.5">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/25 backdrop-blur-md border border-white/25 text-white text-[11px] font-bold tracking-wider uppercase shadow-sm">
-                    <Sparkles className="w-3 h-3 text-[#F3E3B2]" />
+                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/25 backdrop-blur-md border border-white/25 text-white text-[11px] font-bold tracking-wider uppercase shadow-sm">
                     <span>{t.stepBadge} {item.step}</span>
                   </div>
                   <span className="text-[10px] font-semibold text-[#F3E3B2] bg-[#310F10]/70 px-2.5 py-0.5 rounded-full border border-white/10 shadow-sm">
@@ -236,13 +225,14 @@ export default function RoutineSection() {
                   </span>
                 </div>
 
-                {/* Center Product Image Container - Scaled by Golden Ratio (1.618) for perfect visual harmony */}
+                {/* Center Product Image Container - Floating Animation (Bhala Tayr / Kitbomba) */}
                 <div className="relative w-full flex-1 flex items-center justify-center my-1 min-h-[140px]">
                   {item.image ? (
                     <img
                       src={item.image}
                       alt={item.product}
-                      className="h-[120px] sm:h-[132px] md:h-[140px] max-h-[142px] w-auto object-contain drop-shadow-[0_16px_22px_rgba(0,0,0,0.55)] group-hover:scale-106 transition-transform duration-300 pointer-events-none relative z-10"
+                      style={{ animationDelay: `${idx * 0.35}s` }}
+                      className="h-[120px] sm:h-[132px] md:h-[140px] max-h-[142px] w-auto object-contain drop-shadow-[0_16px_22px_rgba(0,0,0,0.55)] group-hover:scale-106 transition-transform duration-300 pointer-events-none relative z-10 animate-float-product"
                     />
                   ) : (
                     /* Clean & Elegant Product Slot Placeholder */
@@ -257,8 +247,11 @@ export default function RoutineSection() {
                   )}
                 </div>
 
-                {/* Subtle Grounding Floor Glow for the Product */}
-                <div className="w-24 h-2.5 bg-[#F3E3B2]/30 blur-sm rounded-full pointer-events-none relative z-0" />
+                {/* Subtle Grounding Floor Glow with Syncing Breathing Glow */}
+                <div 
+                  style={{ animationDelay: `${idx * 0.35}s` }}
+                  className="w-24 h-2.5 bg-[#F3E3B2]/35 blur-sm rounded-full pointer-events-none relative z-0 animate-glow-shadow" 
+                />
               </div>
 
               {/* Bottom Info & Learn More Button (Exact matching layout from reference) */}
