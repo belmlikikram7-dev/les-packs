@@ -115,6 +115,7 @@ export const SEOUL_PRODUCTS: ProductItem[] = [
       "Fini léger, non gras, parfait sous le maquillage",
     ],
     usage: "Le matin : appliquer généreusement 15 minutes avant toute exposition au soleil.",
+    image: "/products/sun-pine.png",
   },
 ];
 

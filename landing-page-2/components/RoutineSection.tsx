@@ -92,6 +92,7 @@ export default function RoutineSection() {
       arabicDesc: "حماية قصوى SPF 50+ من أشعة الشمس، خفيفة جداً، غير دهنية ولا تترك أي بياض.",
       keyActives: ["Extrait de Pin", "Céramides NP", "Filtres Nouvelle Génération"],
       usage: "Appliquer en dernière étape le matin 15 minutes avant toute exposition extérieure.",
+      image: "/products/sun-pine.png",
     },
   ];
 
@@ -219,33 +220,33 @@ export default function RoutineSection() {
           {currentSteps.map((item) => (
             <div
               key={item.id}
-              className="relative p-5 rounded-[2.2rem] bg-gradient-to-b from-[#74070D] to-[#4F0408] text-white shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group overflow-hidden border border-[#F3E3B2]/30"
+              className="relative p-4 sm:p-5 rounded-[12px] bg-gradient-to-b from-[#74070D] to-[#4F0408] text-white shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group overflow-hidden border border-[#F3E3B2]/30"
             >
-              {/* Pill Arch Dome (identical to the rounded arched podium in reference) */}
-              <div className="relative w-full aspect-[4/4.7] rounded-t-[4.5rem] rounded-b-[2rem] bg-[#F3E3B2]/20 border border-[#F3E3B2]/30 p-4 flex flex-col justify-between items-center overflow-hidden mb-4 shadow-inner">
+              {/* Inner Mirror Arch Podium */}
+              <div className="relative w-full aspect-[4/5.4] rounded-t-[3.8rem] rounded-b-[10px] bg-gradient-to-b from-[#F3E3B2]/22 via-[#F3E3B2]/12 to-[#310F10]/30 border border-[#F3E3B2]/35 p-3.5 pb-2 flex flex-col justify-between items-center overflow-hidden mb-4 shadow-[inset_0_2px_12px_rgba(243,227,178,0.15)]">
                 
-                {/* Top Badge (ECO pill in reference -> Step Badge pill) */}
-                <div className="w-full flex items-center justify-between z-10 pt-1">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/25 backdrop-blur-md border border-white/25 text-white text-[11px] font-bold tracking-wider uppercase">
+                {/* Top Badge (Step Badge pill + Volume) */}
+                <div className="w-full flex items-center justify-between z-10 pt-0.5">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/25 backdrop-blur-md border border-white/25 text-white text-[11px] font-bold tracking-wider uppercase shadow-sm">
                     <Sparkles className="w-3 h-3 text-[#F3E3B2]" />
                     <span>{t.stepBadge} {item.step}</span>
                   </div>
-                  <span className="text-[10px] font-semibold text-[#F3E3B2] bg-[#310F10]/60 px-2.5 py-0.5 rounded-full border border-white/10">
+                  <span className="text-[10px] font-semibold text-[#F3E3B2] bg-[#310F10]/70 px-2.5 py-0.5 rounded-full border border-white/10 shadow-sm">
                     {item.volume}
                   </span>
                 </div>
 
-                {/* Center Product Image Container */}
-                <div className="relative w-full flex-1 flex items-center justify-center my-2 min-h-[170px]">
+                {/* Center Product Image Container - Enriched & Enlarged between Red Card & Inner Mirror */}
+                <div className="relative w-full flex-1 flex items-center justify-center my-1 min-h-[210px]">
                   {item.image ? (
                     <img
                       src={item.image}
                       alt={item.product}
-                      className="max-h-36 sm:max-h-40 w-auto object-contain drop-shadow-[0_16px_24px_rgba(0,0,0,0.45)] group-hover:scale-108 transition-transform duration-300 pointer-events-none"
+                      className="h-48 sm:h-52 md:h-56 max-h-[230px] w-auto object-contain drop-shadow-[0_20px_28px_rgba(0,0,0,0.6)] group-hover:scale-108 transition-transform duration-300 pointer-events-none relative z-10"
                     />
                   ) : (
                     /* Clean & Elegant Product Slot Placeholder */
-                    <div className="flex flex-col items-center justify-center text-center p-4 w-full h-full">
+                    <div className="flex flex-col items-center justify-center text-center p-4 w-full h-full relative z-10">
                       <div className="w-12 h-12 rounded-2xl bg-white/10 border border-[#F3E3B2]/30 flex items-center justify-center mb-2 shadow-sm">
                         <ImagePlus className="w-6 h-6 text-[#F3E3B2]" />
                       </div>
@@ -257,7 +258,7 @@ export default function RoutineSection() {
                 </div>
 
                 {/* Subtle Grounding Floor Glow for the Product */}
-                <div className="w-28 h-3 bg-[#F3E3B2]/25 blur-sm rounded-full pointer-events-none" />
+                <div className="w-32 h-3 bg-[#F3E3B2]/30 blur-sm rounded-full pointer-events-none relative z-0" />
               </div>
 
               {/* Bottom Info & Learn More Button (Exact matching layout from reference) */}
