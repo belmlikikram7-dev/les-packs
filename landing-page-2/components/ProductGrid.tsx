@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
 import { ShieldCheck, ArrowRight } from "lucide-react";
+import HangingTag from "@/components/HangingTag";
 
 export default function ProductGrid() {
   const { locale } = useLanguage();
@@ -51,6 +52,9 @@ export default function ProductGrid() {
             sizes="100vw"
             className="object-cover sm:object-contain object-bottom w-full h-full select-none pointer-events-none"
           />
+
+          {/* Hanging Gift Tag with drop-on-scroll and physics-based sway */}
+          <HangingTag />
         </div>
 
         {/* Soft bottom blend shadow - prevents harsh horizontal cut line and melts smoothly into the beige background */}
