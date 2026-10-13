@@ -170,6 +170,8 @@ export default function RoutineSection() {
 
   // Measure path length and track sticky scroll progress
   useEffect(() => {
+    let ticking = false;
+
     const updatePathLength = () => {
       if (pathRef.current) {
         try {
@@ -185,7 +187,7 @@ export default function RoutineSection() {
 
     const actualLen = updatePathLength();
 
-    const handleScroll = () => {
+    const updateScroll = () => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const totalScrollable = rect.height - window.innerHeight;
@@ -209,9 +211,19 @@ export default function RoutineSection() {
       }
     };
 
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll);
-    handleScroll();
+    updateScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -231,7 +243,7 @@ export default function RoutineSection() {
     <section
       ref={containerRef}
       id="routine"
-      className="relative bg-[#FAF7EE] text-[#310F10] min-h-[175vh]"
+      className="relative bg-[#FAF7EE] text-[#310F10] min-h-[190vh]"
     >
       {/* Pinned Sticky Stage during the scroll sequence */}
       <div className="sticky top-16 md:top-20 min-h-[calc(100vh-80px)] flex flex-col justify-between py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
@@ -239,7 +251,7 @@ export default function RoutineSection() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-4">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#46462A]/10 border border-[#46462A]/20 text-[#46462A] text-xs uppercase font-bold tracking-widest mb-2">
-            <Sparkles className="w-3.5 h-3.5 text-[#74070D]" />
+            <Sparkles className="w-3.5 h-3.5 text-[#8E3F53]" />
             <span>{t.badge}</span>
           </div>
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-normal text-[#310F10] leading-tight mb-2">
@@ -276,7 +288,7 @@ export default function RoutineSection() {
         {/* Winding Circular Sequence with Curved Connecting Line */}
         <div className="relative max-w-5xl mx-auto w-full my-auto py-2">
 
-          {/* Connecting Curved Wave SVG - only active line drawn on scroll */}
+          {/* Connecting Curved Wave SVG - Soft elegant line with gentle shadow */}
           <div className="hidden md:block absolute inset-0 pointer-events-none z-0">
             <svg
               viewBox="0 0 1000 340"
@@ -284,28 +296,53 @@ export default function RoutineSection() {
               className="w-full h-full overflow-visible"
               preserveAspectRatio="none"
             >
-              {/* Active progressive path drawn as user scrolls */}
+              <defs>
+                <linearGradient id="softWineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#A8586A" />
+                  <stop offset="50%" stopColor="#8E3F53" />
+                  <stop offset="100%" stopColor="#742A3E" />
+                </linearGradient>
+
+                <filter id="softLineShadow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#8E3F53" floodOpacity="0.25" />
+                  <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#FAF7EE" floodOpacity="0.5" />
+                </filter>
+              </defs>
+
+              {/* Active progressive path drawn as user scrolls: soft, thin, subtle shadow */}
               <path
                 ref={pathRef}
                 d={curvedPathD}
-                stroke="#74070D"
-                strokeWidth="3.5"
+                stroke="url(#softWineGradient)"
+                strokeWidth="2.5"
                 strokeLinecap="round"
+                filter="url(#softLineShadow)"
                 strokeDasharray={`${totalLength + 50} 999999`}
                 strokeDashoffset={Math.max(0, (totalLength + 50) * (1 - scrollProgress))}
                 style={{
-                  transition: "stroke-dashoffset 0.08s linear",
+                  transition: "stroke-dashoffset 0.05s linear",
                 }}
               />
-              {/* Animated glowing travelling dot at the tip of the line */}
+
+              {/* Soft glowing travelling dot at the tip of the line */}
               {tipPosition && scrollProgress > 0.02 && scrollProgress < 0.98 && (
-                <circle
-                  cx={tipPosition.x}
-                  cy={tipPosition.y}
-                  r="5"
-                  fill="#74070D"
-                  className="filter drop-shadow-[0_0_8px_rgba(116,7,13,0.8)] animate-pulse"
-                />
+                <g className="transition-opacity duration-200">
+                  <circle
+                    cx={tipPosition.x}
+                    cy={tipPosition.y}
+                    r="8"
+                    fill="#8E3F53"
+                    opacity="0.2"
+                  />
+                  <circle
+                    cx={tipPosition.x}
+                    cy={tipPosition.y}
+                    r="4"
+                    fill="#8E3F53"
+                    stroke="#FAF7EE"
+                    strokeWidth="1.5"
+                  />
+                </g>
               )}
             </svg>
           </div>
@@ -316,50 +353,50 @@ export default function RoutineSection() {
               // Alternating wave height: idx 0 (low), idx 1 (high), idx 2 (low), idx 3 (high)
               const isHigh = idx === 1 || idx === 3;
               
-              // Progressive scroll reveal thresholds tightly synchronized with wave endpoints:
+              // Progressive scroll reveal thresholds:
               // Step 0: Étape 01 is always visible from the start
-              // Step 1: Étape 02 appears exactly as the line reaches it (~33% scroll)
-              // Step 2: Étape 03 appears exactly as the line reaches it (~67% scroll)
-              // Step 3: Étape 04 appears exactly as the line reaches it (~95% scroll)
-              // When scrolling back up, each step disappears smoothly in reverse order!
-              const threshold = idx === 0 ? 0 : idx === 1 ? 0.33 : idx === 2 ? 0.67 : 0.92;
+              // Step 1: Étape 02 appears exactly as the line reaches its circle center (33%)
+              // Step 2: Étape 03 appears exactly as the line reaches its circle center (67%)
+              // Step 3: Étape 04 appears exactly as the line reaches its circle center (95%)
+              // When scrolling back up, each circle seamlessly hides with the retracting line!
+              const threshold = idx === 0 ? 0 : idx === 1 ? 0.33 : idx === 2 ? 0.67 : 0.95;
               const isRevealed = scrollProgress >= threshold;
 
               return (
                 <div
                   key={item.id}
-                  className={`flex flex-col items-center transition-all duration-500 ease-out ${
+                  className={`flex flex-col items-center transition-all duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] ${
                     isHigh ? "md:-translate-y-4 md:pt-0" : "md:translate-y-8 md:pt-6"
                   } ${
                     isRevealed
-                      ? "opacity-100 scale-100 translate-y-0"
-                      : "opacity-0 scale-80 translate-y-6 pointer-events-none"
+                      ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+                      : "opacity-0 scale-75 translate-y-4 pointer-events-none"
                   }`}
                 >
                   {/* Step Badge on Top of the Circle */}
                   <div className="mb-2 text-center">
-                    <span className="inline-block px-3 py-0.5 rounded-full bg-[#74070D] text-[#F3E3B2] text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-xs">
+                    <span className="inline-block px-3 py-0.5 rounded-full bg-[#8E3F53]/90 text-[#F4EEDC] text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-xs">
                       Étape {item.step}
                     </span>
                   </div>
 
-                  {/* Circular Container with Product */}
-                  <div className="relative w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 rounded-full bg-gradient-to-b from-[#FAF7EE] via-[#F4EEDC] to-[#EAE0CA] border-2 border-[#74070D] shadow-[0_8px_18px_rgba(116,7,13,0.14)] hover:shadow-[0_12px_24px_rgba(116,7,13,0.25)] hover:scale-105 transition-all duration-300 flex items-center justify-center p-3 group">
+                  {/* Circular Container with Product - Soft ambient shadow, NO harsh border */}
+                  <div className="relative w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 rounded-full bg-gradient-to-b from-[#FFFDF9] via-[#F7F2E7] to-[#EFE7D5] shadow-[0_10px_25px_-5px_rgba(142,63,83,0.12),0_8px_10px_-6px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_30px_-6px_rgba(142,63,83,0.18)] hover:scale-105 transition-all duration-300 flex items-center justify-center p-3 group">
                     
-                    {/* Inner gold accent ring */}
-                    <div className="absolute inset-1.5 rounded-full border border-[#F3E3B2] pointer-events-none" />
+                    {/* Soft inner glow ring (no border) */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#8E3F53]/5 to-white/40 pointer-events-none" />
 
                     {/* Isolated Product Image */}
                     {item.image && (
                       <img
                         src={item.image}
                         alt={item.product}
-                        className="h-24 sm:h-28 md:h-32 max-h-[125px] w-auto object-contain drop-shadow-[0_8px_12px_rgba(49,15,16,0.25)] animate-float-product pointer-events-none relative z-10"
+                        className="h-24 sm:h-28 md:h-32 max-h-[125px] w-auto object-contain drop-shadow-[0_8px_14px_rgba(49,15,16,0.22)] animate-float-product pointer-events-none relative z-10"
                       />
                     )}
 
-                    {/* Subtle ground reflection */}
-                    <div className="absolute bottom-2.5 w-16 h-2 bg-[#74070D]/15 blur-xs rounded-full pointer-events-none" />
+                    {/* Subtle soft ground reflection */}
+                    <div className="absolute bottom-2.5 w-16 h-2 bg-[#8E3F53]/10 blur-xs rounded-full pointer-events-none" />
                   </div>
 
                   {/* Product Info & "Voir" Button below Circle */}
@@ -374,7 +411,7 @@ export default function RoutineSection() {
                     {/* Button "Voir" */}
                     <button
                       onClick={() => setSelectedStep(item)}
-                      className="mt-2 px-3.5 py-1 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-[11px] font-bold tracking-wide shadow-xs hover:shadow-sm transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
+                      className="mt-2 px-3.5 py-1 rounded-full bg-[#8E3F53] hover:bg-[#742A3E] text-[#FAF7EE] text-[11px] font-bold tracking-wide shadow-xs hover:shadow-sm transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
                     >
                       <Eye className="w-3 h-3" />
                       <span>Voir</span>
