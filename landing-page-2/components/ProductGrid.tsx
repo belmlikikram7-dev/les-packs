@@ -47,7 +47,7 @@ export default function ProductGrid() {
             alt="L'Excellence Coréenne Réunie en un Seul Pack - Seoul 1988"
             fill
             priority
-            quality={95}
+            quality={100}
             sizes="100vw"
             className="object-cover sm:object-contain object-bottom w-full h-full select-none pointer-events-none"
           />
