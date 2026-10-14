@@ -17,9 +17,9 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24 overflow-hidden bg-[#FAF7EE] text-[#310F10] min-h-[580px] lg:min-h-[640px] xl:min-h-[700px] flex items-center"
+      className="relative pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 overflow-hidden bg-[#FAF7EE] text-[#310F10] min-h-[580px] lg:min-h-[640px] xl:min-h-[700px] flex items-center"
     >
-      {/* Desktop Full-Bleed Natural Studio Image - Seamless across the entire section with zero lines */}
+      {/* Desktop Full-Bleed Natural Studio Image - Seamless across the entire section */}
       <div className="absolute inset-0 hidden lg:block pointer-events-none">
         <Image
           src="/images/hero-pack.webp"
@@ -29,23 +29,29 @@ export default function Hero() {
           sizes="100vw"
           className="object-cover object-[right_top]"
         />
+        {/* Soft subtle bottom shadow so the photo doesn't look abruptly cut off at the bottom */}
+        <div className="absolute inset-x-0 bottom-0 h-16 sm:h-24 bg-gradient-to-t from-black/20 via-black/5 to-transparent pointer-events-none" />
       </div>
 
-      {/* Main Container - Left-Aligned Headline, Gift Card & CTA Button */}
+      {/* Main Container - Left-Aligned Headline, Gift Card & CTA Button (Lifted slightly up) */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex flex-col items-start text-left max-w-xl lg:max-w-md xl:max-w-lg">
+        <div className="flex flex-col items-start text-left max-w-xl lg:max-w-md xl:max-w-lg -mt-2 sm:-mt-5 lg:-mt-8">
           
-          {/* Main Headline */}
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[42px] font-bold leading-[1.18] text-[#310F10] mb-6">
-            {t.titlePart1}
-            <span className="font-extrabold text-[#74070D] italic underline decoration-[#74070D] decoration-wavy decoration-2">
-              {t.titleHighlight}
+          {/* Main Headline - No underline, lifted up with distinct spacing between line 1 and line 2 */}
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[44px] font-bold text-[#310F10] mb-6 flex flex-col gap-2.5 sm:gap-3">
+            <span className="leading-tight">
+              {t.titlePart1}
+              <span className="font-extrabold text-[#74070D] italic">
+                {t.titleHighlight}
+              </span>
             </span>
-            {t.titlePart2}
+            <span className="text-[#310F10] leading-tight">
+              {t.titlePart2}
+            </span>
           </h1>
 
           {/* Dedicated Image on Mobile (Visible on mobile/tablet, hidden on desktop where full image shows) */}
-          <div className="lg:hidden w-full my-4 rounded-2xl overflow-hidden shadow-2xl border border-[#74070D]/20">
+          <div className="lg:hidden w-full my-4 rounded-2xl overflow-hidden shadow-2xl border border-[#74070D]/20 relative">
             <Image
               src="/images/hero-pack.webp"
               alt="Pack Seoul 1988 K-Secret & Cadeaux Fino Vaseline"
@@ -54,6 +60,8 @@ export default function Hero() {
               priority
               className="w-full h-auto object-cover"
             />
+            {/* Soft bottom shadow on mobile image */}
+            <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/25 to-transparent pointer-events-none" />
           </div>
 
           {/* Gift Notification Banner - Luxury Frosted White Card */}
