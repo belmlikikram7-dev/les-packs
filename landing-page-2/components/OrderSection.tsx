@@ -134,16 +134,25 @@ export default function OrderSection() {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-6xl mx-auto overflow-visible">
 
-            {/* Left Side: Hand + Product Image */}
+            {/* Left Side: Hand + Product Image with soft colored circle & shadow */}
             <div className="lg:col-span-5 hidden lg:flex items-center justify-center relative overflow-visible">
-              <div className="relative -ml-16 xl:-ml-24 w-full max-w-[480px]">
+              <div className="relative -ml-12 xl:-ml-20 w-full max-w-[500px] flex items-center justify-center">
+                {/* Soft ambient colored glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[460px] h-[460px] rounded-full bg-gradient-to-br from-[#74070D]/10 via-[#F3E3B2]/30 to-transparent blur-3xl pointer-events-none" />
+
+                {/* Soft colored luxury circle backdrop */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[390px] h-[390px] rounded-full bg-gradient-to-br from-[#FAF7EE] via-[#F4EEDC] to-[#E9DCBF] border border-[#F3E3B2] shadow-[0_20px_50px_rgba(49,15,16,0.08)] pointer-events-none" />
+
+                {/* Delicate outer concentric accent ring */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[430px] h-[430px] rounded-full border border-[#F3E3B2]/50 pointer-events-none" />
+
                 <Image
                   src="/images/order-hand-cream.webp"
                   alt="Seoul 1988 Cream — Snail Mucin 93% + Rice"
                   width={1080}
                   height={1080}
-                  className="w-full h-auto drop-shadow-2xl"
-                  quality={95}
+                  className="relative z-10 w-full h-auto drop-shadow-[0_22px_35px_rgba(49,15,16,0.20)]"
+                  quality={98}
                   priority={false}
                 />
               </div>
