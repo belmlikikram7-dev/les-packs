@@ -56,7 +56,7 @@ export default function RoutineSection() {
       keyActives: ["Centella Asiatica", "Acide Hyaluronique", "Extrait de Riz"],
       usage: "Masser une noisette sur visage humide en mouvements circulaires puis rincer abondamment.",
       image: "/products/cleansing-foam.png",
-      modelImage: "/images/model2/K-SECRET Cleansing Foam Pine Cica 1% + Probiotics model.webp",
+      modelImage: "/images/model2/model-cleansing-foam.webp",
     },
     {
       id: "eye-cream-am",
@@ -72,7 +72,7 @@ export default function RoutineSection() {
       keyActives: ["Peptides", "Caféine", "Niacinamide"],
       usage: "Tapoter délicatement une petite perle avec l'annulaire de l'intérieur vers l'extérieur.",
       image: "/products/eye-cream.png",
-      modelImage: "/images/model2/K-SECRET Eye Cream Retinal Liposome 4% + Fermented Bean model.webp",
+      modelImage: "/images/model2/model-eye-cream.webp",
     },
     {
       id: "cream-snail-am",
@@ -88,7 +88,7 @@ export default function RoutineSection() {
       keyActives: ["Mucine d'Escargot 93%", "Extrait de Riz", "Panthénol"],
       usage: "Appliquer généreusement sur le visage et le cou en massant jusqu'à pénétration.",
       image: "/products/cream-snail.png",
-      modelImage: "/images/model2/K-SECRET Cream Snail Mucin 93% + Rice model.webp",
+      modelImage: "/images/model2/model-cream-snail.webp",
     },
     {
       id: "sun-pine-am",
@@ -104,7 +104,7 @@ export default function RoutineSection() {
       keyActives: ["Extrait de Pin", "Céramides NP", "Filtres Nouvelle Génération"],
       usage: "Appliquer en dernière étape le matin 15 minutes avant toute exposition extérieure.",
       image: "/products/sun-pine.png",
-      modelImage: "/images/model2/K-SECRET Seoul 1988 Sun Pine Tree + Ceramide medel.webp",
+      modelImage: "/images/model2/model-sun-pine.webp",
     },
   ];
 
@@ -123,7 +123,7 @@ export default function RoutineSection() {
       keyActives: ["Centella Asiatica", "Acide Hyaluronique", "Extrait de Riz"],
       usage: "Faire mousser dans les mains avec un peu d'eau puis masser 60 secondes sur le visage.",
       image: "/products/cleansing-foam.png",
-      modelImage: "/images/model2/K-SECRET Cleansing Foam Pine Cica 1% + Probiotics model.webp",
+      modelImage: "/images/model2/model-cleansing-foam.webp",
     },
     {
       id: "eye-cream-pm",
@@ -139,7 +139,7 @@ export default function RoutineSection() {
       keyActives: ["Peptides", "Caféine", "Niacinamide"],
       usage: "Appliquer en couche soyeuse avant vos sérums de nuit.",
       image: "/products/eye-cream.png",
-      modelImage: "/images/model2/K-SECRET Eye Cream Retinal Liposome 4% + Fermented Bean model.webp",
+      modelImage: "/images/model2/model-eye-cream.webp",
     },
     {
       id: "serum-retinal-pm",
@@ -155,7 +155,7 @@ export default function RoutineSection() {
       keyActives: ["Retinal Liposome 2%", "Ginseng Noir Fermenté", "Bakuchiol"],
       usage: "Appliquer 3 à 4 gouttes sur peau sèche en évitant les muqueuses. Utilisation du soir uniquement.",
       image: "/products/serum-retinal.png",
-      modelImage: "/images/model2/K-SECRET Serum Retinal Liposome 2% + Black Ginseng model.webp",
+      modelImage: "/images/model2/model-serum-retinal.webp",
     },
     {
       id: "cream-retinal-pm",
@@ -171,7 +171,7 @@ export default function RoutineSection() {
       keyActives: ["Retinal Liposome 1%", "Extrait de Riz Fermenté", "Adénosine"],
       usage: "Appliquer sur l'ensemble du visage et du cou en couche protectrice finale.",
       image: "/products/cream-retinal.png",
-      modelImage: "/images/model2/K-SECRET Cream Retinal Liposome 1% + Fermented Rice model.webp",
+      modelImage: "/images/model2/model-cream-retinal.webp",
     },
   ];
 
