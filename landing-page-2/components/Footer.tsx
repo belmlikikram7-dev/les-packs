@@ -45,7 +45,7 @@ export default function Footer() {
       <TrustTicker />
 
       {/* Main Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10 pb-4 sm:pb-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-7 pb-3 sm:pb-4">
         
         {/* Top 3 Columns: Logo (Left) | NAVIGATION in 2 columns (Center) | Instagram & TikTok (Right) */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
@@ -180,11 +180,11 @@ export default function Footer() {
           onTouchStart={() => setIsHovered(true)}
           onTouchMove={handleTouchMove}
           onTouchEnd={() => setIsHovered(false)}
-          className="relative w-full mt-2 sm:mt-4 pt-1 pb-1 flex items-center justify-center cursor-default select-none overflow-hidden"
+          className="relative w-full mt-0 sm:-mt-1 pt-1 pb-3 flex items-center justify-center cursor-default select-none overflow-hidden"
           aria-hidden="true"
         >
           {/* Layer 1: Base hollow outline with clean spacing */}
-          <div className="font-sans font-black text-[16vw] sm:text-[15vw] lg:text-[13.5vw] leading-[0.76] tracking-[0.16em] text-transparent text-center select-none pl-[0.16em]">
+          <div className="font-sans font-black text-[15vw] sm:text-[14vw] lg:text-[12.5vw] leading-[0.82] tracking-[0.16em] text-transparent text-center select-none pl-[0.16em]">
             <span
               className="inline-block"
               style={{
@@ -197,7 +197,7 @@ export default function Footer() {
 
           {/* Layer 2: Glowing outline edges illuminated strictly on the stroke lines under cursor */}
           <div
-            className="absolute inset-0 flex items-center justify-center font-sans font-black text-[16vw] sm:text-[15vw] lg:text-[13.5vw] leading-[0.76] tracking-[0.16em] text-transparent text-center select-none pointer-events-none transition-opacity duration-200 pl-[0.16em]"
+            className="absolute inset-0 flex items-center justify-center font-sans font-black text-[15vw] sm:text-[14vw] lg:text-[12.5vw] leading-[0.82] tracking-[0.16em] text-transparent text-center select-none pointer-events-none transition-opacity duration-200 pl-[0.16em]"
             style={{
               opacity: isHovered ? 1 : 0,
               WebkitTextStroke: "2.5px #F3E3B2",
