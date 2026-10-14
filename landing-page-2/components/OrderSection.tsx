@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
 import CitySelect from "@/components/CitySelect";
@@ -76,7 +77,7 @@ export default function OrderSection() {
   return (
     <section id="commande" className="py-20 bg-[#FAF7EE] text-[#310F10] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#74070D]/10 border border-[#74070D]/20 text-[#74070D] text-xs uppercase font-bold tracking-widest mb-3">
@@ -131,69 +132,21 @@ export default function OrderSection() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start max-w-6xl mx-auto">
-            
-            {/* Left Card : Pack Recap + Gifts + Price Summary */}
-            <div className="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#46462A] to-[#310F10] text-[#FAF7EE] border-2 border-[#F3E3B2]/30 shadow-xl">
-              
-              <div className="flex items-center justify-between pb-4 border-b border-[#F3E3B2]/20 mb-5">
-                <div>
-                  <h3 className="font-serif text-xl font-bold text-[#F3E3B2]">
-                    {t.recap.packTitle}
-                  </h3>
-                  <p className="text-xs text-[#FAF7EE]/70 mt-0.5">
-                    {t.recap.packDesc}
-                  </p>
-                </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-6xl mx-auto overflow-visible">
+
+            {/* Left Side: Hand + Product Image */}
+            <div className="lg:col-span-5 hidden lg:flex items-center justify-center relative overflow-visible">
+              <div className="relative -ml-16 xl:-ml-24 w-full max-w-[480px]">
+                <Image
+                  src="/images/order-hand-cream.webp"
+                  alt="Seoul 1988 Cream — Snail Mucin 93% + Rice"
+                  width={1080}
+                  height={1080}
+                  className="w-full h-auto drop-shadow-2xl"
+                  quality={95}
+                  priority={false}
+                />
               </div>
-
-              {/* Free Gifts Box */}
-              <div className="p-4 rounded-2xl bg-[#74070D]/90 border border-[#F3E3B2]/40 mb-6">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#F3E3B2] flex items-center gap-1.5">
-                    <Gift className="w-4 h-4" />
-                    {t.recap.giftsTitle}
-                  </span>
-                  <span className="px-2 py-0.5 rounded-full bg-[#F3E3B2] text-[#74070D] text-[10px] font-black uppercase">
-                    {t.recap.freeGiftLabel}
-                  </span>
-                </div>
-                <ul className="text-xs space-y-1.5 text-white/95">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#F3E3B2]" />
-                    <span>Fino Premium Touch Hair Mask (Shiseido)</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#F3E3B2]" />
-                    <span>Vaseline Lip Therapy (Original Care)</span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Total & Price Box */}
-              <div className="pt-4 border-t border-[#F3E3B2]/20">
-                <div className="flex items-baseline justify-between mb-2">
-                  <span className="text-sm uppercase font-bold text-[#F3E3B2]">
-                    {t.recap.totalTitle}
-                  </span>
-                  <div className="text-right flex flex-col items-end">
-                    <span className="text-xs line-through text-[#F3E3B2]/60" dir="ltr">
-                      <bdi dir="ltr">{t.recap.totalOriginalPrice}</bdi>
-                    </span>
-                    <span className="text-3xl font-extrabold text-white" dir="ltr">
-                      <bdi dir="ltr">{t.recap.totalSpecialPrice}</bdi>
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between text-xs text-[#F3E3B2]/80 pt-3 border-t border-white/10">
-                  <span className="flex items-center gap-1 font-semibold text-green-300">
-                    {t.recap.freeShipping}
-                  </span>
-                  <span>{t.recap.cod}</span>
-                </div>
-              </div>
-
             </div>
 
             {/* Right Card : Order Form */}
@@ -208,7 +161,7 @@ export default function OrderSection() {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
-                
+
                 {/* First Name & Last Name */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
