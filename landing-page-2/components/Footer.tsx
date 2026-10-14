@@ -47,11 +47,11 @@ export default function Footer() {
       {/* Main Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10 pb-4 sm:pb-6">
         
-        {/* Top 3 Columns: Logo (Left) | NAVIGATION (Center, lifted) | Instagram & TikTok (Right) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+        {/* Top 3 Columns: Logo (Left) | NAVIGATION in 2 columns (Center) | Instagram & TikTok (Right) */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           
-          {/* Column 1: Logo Vinillia */}
-          <div className="flex flex-col items-start">
+          {/* Column 1: Logo Vinillia (md:col-span-4) */}
+          <div className="md:col-span-4 flex flex-col items-start">
             <a
               href="#hero"
               onClick={(e) => {
@@ -74,59 +74,66 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Column 2: NAVIGATION (Center, elevated at the top) */}
-          <div className="flex flex-col items-start md:items-center">
-            <div className="w-full md:max-w-[200px]">
+          {/* Column 2: NAVIGATION (md:col-span-5) - Split into 3 links on left and 2 on right */}
+          <div className="md:col-span-5 flex flex-col items-start md:items-center">
+            <div className="w-full md:max-w-md">
               <h4 className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#F3E3B2] mb-3">
                 NAVIGATION
               </h4>
-              <ul className="space-y-2.5 text-xs sm:text-sm font-medium text-[#FAF7EE]/85">
-                <li>
-                  <button
-                    onClick={() => scrollTo("#hero")}
-                    className="hover:text-[#F3E3B2] transition-colors cursor-pointer text-left block"
-                  >
-                    Accueil
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => scrollTo("#pack")}
-                    className="hover:text-[#F3E3B2] transition-colors cursor-pointer text-left block"
-                  >
-                    Le Pack Seoul 1988
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => scrollTo("#produits")}
-                    className="hover:text-[#F3E3B2] transition-colors cursor-pointer text-left block"
-                  >
-                    Les 6 Soins K-Secret
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => scrollTo("#routine")}
-                    className="hover:text-[#F3E3B2] transition-colors cursor-pointer text-left block"
-                  >
-                    Routine Jour & Nuit
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => scrollTo("#commande")}
-                    className="hover:text-[#F3E3B2] font-semibold text-[#F3E3B2] transition-colors cursor-pointer text-left block"
-                  >
-                    Commander le Pack
-                  </button>
-                </li>
-              </ul>
+              <div className="grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-2.5 text-xs sm:text-sm font-medium text-[#FAF7EE]/85">
+                {/* 3 Links: Accueil, Le Pack Seoul 1988, Les 6 Soins K-Secret */}
+                <ul className="space-y-2.5">
+                  <li>
+                    <button
+                      onClick={() => scrollTo("#hero")}
+                      className="hover:text-[#F3E3B2] transition-colors cursor-pointer text-left block"
+                    >
+                      Accueil
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => scrollTo("#pack")}
+                      className="hover:text-[#F3E3B2] transition-colors cursor-pointer text-left block"
+                    >
+                      Le Pack Seoul 1988
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => scrollTo("#produits")}
+                      className="hover:text-[#F3E3B2] transition-colors cursor-pointer text-left block"
+                    >
+                      Les 6 Soins K-Secret
+                    </button>
+                  </li>
+                </ul>
+
+                {/* 2 Links lifted up: Routine Jour & Nuit, Commander le Pack */}
+                <ul className="space-y-2.5">
+                  <li>
+                    <button
+                      onClick={() => scrollTo("#routine")}
+                      className="hover:text-[#F3E3B2] transition-colors cursor-pointer text-left block"
+                    >
+                      Routine Jour & Nuit
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => scrollTo("#commande")}
+                      className="hover:text-[#F3E3B2] font-semibold text-[#F3E3B2] transition-colors cursor-pointer text-left block"
+                    >
+                      Commander le Pack
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
 
-          {/* Column 3: Only Instagram and TikTok logos */}
-          <div className="flex flex-col items-start md:items-end">
+          {/* Column 3: Only Instagram and TikTok logos (md:col-span-3) */}
+          <div className="md:col-span-3 flex flex-col items-start md:items-end">
             <h4 className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#F3E3B2] mb-3">
               RÉSEAUX SOCIAUX
             </h4>
@@ -147,7 +154,7 @@ export default function Footer() {
                 </svg>
               </a>
 
-              {/* TikTok */}
+              {/* TikTok - Perfect Official SimpleIcons Vector Path */}
               <a
                 href="https://www.tiktok.com/@vinillia_shop?_r=1&_t=ZS-9AM4ON5mJaX"
                 target="_blank"
@@ -156,7 +163,7 @@ export default function Footer() {
                 className="w-11 h-11 rounded-full bg-[#FAF7EE]/10 hover:bg-[#74070D] border border-[#F3E3B2]/30 flex items-center justify-center text-[#F3E3B2] hover:text-white transition-all duration-300 hover:scale-110 shadow-sm"
               >
                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .58.04.85.12V9.32a6.34 6.34 0 0 0-.85-.06 6.34 6.34 0 0 0-6.34 6.34 6.34 0 0 0 6.34-6.34V8.58a8.28 8.28 0 0 0 4.83 1.56V6.69z" />
+                  <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
                 </svg>
               </a>
             </div>
@@ -164,7 +171,7 @@ export default function Footer() {
 
         </div>
 
-        {/* Interactive "1988" Watermark - Lifted up and sized slightly smaller with crisp outline glow */}
+        {/* Interactive "1988" Watermark - Lifted up and sized cleanly with crisp outline glow */}
         <div
           ref={watermarkRef}
           onMouseEnter={() => setIsHovered(true)}
