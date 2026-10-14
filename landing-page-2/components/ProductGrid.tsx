@@ -34,7 +34,7 @@ export default function ProductGrid() {
           }}
         />
 
-        <div className="relative w-full aspect-[1024/512]">
+        <div className="relative w-full aspect-[4/3] xs:aspect-[16/10] sm:aspect-[1024/512] min-h-[320px] sm:min-h-0">
           <Image
             src="/images/pack-excellence-full.webp"
             alt="L'Excellence Coréenne Réunie en un Seul Pack - Seoul 1988"
@@ -42,33 +42,33 @@ export default function ProductGrid() {
             priority
             quality={100}
             sizes="100vw"
-            className="object-cover sm:object-contain object-bottom w-full h-full select-none pointer-events-none"
+            className="object-cover object-[72%_center] sm:object-contain sm:object-bottom w-full h-full select-none pointer-events-none"
           />
 
-          {/* Clean E-Commerce Side Promotional Layout - Exactly as reference image */}
-          <div className="absolute top-1/2 -translate-y-1/2 left-[4%] sm:left-[6%] md:left-[7%] lg:left-[8%] z-20 max-w-[260px] sm:max-w-[360px] md:max-w-[430px] lg:max-w-[480px] xl:max-w-[520px] select-none">
+          {/* Clean E-Commerce Side Promotional Layout - Responsive for mobile */}
+          <div className="absolute top-1/2 -translate-y-1/2 left-4 sm:left-[6%] md:left-[7%] lg:left-[8%] z-20 max-w-[210px] xs:max-w-[260px] sm:max-w-[360px] md:max-w-[430px] lg:max-w-[480px] xl:max-w-[520px] select-none">
             
             {/* Top Eyebrow with Star */}
-            <div className="flex items-center gap-1.5 mb-2 sm:mb-2.5">
-              <span className="font-serif italic text-xs sm:text-sm md:text-base text-[#74070D] font-medium tracking-wide">
+            <div className="flex items-center gap-1.5 mb-1.5 sm:mb-2.5">
+              <span className="font-serif italic text-[11px] sm:text-sm md:text-base text-[#74070D] font-medium tracking-wide">
                 {isArabic ? "إشراقة كل يوم" : "Glow Every Day"}
               </span>
               <span className="text-[#74070D] text-xs sm:text-sm">✦</span>
             </div>
 
             {/* High-Contrast Bold Serif Headline */}
-            <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[44px] xl:text-[48px] font-bold text-[#1A1A1A] leading-[1.14] tracking-tight mb-2.5 sm:mb-3.5">
+            <h3 className="font-serif text-lg xs:text-2xl sm:text-3xl md:text-4xl lg:text-[44px] xl:text-[48px] font-bold text-[#1A1A1A] leading-[1.15] tracking-tight mb-2 sm:mb-3.5">
               {isArabic ? (
                 <>
                   صحة بشرتكم،
-                  <span className="block text-[#74070D] font-serif italic font-normal mt-1">
+                  <span className="block text-[#74070D] font-serif italic font-normal mt-0.5 sm:mt-1">
                     مسؤوليتنا
                   </span>
                 </>
               ) : (
                 <>
                   La santé de votre peau,
-                  <span className="block text-[#74070D] font-serif italic font-normal mt-1">
+                  <span className="block text-[#74070D] font-serif italic font-normal mt-0.5 sm:mt-1">
                     notre responsabilité
                   </span>
                 </>
@@ -76,7 +76,7 @@ export default function ProductGrid() {
             </h3>
 
             {/* 2-Line Sub-headline */}
-            <div className="text-[11px] sm:text-xs md:text-sm text-[#46462A] font-normal leading-relaxed mb-4 sm:mb-6 max-w-sm">
+            <div className="text-[10px] sm:text-xs md:text-sm text-[#46462A] font-normal leading-relaxed mb-3 sm:mb-6 max-w-sm">
               <p>{isArabic ? "تخفيض حصري على الباك الكوري الأكثر مبيعاً." : "Offre exclusive sur notre rituel le plus vendu."}</p>
               <p>{isArabic ? "لفترة محدودة مع هديتين مجاناً !" : "Offre limitée avec 2 cadeaux offerts !"}</p>
             </div>
@@ -85,11 +85,11 @@ export default function ProductGrid() {
             <div>
               <button
                 onClick={() => scrollTo("#commande")}
-                className="inline-flex items-center gap-2.5 px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full bg-[#1A1A1A] hover:bg-[#74070D] text-white text-xs sm:text-sm font-bold tracking-wide shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer group pointer-events-auto"
+                className="inline-flex items-center gap-2 px-4 py-2 sm:px-8 sm:py-3.5 rounded-full bg-[#1A1A1A] hover:bg-[#74070D] text-white text-[11px] sm:text-sm font-bold tracking-wide shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer group pointer-events-auto"
               >
                 <span>{isArabic ? "اطلبي الآن" : "Commander"}</span>
                 <ArrowRight
-                  className={`w-4 h-4 transform ${
+                  className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transform ${
                     isArabic ? "rotate-180 group-hover:-translate-x-1" : "group-hover:translate-x-1"
                   } transition-transform duration-200`}
                 />

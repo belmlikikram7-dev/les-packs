@@ -190,6 +190,16 @@ export default function RoutineSection() {
   const mediastWavePath =
     "M 60,560 L 220,560 C 400,560 430,340 610,340 C 790,340 820,560 1000,560 C 1180,560 1210,340 1390,340 L 1540,340";
 
+  // Mobile automatic cross-fade: toggles every 1.5s between product and model photo
+  const [mobileShowModel, setMobileShowModel] = useState(false);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setMobileShowModel((prev) => !prev);
+    }, 1500);
+    return () => clearInterval(timer);
+  }, []);
+
   // Dedicated refs for high-performance direct manipulation (identical to Mediast architecture)
   const markerRef = useRef<SVGGElement>(null);
   const activePathRef = useRef<SVGPathElement>(null);
@@ -230,6 +240,18 @@ export default function RoutineSection() {
 
     // 2. High performance render function called on scroll
     const render = () => {
+      // On mobile / small screens (<1024px), make all steps fully visible and interactive immediately
+      if (typeof window !== "undefined" && window.innerWidth < 1024) {
+        stepCircleRefs.current.forEach((el) => {
+          if (el) {
+            el.style.opacity = "1";
+            el.style.transform = "none";
+            el.style.pointerEvents = "auto";
+          }
+        });
+        return;
+      }
+
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const totalScrollable = rect.height - window.innerHeight;
@@ -295,10 +317,10 @@ export default function RoutineSection() {
     <section
       ref={containerRef}
       id="routine"
-      className="relative bg-[#FAF7EE] text-[#310F10] min-h-[220vh]"
+      className="relative bg-[#FAF7EE] text-[#310F10] py-12 lg:py-0 lg:min-h-[220vh]"
     >
-      {/* Pinned Sticky Stage during the scroll sequence */}
-      <div className="sticky top-16 md:top-20 min-h-[calc(100vh-80px)] flex flex-col justify-between py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+      {/* Pinned Sticky Stage on Desktop, Natural Flow on Mobile */}
+      <div className="relative lg:sticky lg:top-16 md:lg:top-20 min-h-auto lg:min-h-[calc(100vh-80px)] flex flex-col justify-between py-6 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-2">
@@ -399,7 +421,7 @@ export default function RoutineSection() {
           </div>
 
           {/* 4 Large Product Circles Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 relative z-10 items-start">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-4 relative z-10 items-start">
             {currentSteps.map((item, idx) => {
               // Alternating wave height to match node coordinates:
               // idx 0: y=560 (lower)
@@ -418,8 +440,8 @@ export default function RoutineSection() {
                     isHigh ? "lg:-translate-y-6 lg:pt-0" : "lg:translate-y-8 lg:pt-6"
                   }`}
                   style={{
-                    opacity: idx === 0 ? 1 : 0,
-                    transform: idx === 0 ? "scale(1) translateY(0px)" : "scale(0.75) translateY(16px)",
+                    opacity: typeof window !== "undefined" && window.innerWidth < 1024 ? 1 : idx === 0 ? 1 : 0,
+                    transform: typeof window !== "undefined" && window.innerWidth < 1024 ? "none" : idx === 0 ? "scale(1) translateY(0px)" : "scale(0.75) translateY(16px)",
                   }}
                 >
                   {/* Step Badge on Top of the Circle */}
@@ -432,7 +454,7 @@ export default function RoutineSection() {
                   {/* Large Circular Container with Product - Soft ambient shadow & delicate border */}
                   <div
                     onClick={() => setSelectedStep(item)}
-                    className="relative w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 rounded-full bg-gradient-to-b from-[#FFFDF9] via-[#FAF7EE] to-[#EAE0CA] border border-[#74070D]/25 shadow-[0_8px_20px_-4px_rgba(116,7,13,0.12)] hover:shadow-[0_12px_24px_-4px_rgba(116,7,13,0.2)] hover:border-[#74070D]/40 hover:scale-105 transition-all duration-300 flex items-center justify-center p-3 group overflow-hidden cursor-pointer"
+                    className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-44 md:h-44 rounded-full bg-gradient-to-b from-[#FFFDF9] via-[#FAF7EE] to-[#EAE0CA] border border-[#74070D]/25 shadow-[0_8px_20px_-4px_rgba(116,7,13,0.12)] hover:shadow-[0_12px_24px_-4px_rgba(116,7,13,0.2)] hover:border-[#74070D]/40 hover:scale-105 transition-all duration-300 flex items-center justify-center p-2.5 sm:p-3 group overflow-hidden cursor-pointer"
                   >
                     
                     {/* Isolated Product Image */}
@@ -440,26 +462,32 @@ export default function RoutineSection() {
                       <img
                         src={item.image}
                         alt={item.product}
-                        className="h-24 sm:h-28 md:h-32 max-h-[125px] w-auto object-contain drop-shadow-[0_8px_14px_rgba(49,15,16,0.22)] animate-float-product pointer-events-none relative z-10 transition-all duration-500 ease-out group-hover:opacity-0 group-hover:scale-90"
+                        className={`h-20 sm:h-28 md:h-32 max-h-[125px] w-auto object-contain drop-shadow-[0_8px_14px_rgba(49,15,16,0.22)] animate-float-product pointer-events-none relative z-10 transition-all duration-700 ease-in-out ${
+                          mobileShowModel ? "opacity-0 scale-90 lg:opacity-100 lg:scale-100" : "opacity-100 scale-100"
+                        } lg:group-hover:opacity-0 lg:group-hover:scale-90`}
                       />
                     )}
 
-                    {/* Model Photo Revealed on Hover */}
+                    {/* Model Photo Revealed: automatically on mobile (every 1.5s) or on desktop hover */}
                     {item.modelImage && (
                       <img
                         src={item.modelImage}
                         alt={`${item.product} modèle`}
-                        className="absolute inset-0 w-full h-full object-cover object-top opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out scale-105 group-hover:scale-100 z-20 pointer-events-none"
+                        className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-in-out scale-100 z-20 pointer-events-none ${
+                          mobileShowModel ? "opacity-100 lg:opacity-0" : "opacity-0"
+                        } lg:group-hover:opacity-100`}
                       />
                     )}
 
                     {/* Subtle soft ground reflection */}
-                    <div className="absolute bottom-2.5 w-16 h-2 bg-[#74070D]/10 blur-xs rounded-full pointer-events-none transition-opacity duration-300 group-hover:opacity-0" />
+                    <div className={`absolute bottom-2.5 w-14 sm:w-16 h-2 bg-[#74070D]/10 blur-xs rounded-full pointer-events-none transition-opacity duration-300 ${
+                      mobileShowModel ? "opacity-0 lg:opacity-100" : "opacity-100"
+                    } lg:group-hover:opacity-0`} />
                   </div>
 
                   {/* Product Info & "Voir" Button below Circle */}
-                  <div className="mt-3 text-center flex flex-col items-center">
-                    <h4 className="font-sans text-xs sm:text-[13px] font-bold text-[#310F10] leading-snug max-w-[160px] min-h-[34px] flex items-center justify-center text-center">
+                  <div className="mt-2.5 sm:mt-3 text-center flex flex-col items-center">
+                    <h4 className="font-sans text-[11px] sm:text-[13px] font-bold text-[#310F10] leading-snug max-w-[140px] sm:max-w-[160px] min-h-[30px] sm:min-h-[34px] flex items-center justify-center text-center">
                       {item.product}
                     </h4>
                     <span className="text-[10px] sm:text-[11px] text-[#46462A] font-semibold mt-0.5">
@@ -469,13 +497,12 @@ export default function RoutineSection() {
                     {/* Button "Voir" */}
                     <button
                       onClick={() => setSelectedStep(item)}
-                      className="mt-2 px-3.5 py-1 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-[11px] font-bold tracking-wide shadow-xs hover:shadow-sm transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
+                      className="mt-1.5 sm:mt-2 px-3 sm:px-3.5 py-0.5 sm:py-1 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-[10px] sm:text-[11px] font-bold tracking-wide shadow-xs hover:shadow-sm transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
                     >
                       <Eye className="w-3 h-3" />
                       <span>Voir</span>
                     </button>
                   </div>
-
                 </div>
               );
             })}

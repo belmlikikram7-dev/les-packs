@@ -20,7 +20,7 @@ export default function Footer() {
       {/* Infinite scrolling ticker at the very top of Footer */}
       <TrustTicker />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-24 md:pb-12">
         
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#46462A]/60">
           
