@@ -17,13 +17,20 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className={`relative min-h-[92vh] flex items-center justify-center pt-24 pb-8 overflow-hidden bg-no-repeat transition-all duration-500 ${
-        isArabic ? "bg-cover bg-left" : "bg-cover bg-right"
-      }`}
-      // style={{
-      //   backgroundImage: isArabic ? "url('/images/background-arabe.webp')" : "url('/images/  background-francais.webp')",
-      // }}
+      className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-8 overflow-hidden"
     >
+      {/* Desktop-only Hero Background Image (Pack on the right side for French, left side for Arabic) */}
+      <div
+        className={`hidden lg:block absolute inset-0 bg-no-repeat transition-all duration-500 pointer-events-none ${
+          isArabic ? "bg-cover bg-left" : "bg-cover bg-right"
+        }`}
+        style={{
+          backgroundImage: isArabic
+            ? "url('/images/background-arabe.webp')"
+            : "url('/images/background-francais.webp')",
+        }}
+      />
+
       {/* Soft blur overlay at top so navbar remains super legible */}
       <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#FAF7F2]/90 via-[#FAF7F2]/40 to-transparent pointer-events-none z-10" />
 
