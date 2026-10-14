@@ -47,39 +47,67 @@ export default function ProductGrid() {
             className="object-cover sm:object-contain object-bottom w-full h-full select-none pointer-events-none"
           />
 
-          {/* Clean, Elegant Side Editorial Statement - Enlarged & Prominent */}
-          <div className="absolute top-[10%] sm:top-[14%] md:top-[16%] lg:top-[18%] left-[4%] sm:left-[6%] md:left-[7%] lg:left-[8%] z-20 max-w-[280px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px] xl:max-w-[680px] pointer-events-none select-none">
-            {/* Subtle Eyebrow */}
-            <div className="flex items-center gap-2.5 mb-2.5 sm:mb-3.5">
-              <span className="w-6 sm:w-10 h-[2px] bg-[#74070D]/50" />
-              <span className="font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.28em] text-[#74070D] font-bold">
-                {isArabic ? "التزامنا" : "Notre Engagement"}
-              </span>
-            </div>
+          {/* Circular Luxury Emblem Badge - Inspired by User Mockup */}
+          <div className="absolute top-1/2 -translate-y-1/2 left-[2%] sm:left-[3%] md:left-[4%] lg:left-[5%] z-20 pointer-events-none select-none">
+            {/* The Badge Container */}
+            <div className="relative w-[230px] h-[230px] sm:w-[300px] sm:h-[300px] md:w-[360px] md:h-[360px] lg:w-[420px] lg:h-[420px] xl:w-[460px] xl:h-[460px]">
+              
+              {/* Outer Decorative Offset Ring (Deep Green #46462A as in user mockup) */}
+              <div 
+                className="absolute inset-0 rounded-full border-2 border-[#46462A]/65 sm:border-[2.5px] pointer-events-none"
+                style={{
+                  transform: "rotate(-5deg) scale(1.02)",
+                }}
+              />
 
-            {/* High-End Large Serif Quote */}
-            <h3 className="font-serif italic text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[54px] 2xl:text-[60px] text-[#310F10] leading-[1.2] sm:leading-[1.15] font-normal tracking-wide drop-shadow-sm">
-              {isArabic ? (
-                <>
-                  « صحة بشرتكم،
-                  <span className="block not-italic font-semibold text-[#74070D] mt-1.5 sm:mt-2.5">
-                    مسؤوليتنا. »
-                  </span>
-                </>
-              ) : (
-                <>
-                  «&nbsp;La santé de votre peau,
-                  <span className="block not-italic font-semibold text-[#74070D] mt-1.5 sm:mt-2.5">
-                    notre responsabilité.&nbsp;»
-                  </span>
-                </>
-              )}
-            </h3>
+              {/* Inner Decorative Offset Ring (Wine Red #74070D as in user mockup) */}
+              <div 
+                className="absolute inset-1.5 sm:inset-2 md:inset-2.5 rounded-full border-2 border-[#74070D]/75 sm:border-[2.5px] pointer-events-none"
+                style={{
+                  transform: "rotate(3deg)",
+                }}
+              />
 
-            {/* Minimal Gold Underline Accent */}
-            <div className="flex items-center gap-2.5 mt-3 sm:mt-4 md:mt-5 opacity-70">
-              <div className="w-12 sm:w-20 md:w-24 h-[2px] bg-gradient-to-r from-[#74070D] to-transparent rounded-full" />
-              <span className="text-xs sm:text-sm text-[#74070D]">✦</span>
+              {/* Main Porcelain / Warm Beige Disc */}
+              <div 
+                className="absolute inset-3 sm:inset-4 md:inset-5 rounded-full bg-[#FAF7EE]/92 backdrop-blur-md shadow-[0_15px_35px_rgba(49,15,16,0.08)] border border-[#C5A059]/30 flex flex-col items-center justify-center text-center p-5 sm:p-7 md:p-8 lg:p-10"
+              >
+                {/* Subtle Brand Eyebrow */}
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-2.5 opacity-90">
+                  <span className="w-3 sm:w-5 h-[1px] bg-[#74070D]/40" />
+                  <span className="font-mono text-[8px] sm:text-[10px] md:text-xs uppercase tracking-[0.25em] text-[#74070D] font-bold">
+                    {isArabic ? "التزامنا" : "Engagement"}
+                  </span>
+                  <span className="w-3 sm:w-5 h-[1px] bg-[#74070D]/40" />
+                </div>
+
+                {/* Main Slogan in Beautiful High-End Serif Centered Inside Circle */}
+                <h3 className="font-serif italic text-base sm:text-xl md:text-2xl lg:text-[28px] xl:text-[32px] text-[#310F10] leading-tight sm:leading-snug font-normal tracking-wide drop-shadow-sm">
+                  {isArabic ? (
+                    <>
+                      « صحة بشرتكم،
+                      <span className="block not-italic font-semibold text-[#74070D] mt-1 sm:mt-1.5">
+                        مسؤوليتنا. »
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      «&nbsp;La santé de votre peau,
+                      <span className="block not-italic font-semibold text-[#74070D] mt-1 sm:mt-1.5">
+                        notre responsabilité.&nbsp;»
+                      </span>
+                    </>
+                  )}
+                </h3>
+
+                {/* Delicate Underline Motif */}
+                <div className="flex items-center gap-2 mt-2.5 sm:mt-3.5 opacity-60">
+                  <div className="w-6 sm:w-10 h-[1px] bg-gradient-to-r from-transparent via-[#74070D] to-transparent" />
+                  <span className="text-[8px] sm:text-[10px] text-[#74070D]">✦</span>
+                  <div className="w-6 sm:w-10 h-[1px] bg-gradient-to-r from-transparent via-[#74070D] to-transparent" />
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
