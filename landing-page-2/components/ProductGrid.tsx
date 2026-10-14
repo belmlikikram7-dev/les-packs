@@ -34,7 +34,7 @@ export default function ProductGrid() {
           }}
         />
 
-        <div className="relative w-full aspect-[4/3] xs:aspect-[16/10] sm:aspect-[1024/512] min-h-[320px] sm:min-h-0">
+        <div className="relative w-full aspect-[1/1] xs:aspect-[5/4] sm:aspect-[1024/512] min-h-[350px] sm:min-h-0">
           <Image
             src="/images/pack-excellence-full.webp"
             alt="L'Excellence Coréenne Réunie en un Seul Pack - Seoul 1988"
@@ -42,14 +42,14 @@ export default function ProductGrid() {
             priority
             quality={100}
             sizes="100vw"
-            className="object-cover object-[72%_center] sm:object-contain sm:object-bottom w-full h-full select-none pointer-events-none"
+            className="object-cover object-[75%_bottom] sm:object-contain sm:object-bottom w-full h-full select-none pointer-events-none"
           />
 
-          {/* Clean E-Commerce Side Promotional Layout - Responsive for mobile */}
-          <div className="absolute top-1/2 -translate-y-1/2 left-4 sm:left-[6%] md:left-[7%] lg:left-[8%] z-20 max-w-[210px] xs:max-w-[260px] sm:max-w-[360px] md:max-w-[430px] lg:max-w-[480px] xl:max-w-[520px] select-none">
+          {/* Clean E-Commerce Side Promotional Layout - Lifted higher on mobile to stay clear of products */}
+          <div className="absolute top-3 xs:top-5 sm:top-1/2 sm:-translate-y-1/2 left-3.5 xs:left-5 sm:left-[6%] md:left-[7%] lg:left-[8%] z-20 max-w-[220px] xs:max-w-[270px] sm:max-w-[360px] md:max-w-[430px] lg:max-w-[480px] xl:max-w-[520px] select-none">
             
             {/* Top Eyebrow with Star */}
-            <div className="flex items-center gap-1.5 mb-1.5 sm:mb-2.5">
+            <div className="flex items-center gap-1.5 mb-1 sm:mb-2.5">
               <span className="font-serif italic text-[11px] sm:text-sm md:text-base text-[#74070D] font-medium tracking-wide">
                 {isArabic ? "إشراقة كل يوم" : "Glow Every Day"}
               </span>
@@ -57,7 +57,7 @@ export default function ProductGrid() {
             </div>
 
             {/* High-Contrast Bold Serif Headline */}
-            <h3 className="font-serif text-lg xs:text-2xl sm:text-3xl md:text-4xl lg:text-[44px] xl:text-[48px] font-bold text-[#1A1A1A] leading-[1.15] tracking-tight mb-2 sm:mb-3.5">
+            <h3 className="font-serif text-lg xs:text-2xl sm:text-3xl md:text-4xl lg:text-[44px] xl:text-[48px] font-bold text-[#1A1A1A] leading-[1.14] tracking-tight mb-1.5 sm:mb-3.5">
               {isArabic ? (
                 <>
                   صحة بشرتكم،
@@ -76,7 +76,7 @@ export default function ProductGrid() {
             </h3>
 
             {/* 2-Line Sub-headline */}
-            <div className="text-[10px] sm:text-xs md:text-sm text-[#46462A] font-normal leading-relaxed mb-3 sm:mb-6 max-w-sm">
+            <div className="text-[10px] xs:text-[11px] sm:text-xs md:text-sm text-[#2A2A2A] sm:text-[#46462A] font-medium sm:font-normal leading-relaxed mb-2.5 sm:mb-6 max-w-sm">
               <p>{isArabic ? "تخفيض حصري على الباك الكوري الأكثر مبيعاً." : "Offre exclusive sur notre rituel le plus vendu."}</p>
               <p>{isArabic ? "لفترة محدودة مع هديتين مجاناً !" : "Offre limitée avec 2 cadeaux offerts !"}</p>
             </div>
