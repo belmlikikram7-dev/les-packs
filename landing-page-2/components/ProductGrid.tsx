@@ -3,11 +3,16 @@
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, ArrowRight } from "lucide-react";
 
 export default function ProductGrid() {
   const { locale, isArabic } = useLanguage();
   const t = TRANSLATIONS[locale].productsSection;
+
+  const scrollTo = (hash: string) => {
+    const el = document.querySelector(hash);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <section id="produits" className="pt-8 pb-10 lg:pt-12 lg:pb-14 bg-[#FAF7EE] text-[#310F10] relative overflow-hidden">
@@ -47,68 +52,57 @@ export default function ProductGrid() {
             className="object-cover sm:object-contain object-bottom w-full h-full select-none pointer-events-none"
           />
 
-          {/* Circular Luxury Emblem Badge - Inspired by User Mockup */}
-          <div className="absolute top-1/2 -translate-y-1/2 left-[2%] sm:left-[3%] md:left-[4%] lg:left-[5%] z-20 pointer-events-none select-none">
-            {/* The Badge Container */}
-            <div className="relative w-[230px] h-[230px] sm:w-[300px] sm:h-[300px] md:w-[360px] md:h-[360px] lg:w-[420px] lg:h-[420px] xl:w-[460px] xl:h-[460px]">
-              
-              {/* Outer Decorative Offset Ring (Deep Green #46462A as in user mockup) */}
-              <div 
-                className="absolute inset-0 rounded-full border-2 border-[#46462A]/65 sm:border-[2.5px] pointer-events-none"
-                style={{
-                  transform: "rotate(-5deg) scale(1.02)",
-                }}
-              />
-
-              {/* Inner Decorative Offset Ring (Wine Red #74070D as in user mockup) */}
-              <div 
-                className="absolute inset-1.5 sm:inset-2 md:inset-2.5 rounded-full border-2 border-[#74070D]/75 sm:border-[2.5px] pointer-events-none"
-                style={{
-                  transform: "rotate(3deg)",
-                }}
-              />
-
-              {/* Main Porcelain / Warm Beige Disc */}
-              <div 
-                className="absolute inset-3 sm:inset-4 md:inset-5 rounded-full bg-[#FAF7EE]/92 backdrop-blur-md shadow-[0_15px_35px_rgba(49,15,16,0.08)] border border-[#C5A059]/30 flex flex-col items-center justify-center text-center p-5 sm:p-7 md:p-8 lg:p-10"
-              >
-                {/* Subtle Brand Eyebrow */}
-                <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-2.5 opacity-90">
-                  <span className="w-3 sm:w-5 h-[1px] bg-[#74070D]/40" />
-                  <span className="font-mono text-[8px] sm:text-[10px] md:text-xs uppercase tracking-[0.25em] text-[#74070D] font-bold">
-                    {isArabic ? "التزامنا" : "Engagement"}
-                  </span>
-                  <span className="w-3 sm:w-5 h-[1px] bg-[#74070D]/40" />
-                </div>
-
-                {/* Main Slogan in Beautiful High-End Serif Centered Inside Circle */}
-                <h3 className="font-serif italic text-base sm:text-xl md:text-2xl lg:text-[28px] xl:text-[32px] text-[#310F10] leading-tight sm:leading-snug font-normal tracking-wide drop-shadow-sm">
-                  {isArabic ? (
-                    <>
-                      « صحة بشرتكم،
-                      <span className="block not-italic font-semibold text-[#74070D] mt-1 sm:mt-1.5">
-                        مسؤوليتنا. »
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      «&nbsp;La santé de votre peau,
-                      <span className="block not-italic font-semibold text-[#74070D] mt-1 sm:mt-1.5">
-                        notre responsabilité.&nbsp;»
-                      </span>
-                    </>
-                  )}
-                </h3>
-
-                {/* Delicate Underline Motif */}
-                <div className="flex items-center gap-2 mt-2.5 sm:mt-3.5 opacity-60">
-                  <div className="w-6 sm:w-10 h-[1px] bg-gradient-to-r from-transparent via-[#74070D] to-transparent" />
-                  <span className="text-[8px] sm:text-[10px] text-[#74070D]">✦</span>
-                  <div className="w-6 sm:w-10 h-[1px] bg-gradient-to-r from-transparent via-[#74070D] to-transparent" />
-                </div>
-              </div>
-
+          {/* Clean E-Commerce Side Promotional Layout - Exactly as reference image */}
+          <div className="absolute top-1/2 -translate-y-1/2 left-[4%] sm:left-[6%] md:left-[7%] lg:left-[8%] z-20 max-w-[260px] sm:max-w-[360px] md:max-w-[430px] lg:max-w-[480px] xl:max-w-[520px] select-none">
+            
+            {/* Top Eyebrow with Star */}
+            <div className="flex items-center gap-1.5 mb-2 sm:mb-2.5">
+              <span className="font-serif italic text-xs sm:text-sm md:text-base text-[#74070D] font-medium tracking-wide">
+                {isArabic ? "إشراقة كل يوم" : "Glow Every Day"}
+              </span>
+              <span className="text-[#74070D] text-xs sm:text-sm">✦</span>
             </div>
+
+            {/* High-Contrast Bold Serif Headline */}
+            <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[44px] xl:text-[48px] font-bold text-[#1A1A1A] leading-[1.14] tracking-tight mb-2.5 sm:mb-3.5">
+              {isArabic ? (
+                <>
+                  صحة بشرتكم،
+                  <span className="block text-[#74070D] font-serif italic font-normal mt-1">
+                    مسؤوليتنا
+                  </span>
+                </>
+              ) : (
+                <>
+                  La santé de votre peau,
+                  <span className="block text-[#74070D] font-serif italic font-normal mt-1">
+                    notre responsabilité
+                  </span>
+                </>
+              )}
+            </h3>
+
+            {/* 2-Line Sub-headline */}
+            <div className="text-[11px] sm:text-xs md:text-sm text-[#46462A] font-normal leading-relaxed mb-4 sm:mb-6 max-w-sm">
+              <p>{isArabic ? "تخفيض حصري على الباك الكوري الأكثر مبيعاً." : "Offre exclusive sur notre rituel le plus vendu."}</p>
+              <p>{isArabic ? "لفترة محدودة مع هديتين مجاناً !" : "Offre limitée avec 2 cadeaux offerts !"}</p>
+            </div>
+
+            {/* Black Pill Action Button: Commander -> scrolls to #commande */}
+            <div>
+              <button
+                onClick={() => scrollTo("#commande")}
+                className="inline-flex items-center gap-2.5 px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full bg-[#1A1A1A] hover:bg-[#74070D] text-white text-xs sm:text-sm font-bold tracking-wide shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer group pointer-events-auto"
+              >
+                <span>{isArabic ? "اطلبي الآن" : "Commander"}</span>
+                <ArrowRight
+                  className={`w-4 h-4 transform ${
+                    isArabic ? "rotate-180 group-hover:-translate-x-1" : "group-hover:translate-x-1"
+                  } transition-transform duration-200`}
+                />
+              </button>
+            </div>
+
           </div>
         </div>
 
