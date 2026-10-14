@@ -17,26 +17,34 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pt-36 lg:pb-28 overflow-hidden bg-[#EBDDCF] text-[#310F10]"
+      className="relative pt-24 pb-8 sm:pt-28 sm:pb-10 lg:pt-32 lg:pb-12 overflow-hidden bg-[#FAF7EE] text-[#310F10] min-h-[580px] lg:min-h-[640px] xl:min-h-[700px] flex items-center"
     >
-      {/* Desktop Full-Bleed Natural Image - Pure High-Resolution Studio Photography */}
-      <div className="absolute inset-0 hidden lg:block pointer-events-none">
-        <Image
-          src="/images/hero-pack.webp"
-          alt="Pack Seoul 1988 K-Secret"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-right"
-        />
+      {/* Desktop Natural Image - Scaled down slightly, shifted down below navbar, grounded at the bottom so the full light circle, green tube, and all products are 100% visible */}
+      <div
+        className="absolute right-0 bottom-0 top-16 sm:top-20 lg:top-20 w-full lg:w-[68%] xl:w-[65%] h-[calc(100%-4rem)] hidden lg:flex items-end justify-end pointer-events-none"
+        style={{
+          maskImage: "linear-gradient(to right, transparent 0%, black 14%)",
+          WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 14%)",
+        }}
+      >
+        <div className="relative w-full h-full flex items-end justify-end">
+          <Image
+            src="/images/hero-pack.webp"
+            alt="Pack Seoul 1988 K-Secret"
+            fill
+            priority
+            sizes="(min-width: 1024px) 68vw, 100vw"
+            className="object-contain object-bottom-right"
+          />
+        </div>
       </div>
 
       {/* Main Container - Clean, Minimalist, Left-Aligned Headline, Gift Card & CTA Button */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-start text-left max-w-xl lg:max-w-lg xl:max-w-xl">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="flex flex-col items-start text-left max-w-xl lg:max-w-md xl:max-w-lg">
           
           {/* Main Headline */}
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[44px] font-bold leading-[1.18] text-[#310F10] mb-6">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[42px] font-bold leading-[1.18] text-[#310F10] mb-6">
             {t.titlePart1}
             <span className="font-extrabold text-[#74070D] italic underline decoration-[#74070D] decoration-wavy decoration-2">
               {t.titleHighlight}
