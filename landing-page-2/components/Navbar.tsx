@@ -13,8 +13,8 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // When at the top in accueil, keep navbar frosted/floue so products are fully visible
-      // Once scrolled down past accueil, return the solid red color
+      // Completely transparent at the top in accueil (no grey, no blur container)
+      // Once scrolled down, becomes solid royal burgundy
       setIsScrolled(window.scrollY > 60);
     };
 
@@ -33,11 +33,11 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-[#310F10]/95 backdrop-blur-md border-b border-[#46462A]/40 shadow-lg text-[#FAF7EE]"
-          : "bg-black/20 backdrop-blur-md border-b border-white/10 text-[#FAF7EE]"
+          : "bg-transparent border-b border-transparent shadow-none"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
-        {/* Brand / Vinillia Yellow Logo */}
+        {/* Brand / Vinillia Gold Logo */}
         <a
           href="#hero"
           onClick={(e) => {
@@ -58,34 +58,50 @@ export default function Navbar() {
         </a>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-7 text-xs font-semibold uppercase tracking-wider text-[#F3E3B2]/95">
+        <nav
+          className={`hidden md:flex items-center gap-7 text-xs font-bold uppercase tracking-wider transition-colors duration-300 ${
+            isScrolled
+              ? "text-[#F3E3B2]/95"
+              : "text-[#310F10] drop-shadow-[0_1px_2px_rgba(255,255,255,0.7)]"
+          }`}
+        >
           <button
             onClick={() => scrollTo("#hero")}
-            className="hover:text-white transition-colors cursor-pointer drop-shadow-sm"
+            className={`transition-colors cursor-pointer ${
+              isScrolled ? "hover:text-white" : "hover:text-[#74070D]"
+            }`}
           >
             {t.home}
           </button>
           <button
             onClick={() => scrollTo("#pack")}
-            className="hover:text-white transition-colors cursor-pointer drop-shadow-sm"
+            className={`transition-colors cursor-pointer ${
+              isScrolled ? "hover:text-white" : "hover:text-[#74070D]"
+            }`}
           >
             {t.pack}
           </button>
           <button
             onClick={() => scrollTo("#produits")}
-            className="hover:text-white transition-colors cursor-pointer drop-shadow-sm"
+            className={`transition-colors cursor-pointer ${
+              isScrolled ? "hover:text-white" : "hover:text-[#74070D]"
+            }`}
           >
             {t.products}
           </button>
           <button
             onClick={() => scrollTo("#routine")}
-            className="hover:text-white transition-colors cursor-pointer drop-shadow-sm"
+            className={`transition-colors cursor-pointer ${
+              isScrolled ? "hover:text-white" : "hover:text-[#74070D]"
+            }`}
           >
             {t.routine}
           </button>
           <button
             onClick={() => scrollTo("#commande")}
-            className="hover:text-white transition-colors cursor-pointer drop-shadow-sm"
+            className={`transition-colors cursor-pointer ${
+              isScrolled ? "hover:text-white" : "hover:text-[#74070D]"
+            }`}
           >
             {t.order}
           </button>
@@ -95,7 +111,7 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => scrollTo("#commande")}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg hover:shadow-[#74070D]/40 transition-all active:scale-95 cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#FAF7EE] text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg hover:shadow-[#74070D]/40 transition-all active:scale-95 cursor-pointer"
           >
             <ShoppingBag className="w-3.5 h-3.5 text-[#F3E3B2]" />
             <span className="hidden sm:inline">{t.orderPack}</span>
