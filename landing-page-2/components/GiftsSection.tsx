@@ -11,30 +11,46 @@ export default function GiftsSection() {
   const t = TRANSLATIONS[locale].giftsSection;
 
   return (
-    <section className="py-20 lg:py-28 bg-[#FAF7EE] text-[#310F10] relative overflow-hidden">
-      {/* Subtle Warm Ambiance */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#EFE7D5]/70 blur-3xl rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#74070D]/5 blur-3xl rounded-full pointer-events-none" />
+    <section id="cadeaux" className="relative pt-6 pb-2 lg:pt-10 lg:pb-4 bg-[#FAF7EE] text-[#310F10] overflow-hidden">
+      
+      {/* Top Transition Wave */}
+      <div className="w-full overflow-hidden leading-none -mb-1">
+        <svg
+          viewBox="0 0 1440 120"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-8 sm:h-12 lg:h-14 text-[#EFE7D5] preserve-3d"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,40 C320,110 480,10 760,65 C1040,120 1200,30 1440,75 L1440,120 L0,120 Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#74070D]/10 border border-[#74070D]/20 text-[#74070D] text-xs uppercase font-bold tracking-widest mb-3">
-            <Gift className="w-3.5 h-3.5 text-[#74070D]" />
-            <span>{t.badge}</span>
+      {/* Main Organic Wavy Beige Ribbon Container (Matching PackIntro) */}
+      <div className="bg-[#EFE7D5] pt-8 pb-10 sm:pt-12 sm:pb-14 px-4 sm:px-6 lg:px-8 relative shadow-[inset_0_2px_12px_rgba(49,15,16,0.03)]">
+        <div className="max-w-6xl mx-auto">
+          
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#74070D]/10 border border-[#74070D]/20 text-[#74070D] text-xs uppercase font-bold tracking-widest mb-3">
+              <Gift className="w-3.5 h-3.5 text-[#74070D]" />
+              <span>{t.badge}</span>
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#310F10] leading-tight mb-3">
+              {t.title}
+            </h2>
+            <p className="text-sm sm:text-base text-[#46462A] max-w-2xl mx-auto font-light leading-relaxed">
+              {t.subtitle}
+            </p>
+            {/* Delicate red divider line */}
+            <div className="w-16 h-[2px] bg-[#74070D]/35 mx-auto rounded-full mt-4" />
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#310F10] mb-3">
-            {t.title}
-          </h2>
-          <p className="text-sm sm:text-base text-[#46462A] max-w-2xl mx-auto font-light leading-relaxed">
-            {t.subtitle}
-          </p>
-        </div>
 
-        {/* Master Showcase: Left 3D Image + Right Gifts Presentation in Warm Beige Container */}
-        <div className="max-w-6xl mx-auto rounded-3xl bg-[#EFE7D5] border border-[#74070D]/15 shadow-[0_12px_40px_rgba(49,15,16,0.06)] overflow-hidden p-6 sm:p-10 lg:p-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          {/* Master Showcase: Left 3D Image + Right Gifts Presentation without rectangular card */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             {/* Left Column: Clean 3D Visual with Ribbon */}
             <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
@@ -55,7 +71,7 @@ export default function GiftsSection() {
             </div>
 
             {/* Right Column: Gifts Details & Explanations */}
-            <div className="lg:col-span-7 flex flex-col justify-center space-y-5">
+            <div className="lg:col-span-7 flex flex-col justify-center space-y-4 sm:space-y-5">
               
               {/* Intro header */}
               <div className="flex items-center justify-between pb-3 border-b border-[#74070D]/15">
@@ -71,7 +87,7 @@ export default function GiftsSection() {
               </div>
 
               {/* List of the 2 Gifts */}
-              <div className="space-y-4">
+              <div className="space-y-3.5 sm:space-y-4">
                 {GIFTS.map((gift, idx) => (
                   <div
                     key={gift.id}
@@ -111,9 +127,26 @@ export default function GiftsSection() {
             </div>
 
           </div>
-        </div>
 
+        </div>
       </div>
+
+      {/* Bottom Transition Wave */}
+      <div className="w-full overflow-hidden leading-none -mt-1">
+        <svg
+          viewBox="0 0 1440 120"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-8 sm:h-12 lg:h-14 text-[#EFE7D5]"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,0 L1440,0 L1440,45 C1200,105 1040,15 760,70 C480,125 320,25 0,80 Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+
     </section>
   );
 }
