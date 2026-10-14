@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { ShieldCheck, Truck, CheckCircle2, Sparkles, MessageCircle, Mail } from "lucide-react";
+import { MessageCircle, Mail } from "lucide-react";
 import TrustTicker from "@/components/TrustTicker";
 
 export default function Footer() {
@@ -45,14 +45,14 @@ export default function Footer() {
       {/* Infinite scrolling ticker at the very top of Footer */}
       <TrustTicker />
 
-      {/* Main Container - Spacious, grand and luxurious as inspired by the Vinillia footer */}
+      {/* Main Container - Spacious, grand and luxurious */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 sm:pt-16 lg:pt-20 pb-10 sm:pb-12">
         
-        {/* Navigation & Brand Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-14 pb-12 sm:pb-14 border-b border-[#46462A]/40">
+        {/* Brand & Navigation on Left, Social & Contact on Right */}
+        <div className="flex flex-col md:flex-row justify-between items-start gap-10 lg:gap-16 pb-12 sm:pb-14 border-b border-[#46462A]/40">
           
-          {/* Column 1: Brand Info & Navigation placed directly under the Vinillia Logo */}
-          <div className="md:col-span-5 flex flex-col items-start">
+          {/* Brand Info & Navigation placed directly under the Vinillia Logo */}
+          <div className="flex flex-col items-start max-w-lg">
             <a
               href="#hero"
               onClick={(e) => {
@@ -71,16 +71,16 @@ export default function Footer() {
               />
             </a>
 
-            <p className="text-xs sm:text-sm text-[#FAF7EE]/80 leading-relaxed font-light max-w-sm mb-6">
+            <p className="text-xs sm:text-sm text-[#FAF7EE]/80 leading-relaxed font-light mb-6">
               {t.description}
             </p>
 
             {/* Navigation links placed directly under the Vinillia Logo */}
-            <div className="w-full pt-2">
+            <div className="w-full pt-1">
               <h4 className="font-serif text-xs font-bold uppercase tracking-widest text-[#F3E3B2] mb-3">
                 {t.quickLinks}
               </h4>
-              <ul className="space-y-2 text-xs sm:text-sm text-[#FAF7EE]/80">
+              <ul className="space-y-2.5 text-xs sm:text-sm text-[#FAF7EE]/80">
                 <li>
                   <button
                     onClick={() => scrollTo("#hero")}
@@ -125,46 +125,12 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Assistance & Nos Engagements (Inspired by the green Vinillia footer) */}
-          <div className="md:col-span-3 flex flex-col justify-between">
-            <div>
-              <h4 className="font-serif text-xs font-bold uppercase tracking-widest text-[#F3E3B2] mb-4">
-                Assistance & Engagements
-              </h4>
-              <ul className="space-y-3.5 text-xs sm:text-sm text-[#FAF7EE]/80">
-                <li className="flex items-start gap-2.5">
-                  <ShieldCheck className="w-4 h-4 text-[#F3E3B2] shrink-0 mt-0.5" />
-                  <span>Produits 100% Authentiques Coréens</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <Truck className="w-4 h-4 text-[#F3E3B2] shrink-0 mt-0.5" />
-                  <span>Livraison 24/48H Gratuite Partout au Maroc</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#F3E3B2] shrink-0 mt-0.5" />
-                  <span>Paiement Sécurisé à la Livraison</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <Sparkles className="w-4 h-4 text-[#F3E3B2] shrink-0 mt-0.5" />
-                  <span>2 Cadeaux de Luxe Inclus Offerts</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="mt-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#46462A]/60 border border-[#F3E3B2]/30 text-[11px] text-[#F3E3B2]">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#F3E3B2]" />
-                <span>Importation Directe & Produits 100% Originaux</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Column 3: Réseaux Sociaux & Contact (TikTok, Instagram & Confirmation Buttons) */}
-          <div className="md:col-span-4">
+          {/* Réseaux Sociaux & Contact (TikTok, Instagram & Confirmation Buttons) */}
+          <div className="flex flex-col items-start md:items-end w-full md:w-auto">
             <h4 className="font-serif text-xs font-bold uppercase tracking-widest text-[#F3E3B2] mb-4">
               Réseaux Sociaux & Contact
             </h4>
-            <p className="text-xs text-[#FAF7EE]/70 mb-5 font-light leading-relaxed">
+            <p className="text-xs text-[#FAF7EE]/70 mb-5 font-light leading-relaxed max-w-sm md:text-right">
               Rejoignez notre communauté sur les réseaux sociaux pour découvrir nos tutoriels et avis clients.
             </p>
 
@@ -199,8 +165,8 @@ export default function Footer() {
               </a>
             </div>
 
-            {/* Contact Pills (WhatsApp Confirmation & Email) inspired by the green Vinillia footer */}
-            <div className="space-y-3">
+            {/* Contact Pills (WhatsApp Confirmation & Email) */}
+            <div className="space-y-3 w-full sm:w-auto">
               {/* WhatsApp / Confirmation de commande button */}
               <a
                 href="https://wa.me/212607956607?text=Bonjour%20Vinillia%2C%20je%20souhaite%20confirmer%20ma%20commande%20du%20Pack%20Seoul%201988"
@@ -254,7 +220,7 @@ export default function Footer() {
             </span>
           </div>
 
-          {/* Layer 2: Glowing outline edges illuminated strictly on the stroke lines under cursor (Clean edge glow without central fog) */}
+          {/* Layer 2: Glowing outline edges illuminated strictly on the stroke lines under cursor */}
           <div
             className="absolute inset-0 flex items-center justify-center font-sans font-black text-[22vw] sm:text-[23vw] lg:text-[21vw] leading-[0.72] tracking-[0.14em] text-transparent text-center select-none pointer-events-none transition-opacity duration-200 pl-[0.14em]"
             style={{
@@ -269,7 +235,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar (Directly inspired by the green Vinillia footer bottom bar) */}
+        {/* Bottom Bar */}
         <div className="mt-8 pt-6 border-t border-[#46462A]/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#FAF7EE]/60 font-light">
           <div>
             © 2026 VINILLIA BEAUTY • Tous droits réservés.
