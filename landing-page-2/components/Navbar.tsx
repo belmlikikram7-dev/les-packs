@@ -24,7 +24,7 @@ export default function Navbar() {
             e.preventDefault();
             scrollTo("#hero");
           }}
-          className="flex items-center group py-1 cursor-pointer"
+          className="flex items-center group py-1 cursor-pointer ms-2 sm:ms-6 md:ms-12 lg:ms-20 xl:ms-24 transition-all"
           aria-label="Vinillia Beauty & Skincare"
         >
           <Image

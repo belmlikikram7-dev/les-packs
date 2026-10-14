@@ -20,6 +20,7 @@ interface StepItem {
   keyActives: string[];
   usage: string;
   image?: string;
+  modelImage?: string;
 }
 
 export default function RoutineSection() {
@@ -55,6 +56,7 @@ export default function RoutineSection() {
       keyActives: ["Centella Asiatica", "Acide Hyaluronique", "Extrait de Riz"],
       usage: "Masser une noisette sur visage humide en mouvements circulaires puis rincer abondamment.",
       image: "/products/cleansing-foam.png",
+      modelImage: "/images/model2/K-SECRET Cleansing Foam Pine Cica 1% + Probiotics model.webp",
     },
     {
       id: "eye-cream-am",
@@ -70,6 +72,7 @@ export default function RoutineSection() {
       keyActives: ["Peptides", "Caféine", "Niacinamide"],
       usage: "Tapoter délicatement une petite perle avec l'annulaire de l'intérieur vers l'extérieur.",
       image: "/products/eye-cream.png",
+      modelImage: "/images/model2/K-SECRET Eye Cream Retinal Liposome 4% + Fermented Bean model.webp",
     },
     {
       id: "cream-snail-am",
@@ -85,6 +88,7 @@ export default function RoutineSection() {
       keyActives: ["Mucine d'Escargot 93%", "Extrait de Riz", "Panthénol"],
       usage: "Appliquer généreusement sur le visage et le cou en massant jusqu'à pénétration.",
       image: "/products/cream-snail.png",
+      modelImage: "/images/model2/K-SECRET Cream Snail Mucin 93% + Rice model.webp",
     },
     {
       id: "sun-pine-am",
@@ -100,6 +104,7 @@ export default function RoutineSection() {
       keyActives: ["Extrait de Pin", "Céramides NP", "Filtres Nouvelle Génération"],
       usage: "Appliquer en dernière étape le matin 15 minutes avant toute exposition extérieure.",
       image: "/products/sun-pine.png",
+      modelImage: "/images/model2/K-SECRET Seoul 1988 Sun Pine Tree + Ceramide medel.webp",
     },
   ];
 
@@ -118,6 +123,7 @@ export default function RoutineSection() {
       keyActives: ["Centella Asiatica", "Acide Hyaluronique", "Extrait de Riz"],
       usage: "Faire mousser dans les mains avec un peu d'eau puis masser 60 secondes sur le visage.",
       image: "/products/cleansing-foam.png",
+      modelImage: "/images/model2/K-SECRET Cleansing Foam Pine Cica 1% + Probiotics model.webp",
     },
     {
       id: "eye-cream-pm",
@@ -133,6 +139,7 @@ export default function RoutineSection() {
       keyActives: ["Peptides", "Caféine", "Niacinamide"],
       usage: "Appliquer en couche soyeuse avant vos sérums de nuit.",
       image: "/products/eye-cream.png",
+      modelImage: "/images/model2/K-SECRET Eye Cream Retinal Liposome 4% + Fermented Bean model.webp",
     },
     {
       id: "serum-retinal-pm",
@@ -148,6 +155,7 @@ export default function RoutineSection() {
       keyActives: ["Retinal Liposome 2%", "Ginseng Noir Fermenté", "Bakuchiol"],
       usage: "Appliquer 3 à 4 gouttes sur peau sèche en évitant les muqueuses. Utilisation du soir uniquement.",
       image: "/products/serum-retinal.png",
+      modelImage: "/images/model2/K-SECRET Serum Retinal Liposome 2% + Black Ginseng model.webp",
     },
     {
       id: "cream-retinal-pm",
@@ -163,6 +171,7 @@ export default function RoutineSection() {
       keyActives: ["Retinal Liposome 1%", "Extrait de Riz Fermenté", "Adénosine"],
       usage: "Appliquer sur l'ensemble du visage et du cou en couche protectrice finale.",
       image: "/products/cream-retinal.png",
+      modelImage: "/images/model2/K-SECRET Cream Retinal Liposome 1% + Fermented Rice model.webp",
     },
   ];
 
@@ -421,19 +430,31 @@ export default function RoutineSection() {
                   </div>
 
                   {/* Large Circular Container with Product - Soft ambient shadow & delicate border */}
-                  <div className="relative w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 rounded-full bg-gradient-to-b from-[#FFFDF9] via-[#FAF7EE] to-[#EAE0CA] border border-[#74070D]/25 shadow-[0_8px_20px_-4px_rgba(116,7,13,0.12)] hover:shadow-[0_12px_24px_-4px_rgba(116,7,13,0.2)] hover:border-[#74070D]/40 hover:scale-105 transition-all duration-300 flex items-center justify-center p-3 group">
+                  <div
+                    onClick={() => setSelectedStep(item)}
+                    className="relative w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 rounded-full bg-gradient-to-b from-[#FFFDF9] via-[#FAF7EE] to-[#EAE0CA] border border-[#74070D]/25 shadow-[0_8px_20px_-4px_rgba(116,7,13,0.12)] hover:shadow-[0_12px_24px_-4px_rgba(116,7,13,0.2)] hover:border-[#74070D]/40 hover:scale-105 transition-all duration-300 flex items-center justify-center p-3 group overflow-hidden cursor-pointer"
+                  >
                     
                     {/* Isolated Product Image */}
                     {item.image && (
                       <img
                         src={item.image}
                         alt={item.product}
-                        className="h-24 sm:h-28 md:h-32 max-h-[125px] w-auto object-contain drop-shadow-[0_8px_14px_rgba(49,15,16,0.22)] animate-float-product pointer-events-none relative z-10"
+                        className="h-24 sm:h-28 md:h-32 max-h-[125px] w-auto object-contain drop-shadow-[0_8px_14px_rgba(49,15,16,0.22)] animate-float-product pointer-events-none relative z-10 transition-all duration-500 ease-out group-hover:opacity-0 group-hover:scale-90"
+                      />
+                    )}
+
+                    {/* Model Photo Revealed on Hover */}
+                    {item.modelImage && (
+                      <img
+                        src={item.modelImage}
+                        alt={`${item.product} modèle`}
+                        className="absolute inset-0 w-full h-full object-cover object-top opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out scale-105 group-hover:scale-100 z-20 pointer-events-none"
                       />
                     )}
 
                     {/* Subtle soft ground reflection */}
-                    <div className="absolute bottom-2.5 w-16 h-2 bg-[#74070D]/10 blur-xs rounded-full pointer-events-none" />
+                    <div className="absolute bottom-2.5 w-16 h-2 bg-[#74070D]/10 blur-xs rounded-full pointer-events-none transition-opacity duration-300 group-hover:opacity-0" />
                   </div>
 
                   {/* Product Info & "Voir" Button below Circle */}
@@ -489,12 +510,19 @@ export default function RoutineSection() {
 
             <div className="flex flex-col sm:flex-row items-center gap-5 mb-5">
               {selectedStep.image && (
-                <div className="w-24 h-24 shrink-0 rounded-full bg-[#F4EEDC] border-2 border-[#74070D] p-2 flex items-center justify-center shadow-inner">
+                <div className="relative w-24 h-24 shrink-0 rounded-full bg-[#F4EEDC] border-2 border-[#74070D] p-2 flex items-center justify-center shadow-inner overflow-hidden group">
                   <img
                     src={selectedStep.image}
                     alt={selectedStep.product}
-                    className="max-h-full w-auto object-contain drop-shadow-md"
+                    className="max-h-full w-auto object-contain drop-shadow-md transition-all duration-300 group-hover:opacity-0 group-hover:scale-90"
                   />
+                  {selectedStep.modelImage && (
+                    <img
+                      src={selectedStep.modelImage}
+                      alt={`${selectedStep.product} modèle`}
+                      className="absolute inset-0 w-full h-full object-cover object-top opacity-0 group-hover:opacity-100 transition-all duration-300 scale-105 group-hover:scale-100"
+                    />
+                  )}
                 </div>
               )}
               <div className="text-center sm:text-left">
