@@ -45,11 +45,11 @@ export default function Footer() {
       {/* Infinite scrolling ticker at the very top of Footer */}
       <TrustTicker />
 
-      {/* Main Spacious Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 lg:pt-24 pb-28 md:pb-16 lg:pb-20">
+      {/* Main Container - Compact and lifted so 1988 is immediately visible */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-8 sm:pb-10">
         
         {/* Navigation & Brand Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-14 pb-14 border-b border-[#46462A]/60">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-8 sm:pb-10 border-b border-[#46462A]/50">
           
           {/* Brand Info / Vinillia Yellow Logo */}
           <div className="md:col-span-5 flex flex-col items-start">
@@ -157,7 +157,7 @@ export default function Footer() {
 
         </div>
 
-        {/* Massive Interactive "1988" Watermark with Glowing Cursor Spotlight */}
+        {/* Massive Interactive "1988" in Product Modern Sans-Serif Font with Hollow Stroke Glow */}
         <div
           ref={watermarkRef}
           onMouseEnter={() => setIsHovered(true)}
@@ -166,7 +166,7 @@ export default function Footer() {
           onTouchStart={() => setIsHovered(true)}
           onTouchMove={handleTouchMove}
           onTouchEnd={() => setIsHovered(false)}
-          className="relative w-full my-8 sm:my-12 lg:my-16 py-4 flex items-center justify-center cursor-default select-none overflow-hidden group"
+          className="relative w-full mt-6 sm:mt-8 pt-2 pb-0 flex items-center justify-center cursor-default select-none overflow-hidden"
           aria-hidden="true"
         >
           {/* Subtle cursor spotlight aura in the background */}
@@ -174,45 +174,35 @@ export default function Footer() {
             className="absolute inset-0 pointer-events-none transition-opacity duration-300"
             style={{
               opacity: isHovered ? 1 : 0,
-              background: `radial-gradient(circle 280px at ${mousePos.x}px ${mousePos.y}px, rgba(243, 227, 178, 0.08), transparent 70%)`,
+              background: `radial-gradient(circle 240px at ${mousePos.x}px ${mousePos.y}px, rgba(243, 227, 178, 0.06), transparent 70%)`,
             }}
           />
 
-          {/* Layer 1: Dark base watermark text (always visible like Vinillia reference) */}
-          <div className="font-serif font-black text-[22vw] sm:text-[23vw] lg:text-[22vw] leading-[0.8] tracking-[0.06em] text-[#240809] text-center select-none transition-colors duration-500">
+          {/* Layer 1: Dark base outline (Hollow stroke like Vinillia) */}
+          <div className="font-sans font-black text-[22vw] sm:text-[23vw] lg:text-[21vw] leading-[0.72] tracking-tight text-transparent text-center select-none">
             <span
               className="inline-block"
               style={{
-                WebkitTextStroke: "1px rgba(243, 227, 178, 0.09)",
-                textShadow: "0 4px 12px rgba(0,0,0,0.5)",
+                WebkitTextStroke: "1.5px rgba(243, 227, 178, 0.12)",
               }}
             >
               1988
             </span>
           </div>
 
-          {/* Layer 2: Glowing illuminated text revealed right under the cursor ("wmni ndwz elih souri ydwi") */}
+          {/* Layer 2: Glowing outline edges revealed right under the cursor ("غير مع الجناب") */}
           <div
-            className="absolute inset-0 flex items-center justify-center font-serif font-black text-[22vw] sm:text-[23vw] lg:text-[22vw] leading-[0.8] tracking-[0.06em] text-[#F3E3B2] text-center select-none pointer-events-none transition-opacity duration-200"
+            className="absolute inset-0 flex items-center justify-center font-sans font-black text-[22vw] sm:text-[23vw] lg:text-[21vw] leading-[0.72] tracking-tight text-transparent text-center select-none pointer-events-none transition-opacity duration-200"
             style={{
               opacity: isHovered ? 1 : 0,
-              WebkitTextStroke: "1.5px #F3E3B2",
-              textShadow: "0 0 20px rgba(243, 227, 178, 0.95), 0 0 40px rgba(243, 227, 178, 0.6), 0 0 80px rgba(116, 7, 13, 0.7)",
-              WebkitMaskImage: `radial-gradient(circle 240px at ${mousePos.x}px ${mousePos.y}px, black 0%, rgba(0, 0, 0, 0.6) 55%, transparent 100%)`,
-              maskImage: `radial-gradient(circle 240px at ${mousePos.x}px ${mousePos.y}px, black 0%, rgba(0, 0, 0, 0.6) 55%, transparent 100%)`,
+              WebkitTextStroke: "2.5px #F3E3B2",
+              filter: "drop-shadow(0 0 8px #F3E3B2) drop-shadow(0 0 18px rgba(243, 227, 178, 0.8)) drop-shadow(0 0 35px rgba(116, 7, 13, 0.9))",
+              WebkitMaskImage: `radial-gradient(circle 200px at ${mousePos.x}px ${mousePos.y}px, black 0%, rgba(0, 0, 0, 0.6) 45%, transparent 100%)`,
+              maskImage: `radial-gradient(circle 200px at ${mousePos.x}px ${mousePos.y}px, black 0%, rgba(0, 0, 0, 0.6) 45%, transparent 100%)`,
             }}
           >
             <span className="inline-block">1988</span>
           </div>
-        </div>
-
-        {/* Bottom Copyright */}
-        <div className="pt-6 border-t border-[#46462A]/40 flex flex-col sm:flex-row items-center justify-between text-[11px] text-[#FAF7EE]/60 gap-4">
-          <p>© 2026 Seoul 1988 Beauty Collection. {t.copyright}</p>
-          <p className="flex items-center gap-1">
-            Conçu pour l'élégance et le bien-être de votre peau
-            <Heart className="w-3 h-3 text-[#74070D] inline fill-current" />
-          </p>
         </div>
 
       </div>
