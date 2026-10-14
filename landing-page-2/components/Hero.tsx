@@ -17,29 +17,21 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative pt-24 pb-8 sm:pt-28 sm:pb-10 lg:pt-32 lg:pb-12 overflow-hidden bg-[#FAF7EE] text-[#310F10] min-h-[580px] lg:min-h-[640px] xl:min-h-[700px] flex items-center"
+      className="relative pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24 overflow-hidden bg-[#FAF7EE] text-[#310F10] min-h-[580px] lg:min-h-[640px] xl:min-h-[700px] flex items-center"
     >
-      {/* Desktop Natural Image - Scaled down slightly, shifted down below navbar, grounded at the bottom so the full light circle, green tube, and all products are 100% visible */}
-      <div
-        className="absolute right-0 bottom-0 top-16 sm:top-20 lg:top-20 w-full lg:w-[68%] xl:w-[65%] h-[calc(100%-4rem)] hidden lg:flex items-end justify-end pointer-events-none"
-        style={{
-          maskImage: "linear-gradient(to right, transparent 0%, black 14%)",
-          WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 14%)",
-        }}
-      >
-        <div className="relative w-full h-full flex items-end justify-end">
-          <Image
-            src="/images/hero-pack.webp"
-            alt="Pack Seoul 1988 K-Secret"
-            fill
-            priority
-            sizes="(min-width: 1024px) 68vw, 100vw"
-            className="object-contain object-bottom-right"
-          />
-        </div>
+      {/* Desktop Full-Bleed Natural Studio Image - Seamless across the entire section with zero lines */}
+      <div className="absolute inset-0 hidden lg:block pointer-events-none">
+        <Image
+          src="/images/hero-pack.webp"
+          alt="Pack Seoul 1988 K-Secret"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[right_top]"
+        />
       </div>
 
-      {/* Main Container - Clean, Minimalist, Left-Aligned Headline, Gift Card & CTA Button */}
+      {/* Main Container - Left-Aligned Headline, Gift Card & CTA Button */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex flex-col items-start text-left max-w-xl lg:max-w-md xl:max-w-lg">
           
@@ -58,7 +50,7 @@ export default function Hero() {
               src="/images/hero-pack.webp"
               alt="Pack Seoul 1988 K-Secret & Cadeaux Fino Vaseline"
               width={2048}
-              height={1152}
+              height={1292}
               priority
               className="w-full h-auto object-cover"
             />
