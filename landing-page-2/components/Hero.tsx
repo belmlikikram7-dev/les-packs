@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { ArrowRight, Gift } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 export default function Hero() {
@@ -33,12 +33,12 @@ export default function Hero() {
         <div className="absolute inset-x-0 bottom-0 h-16 sm:h-24 bg-gradient-to-t from-black/20 via-black/5 to-transparent pointer-events-none" />
       </div>
 
-      {/* Main Container - Left-Aligned Headline, Gift Card & CTA Button (Lifted slightly up) */}
+      {/* Main Container - Ultra Clean, Minimalist Headline & CTA Button */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex flex-col items-start text-left max-w-xl lg:max-w-md xl:max-w-lg -mt-2 sm:-mt-5 lg:-mt-8">
           
-          {/* Main Headline - No underline, lifted up with distinct spacing between line 1 and line 2 */}
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[44px] font-bold text-[#310F10] mb-6 flex flex-col gap-2.5 sm:gap-3">
+          {/* Main Headline - No underline, lifted up with distinct spacing between lines */}
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[44px] font-bold text-[#310F10] mb-8 flex flex-col gap-2.5 sm:gap-3">
             <span className="leading-tight">
               {t.titlePart1}
               <span className="font-extrabold text-[#74070D] italic">
@@ -64,23 +64,8 @@ export default function Hero() {
             <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/25 to-transparent pointer-events-none" />
           </div>
 
-          {/* Gift Notification Banner - Luxury Frosted White Card */}
-          <div className="w-full max-w-md mb-7 p-2.5 sm:p-3 rounded-2xl bg-white/90 backdrop-blur-md border border-[#74070D]/20 shadow-lg flex items-center gap-3 text-left">
-            <div className="w-10 h-10 rounded-xl bg-[#74070D] text-[#FAF7EE] flex items-center justify-center shrink-0 shadow-md">
-              <Gift className="w-5 h-5" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <span className="text-[10px] uppercase font-bold tracking-wider text-[#74070D] block">
-                Offre Spéciale Incluse
-              </span>
-              <span className="text-xs font-bold text-[#310F10] leading-tight block truncate">
-                {t.giftBadge}
-              </span>
-            </div>
-          </div>
-
           {/* CTA Button with Both Prices */}
-          <div className="w-full sm:w-auto flex flex-col items-start gap-3">
+          <div className="w-full sm:w-auto flex flex-col items-start gap-3 mt-1">
             <button
               onClick={() => scrollTo("#commande")}
               className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-center gap-3 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#FAF7EE] text-xs sm:text-sm uppercase font-bold tracking-wider shadow-xl shadow-[#74070D]/40 hover:shadow-[#74070D]/60 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer group"
