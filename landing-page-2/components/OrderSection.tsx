@@ -108,7 +108,7 @@ export default function OrderSection() {
               {t.confirmation.recorded}
             </p>
 
-            <div className="p-4 rounded-2xl bg-[#F4EEDC] border border-[#F3E3B2] text-xs space-y-2 mb-6 text-left">
+            <div className={`p-4 rounded-2xl bg-[#F4EEDC] border border-[#F3E3B2] text-xs space-y-2 mb-6 ${isArabic ? "text-right" : "text-left"}`}>
               <div className="flex justify-between">
                 <span className="text-[#46462A]">{t.confirmation.article} :</span>
                 <span className="font-bold text-[#310F10]">{t.confirmation.articleValue}</span>
@@ -132,7 +132,7 @@ export default function OrderSection() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-6xl mx-auto overflow-visible">
+          <div dir="ltr" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-6xl mx-auto overflow-visible">
 
             {/* Left Side: Hand + Product Image with soft colored circle & shadow */}
             <div className="lg:col-span-5 hidden lg:flex items-center justify-center relative overflow-visible">
@@ -158,8 +158,13 @@ export default function OrderSection() {
               </div>
             </div>
 
-            {/* Right Card : Order Form */}
-            <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-[#FAF7EE] border-2 border-[#F3E3B2] shadow-xl">
+            {/* Right Card : Order Form (Always on the right, content in RTL for Arabic) */}
+            <div
+              dir={isArabic ? "rtl" : "ltr"}
+              className={`lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-[#FAF7EE] border-2 border-[#F3E3B2] shadow-xl ${
+                isArabic ? "text-right" : "text-left"
+              }`}
+            >
               <div className="mb-6">
                 <h3 className="font-serif text-2xl font-bold text-[#310F10] mb-1">
                   {t.form.title}
@@ -290,7 +295,7 @@ export default function OrderSection() {
                         <span dir="ltr" className="font-extrabold text-white">
                           <bdi dir="ltr">{t.recap.totalSpecialPrice}</bdi>
                         </span>
-                        <ArrowRight className="w-4 h-4 ml-1" />
+                        <ArrowRight className={`w-4 h-4 ${isArabic ? "mr-1 rotate-180" : "ml-1"}`} />
                       </>
                     )}
                   </button>

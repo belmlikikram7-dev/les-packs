@@ -15,10 +15,18 @@ export default function ProductGrid() {
   };
 
   return (
-    <section id="produits" className="pt-0 pb-10 lg:pb-14 bg-white text-[#310F10] relative overflow-hidden">
+    <section id="produits" className="pt-8 pb-10 lg:pt-12 lg:pb-14 bg-[#FAF7EE] text-[#310F10] relative overflow-hidden">
 
-      {/* 100% True Full-Width Edge-to-Edge Panoramic Image seamless on white background */}
-      <div className="w-full relative overflow-hidden bg-white">
+      {/* 100% True Full-Width Edge-to-Edge Panoramic Image with smooth Top & Bottom transition */}
+      <div className="w-full relative overflow-hidden">
+        
+        {/* Ultra-subtle micro top feather shadow (only 12-16px): blends the top edge without casting any shadow onto the hair */}
+        <div 
+          className="absolute top-0 left-0 right-0 h-3 sm:h-4 z-10 pointer-events-none"
+          style={{
+            background: "linear-gradient(to bottom, #FAF7EE 0%, rgba(250, 247, 238, 0.4) 40%, transparent 100%)"
+          }}
+        />
 
         <div className="relative w-full aspect-[1/1] xs:aspect-[5/4] sm:aspect-[1024/512] min-h-[350px] sm:min-h-0">
           <Image
