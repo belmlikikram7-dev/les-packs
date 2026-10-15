@@ -16,12 +16,6 @@ export default function ProductGrid() {
 
   return (
     <section id="produits" className="pt-8 pb-10 lg:pt-12 lg:pb-14 bg-[#FAF7EE] text-[#310F10] relative overflow-hidden">
-      {/* Section Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl mb-6 lg:mb-8">
-        <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#310F10] leading-tight">
-          L'Excellence Coréenne Réunie en un Seul Pack
-        </h2>
-      </div>
 
       {/* 100% True Full-Width Edge-to-Edge Panoramic Image with smooth Top & Bottom transition */}
       <div className="w-full relative overflow-hidden">
