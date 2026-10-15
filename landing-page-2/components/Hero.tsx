@@ -33,12 +33,12 @@ export default function Hero() {
         <div className="absolute inset-x-0 bottom-0 h-16 sm:h-24 bg-gradient-to-t from-black/20 via-black/5 to-transparent pointer-events-none" />
       </div>
 
-      {/* Main Container - Ultra Clean, Minimalist Headline & CTA Button */}
+      {/* Main Container - Left-Aligned Headline, Gift Card & CTA Button (Lifted slightly up) */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex flex-col items-start text-left max-w-xl lg:max-w-md xl:max-w-lg -mt-2 sm:-mt-5 lg:-mt-8">
-          
-          {/* Main Headline - No underline, lifted up with distinct spacing between lines */}
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[44px] font-bold text-[#310F10] mb-8 flex flex-col gap-2.5 sm:gap-3">
+
+          {/* Main Headline - No underline, lifted up with distinct spacing between line 1 and line 2 */}
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[44px] font-bold text-[#310F10] mb-6 flex flex-col gap-2.5 sm:gap-3">
             <span className="leading-tight">
               {t.titlePart1}
               <span className="font-extrabold text-[#74070D] italic">
@@ -64,8 +64,9 @@ export default function Hero() {
             <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/25 to-transparent pointer-events-none" />
           </div>
 
+
           {/* CTA Button with Both Prices */}
-          <div className="w-full sm:w-auto flex flex-col items-start gap-3 mt-1">
+          <div className="w-full sm:w-auto flex flex-col items-start gap-3">
             <button
               onClick={() => scrollTo("#commande")}
               className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-center gap-3 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#FAF7EE] text-xs sm:text-sm uppercase font-bold tracking-wider shadow-xl shadow-[#74070D]/40 hover:shadow-[#74070D]/60 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer group"
@@ -80,9 +81,8 @@ export default function Hero() {
                 </span>
               </span>
               <ArrowRight
-                className={`w-4 h-4 text-[#F3E3B2] transform ${
-                  isArabic ? "rotate-180 group-hover:-translate-x-1" : "group-hover:translate-x-1"
-                } shrink-0 transition-transform`}
+                className={`w-4 h-4 text-[#F3E3B2] transform ${isArabic ? "rotate-180 group-hover:-translate-x-1" : "group-hover:translate-x-1"
+                  } shrink-0 transition-transform`}
               />
             </button>
           </div>
