@@ -29,8 +29,8 @@ export default function Hero() {
           sizes="100vw"
           className="object-cover object-[right_top]"
         />
-        {/* Soft light/cream bottom fade so the photo edge dissolves naturally into the background */}
-        <div className="absolute inset-x-0 bottom-0 h-14 sm:h-20 bg-gradient-to-b from-transparent via-[#FAF7EE]/40 to-[#FAF7EE] pointer-events-none" />
+        {/* Soft light/white bottom fade so the photo edge dissolves naturally into the white section */}
+        <div className="absolute inset-x-0 bottom-0 h-14 sm:h-20 bg-gradient-to-b from-transparent via-white/50 to-white pointer-events-none" />
       </div>
 
       {/* Main Container - Left-Aligned Headline, Gift Card & CTA Button (Lifted slightly up) */}
@@ -60,8 +60,8 @@ export default function Hero() {
               priority
               className="w-full h-auto object-cover"
             />
-            {/* Soft light/cream bottom fade on mobile image */}
-            <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-b from-transparent via-[#FAF7EE]/40 to-[#FAF7EE] pointer-events-none" />
+            {/* Soft light/white bottom fade on mobile image */}
+            <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-b from-transparent via-white/50 to-white pointer-events-none" />
           </div>
 
 
