@@ -134,6 +134,12 @@ interface TranslationSet {
     brandTag: string;
     description: string;
     quickLinks: string;
+    socialTitle: string;
+    navHome: string;
+    navPack: string;
+    navProducts: string;
+    navRoutine: string;
+    navOrder: string;
     guarantees: string;
     followUs: string;
     copyright: string;
@@ -279,6 +285,12 @@ export const TRANSLATIONS: Record<Locale, TranslationSet> = {
       brandTag: "Seoul 1988 Beauty Collection",
       description: "Votre destination privilégiée pour les rituels de beauté coréens et japonais les plus authentiques et efficaces au Maroc.",
       quickLinks: "Navigation",
+      socialTitle: "Réseaux Sociaux",
+      navHome: "Accueil",
+      navPack: "Le Pack Seoul 1988",
+      navProducts: "Les 6 Soins K-Secret",
+      navRoutine: "Routine Jour & Nuit",
+      navOrder: "Commander le Pack",
       guarantees: "Nos Engagements",
       followUs: "Suivez-nous",
       copyright: "Tous droits réservés.",
@@ -421,7 +433,13 @@ export const TRANSLATIONS: Record<Locale, TranslationSet> = {
     footer: {
       brandTag: "مجموعة سول 1988 للعناية الفاخرة",
       description: "وجهتكم المعتمدة لأفضل وأحدث مستحضرات التجميل الكورية واليابانية الأصلية في المغرب.",
-      quickLinks: "روابط سريعة",
+      quickLinks: "أقسام الموقع",
+      socialTitle: "مواقع التواصل",
+      navHome: "الرئيسية",
+      navPack: "باك سول 1988",
+      navProducts: "مستحضرات K-Secret الستة",
+      navRoutine: "روتين النهار والليل",
+      navOrder: "طلب الباك الكامل",
       guarantees: "ضماناتنا",
       followUs: "تابعينا على",
       copyright: "جميع الحقوق محفوظة.",

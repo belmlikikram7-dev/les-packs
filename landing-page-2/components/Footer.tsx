@@ -7,7 +7,7 @@ import { TRANSLATIONS } from "@/translations/content";
 import TrustTicker from "@/components/TrustTicker";
 
 export default function Footer() {
-  const { locale } = useLanguage();
+  const { locale, isArabic } = useLanguage();
   const t = TRANSLATIONS[locale].footer;
 
   const scrollTo = (hash: string) => {
@@ -78,7 +78,7 @@ export default function Footer() {
           <div className="md:col-span-5 flex flex-col items-start md:items-center">
             <div className="w-full md:max-w-md">
               <h4 className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#F3E3B2] mb-3">
-                NAVIGATION
+                {t.quickLinks}
               </h4>
               <div className="grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-2.5 text-xs sm:text-sm font-medium text-[#FAF7EE]/85">
                 {/* 3 Links: Accueil, Le Pack Seoul 1988, Les 6 Soins K-Secret */}
@@ -86,25 +86,25 @@ export default function Footer() {
                   <li>
                     <button
                       onClick={() => scrollTo("#hero")}
-                      className="hover:text-[#F3E3B2] transition-colors cursor-pointer text-left block"
+                      className={`hover:text-[#F3E3B2] transition-colors cursor-pointer ${isArabic ? "text-right" : "text-left"} block w-full`}
                     >
-                      Accueil
+                      {t.navHome}
                     </button>
                   </li>
                   <li>
                     <button
                       onClick={() => scrollTo("#pack")}
-                      className="hover:text-[#F3E3B2] transition-colors cursor-pointer text-left block"
+                      className={`hover:text-[#F3E3B2] transition-colors cursor-pointer ${isArabic ? "text-right" : "text-left"} block w-full`}
                     >
-                      Le Pack Seoul 1988
+                      {t.navPack}
                     </button>
                   </li>
                   <li>
                     <button
                       onClick={() => scrollTo("#produits")}
-                      className="hover:text-[#F3E3B2] transition-colors cursor-pointer text-left block"
+                      className={`hover:text-[#F3E3B2] transition-colors cursor-pointer ${isArabic ? "text-right" : "text-left"} block w-full`}
                     >
-                      Les 6 Soins K-Secret
+                      {t.navProducts}
                     </button>
                   </li>
                 </ul>
@@ -114,17 +114,17 @@ export default function Footer() {
                   <li>
                     <button
                       onClick={() => scrollTo("#routine")}
-                      className="hover:text-[#F3E3B2] transition-colors cursor-pointer text-left block"
+                      className={`hover:text-[#F3E3B2] transition-colors cursor-pointer ${isArabic ? "text-right" : "text-left"} block w-full`}
                     >
-                      Routine Jour & Nuit
+                      {t.navRoutine}
                     </button>
                   </li>
                   <li>
                     <button
                       onClick={() => scrollTo("#commande")}
-                      className="hover:text-[#F3E3B2] font-semibold text-[#F3E3B2] transition-colors cursor-pointer text-left block"
+                      className={`hover:text-[#F3E3B2] font-semibold text-[#F3E3B2] transition-colors cursor-pointer ${isArabic ? "text-right" : "text-left"} block w-full`}
                     >
-                      Commander le Pack
+                      {t.navOrder}
                     </button>
                   </li>
                 </ul>
@@ -135,7 +135,7 @@ export default function Footer() {
           {/* Column 3: Only Instagram and TikTok logos (md:col-span-3) */}
           <div className="md:col-span-3 flex flex-col items-start md:items-end">
             <h4 className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#F3E3B2] mb-3">
-              RÉSEAUX SOCIAUX
+              {t.socialTitle}
             </h4>
 
             <div className="flex items-center gap-3">
