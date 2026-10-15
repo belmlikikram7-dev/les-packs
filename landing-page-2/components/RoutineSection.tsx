@@ -15,16 +15,19 @@ interface StepItem {
   arabicProduct: string;
   volume: string;
   category: string;
+  arabicCategory?: string;
   desc: string;
   arabicDesc: string;
   keyActives: string[];
+  arabicKeyActives?: string[];
   usage: string;
+  arabicUsage?: string;
   image?: string;
   modelImage?: string;
 }
 
 export default function RoutineSection() {
-  const { locale } = useLanguage();
+  const { locale, isArabic } = useLanguage();
   const t = TRANSLATIONS[locale].routineSection;
   const [activeTab, setActiveTab] = useState<"morning" | "night">("morning");
   const [selectedStep, setSelectedStep] = useState<StepItem | null>(null);
@@ -51,10 +54,13 @@ export default function RoutineSection() {
       arabicProduct: "رغوة منظفة سول 1988",
       volume: "150ml",
       category: "Nettoyant Doux Purifiant",
+      arabicCategory: "منظف لطيف ومنقي للبشرة",
       desc: "Élimine délicatement l'excès de sébum nocturne sans tirailler ni assécher la barrière cutanée.",
       arabicDesc: "تنظف بلطف الإفرازات الدهنية الليلية دون التسبب في أي جفاف أو شد للبشرة.",
       keyActives: ["Centella Asiatica", "Acide Hyaluronique", "Extrait de Riz"],
+      arabicKeyActives: ["سنتيلا أسياتيكا", "حمض الهيالورونيك", "خلاصة الأرز"],
       usage: "Masser une noisette sur visage humide en mouvements circulaires puis rincer abondamment.",
+      arabicUsage: "تدليك كمية مناسبة على الوجه المبلل بحركات دائرية ثم شطفه جيداً بالماء.",
       image: "/products/cleansing-foam.png",
       modelImage: "/images/model2/model-cleansing-foam.webp",
     },
@@ -67,10 +73,13 @@ export default function RoutineSection() {
       arabicProduct: "كريم محيط العينين سول 1988",
       volume: "30ml",
       category: "Soin Contour des Yeux",
+      arabicCategory: "عناية فائقة بمحيط العينين",
       desc: "Dégonfle le regard au réveil, illumine les cernes et hydrate la zone fine de l'œil.",
       arabicDesc: "يخفف انتفاخ الصباح، يفتح الهالات السوداء ويرطب منطقة حول العينين الحساسة.",
       keyActives: ["Peptides", "Caféine", "Niacinamide"],
+      arabicKeyActives: ["الببتيدات", "الكافيين", "النياسيناميد"],
       usage: "Tapoter délicatement une petite perle avec l'annulaire de l'intérieur vers l'extérieur.",
+      arabicUsage: "تربيت كمية صغيرة بلطف بإصبع البنصر من الداخل إلى الخارج حول العينين.",
       image: "/products/eye-cream.png",
       modelImage: "/images/model2/model-eye-cream.webp",
     },
@@ -83,10 +92,13 @@ export default function RoutineSection() {
       arabicProduct: "كريم إفرازات الحلزون 93% + الأرز",
       volume: "100ml",
       category: "Crème Réparatrice & Glow",
+      arabicCategory: "كريم مرطب ومغذي للبشرة",
       desc: "Hydratation intense et effet Glass Skin coréen immédiat, apaise les rougeurs sans fini gras.",
       arabicDesc: "ترطيب مكثف يمنح البشرة توهجاً كورياً زجاجياً نضراً ويهدئ الاحمرار تماماً.",
       keyActives: ["Mucine d'Escargot 93%", "Extrait de Riz", "Panthénol"],
+      arabicKeyActives: ["إفرازات الحلزون 93%", "خلاصة الأرز", "البانثينول"],
       usage: "Appliquer généreusement sur le visage et le cou en massant jusqu'à pénétration.",
+      arabicUsage: "يوضع بسخاء على الوجه والرقبة مع التدليك الخفيف حتى تمتصه البشرة بالكامل.",
       image: "/products/cream-snail.png",
       modelImage: "/images/model2/model-cream-snail.webp",
     },
@@ -99,10 +111,13 @@ export default function RoutineSection() {
       arabicProduct: "واقي شمس سول 1988 : الصنوبر + سيراميد",
       volume: "50ml",
       category: "Protection Solaire SPF 50+",
+      arabicCategory: "واقي شمسي فائق الحماية SPF 50+",
       desc: "Protection solaire SPF 50+ PA++++ ultralégère, non collante, idéale sous le maquillage.",
       arabicDesc: "حماية قصوى SPF 50+ من أشعة الشمس، خفيفة جداً، غير دهنية ولا تترك أي بياض.",
       keyActives: ["Extrait de Pin", "Céramides NP", "Filtres Nouvelle Génération"],
+      arabicKeyActives: ["خلاصة الصنوبر", "سيراميد NP", "فلاتر حماية متطورة"],
       usage: "Appliquer en dernière étape le matin 15 minutes avant toute exposition extérieure.",
+      arabicUsage: "يطبق كآخر خطوة في روتين الصباح قبل 15 دقيقة من التعرض للشمس.",
       image: "/products/sun-pine.png",
       modelImage: "/images/model2/model-sun-pine.webp",
     },
@@ -118,10 +133,13 @@ export default function RoutineSection() {
       arabicProduct: "رغوة منظفة سول 1988",
       volume: "150ml",
       category: "Nettoyant Doux Purifiant",
+      arabicCategory: "منظف لطيف ومنقي للبشرة",
       desc: "Libère les pores des résidus de filtres solaires, du maquillage et de la pollution accumulée.",
       arabicDesc: "يزيل رواسب واقي الشمس والشوائب والتلوث المتراكمة طوال اليوم وينظف المسام.",
       keyActives: ["Centella Asiatica", "Acide Hyaluronique", "Extrait de Riz"],
+      arabicKeyActives: ["سنتيلا أسياتيكا", "حمض الهيالورونيك", "خلاصة الأرز"],
       usage: "Faire mousser dans les mains avec un peu d'eau puis masser 60 secondes sur le visage.",
+      arabicUsage: "يفرك في اليدين مع قليل من الماء ثم يدلك على الوجه لمدة 60 ثانية قبل الشطف.",
       image: "/products/cleansing-foam.png",
       modelImage: "/images/model2/model-cleansing-foam.webp",
     },
@@ -134,10 +152,13 @@ export default function RoutineSection() {
       arabicProduct: "كريم محيط العينين سول 1988",
       volume: "30ml",
       category: "Soin Contour des Yeux",
+      arabicCategory: "عناية فائقة بمحيط العينين",
       desc: "Nourrit intensément les paupières et prévient le vieillissement cutané pendant le sommeil.",
       arabicDesc: "يغذي الجفون بعمق ويحمي من الخطوط التعبيرية وظهور التجاعيد أثناء النوم.",
       keyActives: ["Peptides", "Caféine", "Niacinamide"],
+      arabicKeyActives: ["الببتيدات", "الكافيين", "النياسيناميد"],
       usage: "Appliquer en couche soyeuse avant vos sérums de nuit.",
+      arabicUsage: "توضع طبقة ناعمة وخفيفة حول العينين قبل تطبيق سيروم الليل.",
       image: "/products/eye-cream.png",
       modelImage: "/images/model2/model-eye-cream.webp",
     },
@@ -150,10 +171,13 @@ export default function RoutineSection() {
       arabicProduct: "سيروم ريتينال ليبوزوم 2% + الجينسنغ الأسود",
       volume: "30ml",
       category: "Sérum Régénérant Culte",
+      arabicCategory: "سيروم مرمم ومجدد للبشرة",
       desc: "Stimule la production de collagène, accélère le renouvellement cellulaire et lisse les ridules.",
       arabicDesc: "يحفز إنتاج الكولاجين، يسرع تجديد خلايا البشرة ويشد الخطوط الرفيعة بفضل الريتينال.",
       keyActives: ["Retinal Liposome 2%", "Ginseng Noir Fermenté", "Bakuchiol"],
+      arabicKeyActives: ["ريتينال ليبوزومي 2%", "جينسنغ أسود مخمر", "باكوتشيول"],
       usage: "Appliquer 3 à 4 gouttes sur peau sèche en évitant les muqueuses. Utilisation du soir uniquement.",
+      arabicUsage: "توضع 3 إلى 4 قطرات على بشرة جافة ونظيفة ليلاً فقط مع تجنب ملامسة العينين.",
       image: "/products/serum-retinal.png",
       modelImage: "/images/model2/model-serum-retinal.webp",
     },
@@ -166,10 +190,13 @@ export default function RoutineSection() {
       arabicProduct: "كريم ريتينال ليبوزوم 1% + الأرز المخمر",
       volume: "50ml",
       category: "Crème Nuit Lissante",
+      arabicCategory: "كريم ليلي مرطب ومجدد",
       desc: "Scelle les actifs, nourrit profondément et régénère l'épiderme pour un réveil à la peau repulpée.",
       arabicDesc: "يحافظ على ترطيب البشرة ويغذيها بالأرز المخمر لتستيقظي ببشرة ممتلئة ومشدودة ومشرقة.",
       keyActives: ["Retinal Liposome 1%", "Extrait de Riz Fermenté", "Adénosine"],
+      arabicKeyActives: ["ريتينال ليبوزومي 1%", "خلاصة الأرز المخمر", "الأدينوزين"],
       usage: "Appliquer sur l'ensemble du visage et du cou en couche protectrice finale.",
+      arabicUsage: "يطبق على كامل الوجه والرقبة كطبقة حماية ليلية أخيرة لتجديد البشرة أثناء النوم.",
       image: "/products/cream-retinal.png",
       modelImage: "/images/model2/model-cream-retinal.webp",
     },
@@ -447,7 +474,7 @@ export default function RoutineSection() {
                   {/* Step Badge on Top of the Circle */}
                   <div className="mb-2 text-center">
                     <span className="inline-block px-3 py-0.5 rounded-full bg-[#74070D] text-[#F3E3B2] text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-xs">
-                      Étape {item.step}
+                      {isArabic ? `الخطوة ${item.step}` : `Étape ${item.step}`}
                     </span>
                   </div>
 
@@ -461,7 +488,7 @@ export default function RoutineSection() {
                     {item.image && (
                       <img
                         src={item.image}
-                        alt={item.product}
+                        alt={isArabic ? item.arabicProduct : item.product}
                         className={`h-20 sm:h-28 md:h-32 max-h-[125px] w-auto object-contain drop-shadow-[0_8px_14px_rgba(49,15,16,0.22)] animate-float-product pointer-events-none relative z-10 transition-all duration-700 ease-in-out ${
                           mobileShowModel ? "opacity-0 scale-90 lg:opacity-100 lg:scale-100" : "opacity-100 scale-100"
                         } lg:group-hover:opacity-0 lg:group-hover:scale-90`}
@@ -472,7 +499,7 @@ export default function RoutineSection() {
                     {item.modelImage && (
                       <img
                         src={item.modelImage}
-                        alt={`${item.product} modèle`}
+                        alt={isArabic ? `${item.arabicProduct} عارضة` : `${item.product} modèle`}
                         className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-in-out scale-100 z-20 pointer-events-none ${
                           mobileShowModel ? "opacity-100 lg:opacity-0" : "opacity-0"
                         } lg:group-hover:opacity-100`}
@@ -488,7 +515,7 @@ export default function RoutineSection() {
                   {/* Product Info & "Voir" Button below Circle */}
                   <div className="mt-2.5 sm:mt-3 text-center flex flex-col items-center">
                     <h4 className="font-sans text-[11px] sm:text-[13px] font-bold text-[#310F10] leading-snug max-w-[140px] sm:max-w-[160px] min-h-[30px] sm:min-h-[34px] flex items-center justify-center text-center">
-                      {item.product}
+                      {isArabic ? item.arabicProduct : item.product}
                     </h4>
                     <span className="text-[10px] sm:text-[11px] text-[#46462A] font-semibold mt-0.5">
                       {item.volume}
@@ -500,7 +527,7 @@ export default function RoutineSection() {
                       className="mt-1.5 sm:mt-2 px-3 sm:px-3.5 py-0.5 sm:py-1 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-[10px] sm:text-[11px] font-bold tracking-wide shadow-xs hover:shadow-sm transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
                     >
                       <Eye className="w-3 h-3" />
-                      <span>Voir</span>
+                      <span>{isArabic ? "عرض" : "Voir"}</span>
                     </button>
                   </div>
                 </div>
@@ -528,7 +555,7 @@ export default function RoutineSection() {
             {/* Step & Volume Badges */}
             <div className="flex items-center gap-2 mb-3">
               <span className="px-3 py-1 rounded-full bg-[#74070D] text-[#F3E3B2] text-[10px] font-bold uppercase tracking-wider">
-                Étape {selectedStep.step}
+                {isArabic ? `الخطوة ${selectedStep.step}` : `Étape ${selectedStep.step}`}
               </span>
               <span className="px-2.5 py-0.5 rounded-full bg-[#46462A] text-[#F3E3B2] text-[10px] font-semibold">
                 {selectedStep.volume}
@@ -540,39 +567,39 @@ export default function RoutineSection() {
                 <div className="relative w-24 h-24 shrink-0 rounded-full bg-[#F4EEDC] border-2 border-[#74070D] p-2 flex items-center justify-center shadow-inner overflow-hidden group">
                   <img
                     src={selectedStep.image}
-                    alt={selectedStep.product}
+                    alt={isArabic ? selectedStep.arabicProduct : selectedStep.product}
                     className="max-h-full w-auto object-contain drop-shadow-md transition-all duration-300 group-hover:opacity-0 group-hover:scale-90"
                   />
                   {selectedStep.modelImage && (
                     <img
                       src={selectedStep.modelImage}
-                      alt={`${selectedStep.product} modèle`}
+                      alt={isArabic ? `${selectedStep.arabicProduct} عارضة` : `${selectedStep.product} modèle`}
                       className="absolute inset-0 w-full h-full object-cover object-top opacity-0 group-hover:opacity-100 transition-all duration-300 scale-105 group-hover:scale-100"
                     />
                   )}
                 </div>
               )}
-              <div className="text-center sm:text-left">
+              <div className="text-center sm:text-start">
                 <h3 className="font-serif text-2xl font-bold text-[#310F10] leading-snug">
-                  {selectedStep.product}
+                  {isArabic ? selectedStep.arabicProduct : selectedStep.product}
                 </h3>
                 <p className="text-xs text-[#74070D] font-bold uppercase tracking-wider mt-1">
-                  {selectedStep.title} • {selectedStep.category}
+                  {isArabic ? selectedStep.arabicTitle : selectedStep.title} • {isArabic ? (selectedStep.arabicCategory || selectedStep.category) : selectedStep.category}
                 </p>
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-[#46462A] leading-relaxed mb-5">
-              {selectedStep.desc}
+            <p className="text-xs sm:text-sm text-[#46462A] leading-relaxed mb-5 text-start">
+              {isArabic ? selectedStep.arabicDesc : selectedStep.desc}
             </p>
 
             {/* Actives Clés */}
-            <div className="mb-5">
+            <div className="mb-5 text-start">
               <span className="text-[10px] uppercase font-bold tracking-wider text-[#310F10] block mb-2">
-                Actifs Clés de la Formule :
+                {isArabic ? "المكونات الفعالة للتركيبة :" : "Actifs Clés de la Formule :"}
               </span>
               <div className="flex flex-wrap gap-1.5">
-                {selectedStep.keyActives.map((a, i) => (
+                {(isArabic && selectedStep.arabicKeyActives ? selectedStep.arabicKeyActives : selectedStep.keyActives).map((a, i) => (
                   <span
                     key={i}
                     className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#F4EEDC] text-[#310F10] text-[11px] font-medium border border-[#F3E3B2]"
@@ -585,9 +612,11 @@ export default function RoutineSection() {
             </div>
 
             {/* Application Advice */}
-            <div className="p-3.5 rounded-2xl bg-[#F4EEDC] border border-[#F3E3B2] text-xs text-[#46462A] mb-6">
-              <strong className="text-[#310F10] block mb-0.5">Conseils d&apos;application :</strong>
-              {selectedStep.usage}
+            <div className="p-3.5 rounded-2xl bg-[#F4EEDC] border border-[#F3E3B2] text-xs text-[#46462A] mb-6 text-start">
+              <strong className="text-[#310F10] block mb-0.5">
+                {isArabic ? "طريقة الاستخدام :" : "Conseils d'application :"}
+              </strong>
+              {isArabic && selectedStep.arabicUsage ? selectedStep.arabicUsage : selectedStep.usage}
             </div>
 
             <button
@@ -595,9 +624,9 @@ export default function RoutineSection() {
                 setSelectedStep(null);
                 scrollTo("#commande");
               }}
-              className="w-full py-3.5 rounded-full bg-[#74070D] text-[#F3E3B2] text-xs font-bold uppercase tracking-wider hover:bg-[#8D0910] transition-colors shadow-md"
+              className="w-full py-3.5 rounded-full bg-[#74070D] text-[#F3E3B2] text-xs font-bold uppercase tracking-wider hover:bg-[#8D0910] transition-colors shadow-md cursor-pointer"
             >
-              Commander le Pack Complet
+              {isArabic ? "اطلبي الباك الكامل الآن" : "Commander le Pack Complet"}
             </button>
 
           </div>

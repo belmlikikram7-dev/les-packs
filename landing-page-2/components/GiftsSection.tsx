@@ -112,7 +112,7 @@ export default function GiftsSection() {
                     </div>
 
                     <p className="text-xs sm:text-[13px] text-[#46462A] font-light leading-relaxed">
-                      {gift.description}
+                      {isArabic ? (gift.arabicDescription || gift.description) : gift.description}
                     </p>
                   </div>
                 ))}

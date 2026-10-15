@@ -126,6 +126,7 @@ export interface GiftItem {
   brand: string;
   category: string;
   description: string;
+  arabicDescription?: string;
   value: string;
   image?: string;
 }
@@ -138,6 +139,7 @@ export const GIFTS: GiftItem[] = [
     brand: "Shiseido Japan",
     category: "Masque Capillaire Réparateur Intense",
     description: "Le masque capillaire culte japonais enrichi en gelée royale et squalane pour réparer les cheveux abîmés, leur redonner une brillance miroir et une douceur incomparable.",
+    arabicDescription: "ماسك الشعر الياباني الأسطوري غني بالغذاء الملكي والسكوالان لترميم الشعر التالف، ومنحه لمعاناً حريرياً ونعومة فائقة من أول استخدام.",
     value: "180 DH",
     image: "/gifts/kado-2-fino.png",
   },
@@ -148,6 +150,7 @@ export const GIFTS: GiftItem[] = [
     brand: "Vaseline",
     category: "Soin des Lèvres Nourrissant",
     description: "Le baume à lèvres indispensable pour apaiser, hydrater et protéger les lèvres sèches ou gercées pour un sourire doux et repulpé toute la journée.",
+    arabicDescription: "بلسم الشفاه الأساسي لترطيب، تهدئة وحماية الشفاه الجافة أو المتشققة لمنحك شفاهاً ناعمة، ممتلئة وصحية طوال اليوم.",
     value: "60 DH",
     image: "/gifts/kado-1-vaseline.png",
   },
