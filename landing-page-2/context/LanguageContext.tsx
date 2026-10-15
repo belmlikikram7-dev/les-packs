@@ -14,26 +14,38 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale] = useState<Locale>("fr");
+  const [locale, setLocaleState] = useState<Locale>("fr");
 
   useEffect(() => {
-    // Clear any legacy Arabic session and ensure LTR
     try {
-      localStorage.removeItem("seoul1988_locale");
-      document.cookie = "seoul1988_locale=fr; path=/; max-age=31536000";
+      const saved = localStorage.getItem("seoul1988_locale") as Locale;
+      if (saved === "fr" || saved === "ar") {
+        setLocaleState(saved);
+        document.documentElement.dir = saved === "ar" ? "rtl" : "ltr";
+        document.documentElement.lang = saved;
+      } else {
+        document.documentElement.dir = "ltr";
+        document.documentElement.lang = "fr";
+      }
     } catch {
       // ignore
     }
-    document.documentElement.dir = "ltr";
-    document.documentElement.lang = "fr";
   }, []);
 
-  const setLocale = () => {
-    // Kept for type signature compatibility if needed
+  const setLocale = (newLocale: Locale) => {
+    setLocaleState(newLocale);
+    try {
+      localStorage.setItem("seoul1988_locale", newLocale);
+      document.cookie = `seoul1988_locale=${newLocale}; path=/; max-age=31536000`;
+    } catch {
+      // ignore
+    }
+    document.documentElement.dir = newLocale === "ar" ? "rtl" : "ltr";
+    document.documentElement.lang = newLocale;
   };
 
-  const isArabic = false;
-  const dir = "ltr";
+  const isArabic = locale === "ar";
+  const dir = isArabic ? "rtl" : "ltr";
 
   return (
     <LanguageContext.Provider value={{ locale, setLocale, isArabic, dir }}>

@@ -7,7 +7,7 @@ import { TRANSLATIONS } from "@/translations/content";
 import { ShoppingBag } from "lucide-react";
 
 export default function Navbar() {
-  const { locale } = useLanguage();
+  const { locale, setLocale, isArabic } = useLanguage();
   const t = TRANSLATIONS[locale].navbar;
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -30,11 +30,10 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
           ? "bg-[#310F10]/95 backdrop-blur-md border-b border-[#46462A]/40 shadow-lg text-[#FAF7EE]"
           : "bg-transparent border-b border-transparent shadow-none"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
         {/* Brand / Vinillia Gold Logo */}
@@ -59,59 +58,89 @@ export default function Navbar() {
 
         {/* Desktop Navigation Links */}
         <nav
-          className={`hidden md:flex items-center gap-7 text-xs font-bold uppercase tracking-wider transition-colors duration-300 ${
-            isScrolled
+          className={`hidden md:flex items-center gap-7 text-xs font-bold uppercase tracking-wider transition-colors duration-300 ${isScrolled
               ? "text-[#F3E3B2]/95"
               : "text-[#310F10] drop-shadow-[0_1px_2px_rgba(255,255,255,0.7)]"
-          }`}
+            }`}
         >
           <button
             onClick={() => scrollTo("#hero")}
-            className={`transition-colors cursor-pointer ${
-              isScrolled ? "hover:text-white" : "hover:text-[#74070D]"
-            }`}
+            className={`transition-colors cursor-pointer ${isScrolled ? "hover:text-white" : "hover:text-[#74070D]"
+              }`}
           >
             {t.home}
           </button>
           <button
             onClick={() => scrollTo("#pack")}
-            className={`transition-colors cursor-pointer ${
-              isScrolled ? "hover:text-white" : "hover:text-[#74070D]"
-            }`}
+            className={`transition-colors cursor-pointer ${isScrolled ? "hover:text-white" : "hover:text-[#74070D]"
+              }`}
           >
             {t.pack}
           </button>
           <button
             onClick={() => scrollTo("#produits")}
-            className={`transition-colors cursor-pointer ${
-              isScrolled ? "hover:text-white" : "hover:text-[#74070D]"
-            }`}
+            className={`transition-colors cursor-pointer ${isScrolled ? "hover:text-white" : "hover:text-[#74070D]"
+              }`}
           >
             {t.products}
           </button>
           <button
             onClick={() => scrollTo("#routine")}
-            className={`transition-colors cursor-pointer ${
-              isScrolled ? "hover:text-white" : "hover:text-[#74070D]"
-            }`}
+            className={`transition-colors cursor-pointer ${isScrolled ? "hover:text-white" : "hover:text-[#74070D]"
+              }`}
           >
             {t.routine}
           </button>
           <button
             onClick={() => scrollTo("#commande")}
-            className={`transition-colors cursor-pointer ${
-              isScrolled ? "hover:text-white" : "hover:text-[#74070D]"
-            }`}
+            className={`transition-colors cursor-pointer ${isScrolled ? "hover:text-white" : "hover:text-[#74070D]"
+              }`}
           >
             {t.order}
           </button>
         </nav>
 
-        {/* Actions : Quick CTA */}
-        <div className="flex items-center gap-3">
+        {/* Actions : Language Switcher & Quick CTA */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Language Switcher Pill: FR | AR */}
+          <div
+            className={`flex items-center p-0.5 rounded-full border transition-all ${
+              isScrolled
+                ? "bg-[#46462A]/40 border-[#F3E3B2]/30"
+                : "bg-white/85 backdrop-blur-md border-[#74070D]/20 shadow-xs"
+            }`}
+          >
+            <button
+              onClick={() => setLocale("fr")}
+              className={`px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                locale === "fr"
+                  ? "bg-[#74070D] text-[#F3E3B2] shadow-xs"
+                  : isScrolled
+                  ? "text-[#F3E3B2]/70 hover:text-white"
+                  : "text-[#310F10]/70 hover:text-[#74070D]"
+              }`}
+              aria-label="Français"
+            >
+              FR
+            </button>
+            <button
+              onClick={() => setLocale("ar")}
+              className={`px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                locale === "ar"
+                  ? "bg-[#74070D] text-[#F3E3B2] shadow-xs"
+                  : isScrolled
+                  ? "text-[#F3E3B2]/70 hover:text-white"
+                  : "text-[#310F10]/70 hover:text-[#74070D]"
+              }`}
+              aria-label="العربية"
+            >
+              AR
+            </button>
+          </div>
+
           <button
             onClick={() => scrollTo("#commande")}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#FAF7EE] text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg hover:shadow-[#74070D]/40 transition-all active:scale-95 cursor-pointer"
+            className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#FAF7EE] text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg hover:shadow-[#74070D]/40 transition-all active:scale-95 cursor-pointer"
           >
             <ShoppingBag className="w-3.5 h-3.5 text-[#F3E3B2]" />
             <span className="hidden sm:inline">{t.orderPack}</span>
