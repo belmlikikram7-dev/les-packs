@@ -15,7 +15,7 @@ export default function ProductGrid() {
   };
 
   return (
-    <section id="produits" className="pt-0 pb-10 lg:pt-0 lg:pb-14 bg-white text-[#310F10] relative overflow-hidden">
+    <section id="produits" className="pt-0 pb-0 bg-[#FAF7EE] text-[#310F10] relative overflow-hidden">
 
       {/* 100% True Full-Width Edge-to-Edge Panoramic Image with smooth Top & Bottom transition */}
       <div className="w-full relative overflow-hidden bg-white">
@@ -93,11 +93,11 @@ export default function ProductGrid() {
           </div>
         </div>
 
-        {/* Soft bottom blend shadow - prevents harsh horizontal cut line and melts smoothly into the beige background */}
+        {/* Seamless bottom feather shadow - melts smoothly from table white into #FAF7EE beige with zero harsh lines */}
         <div 
-          className="absolute bottom-0 left-0 right-0 h-20 sm:h-28 z-10 pointer-events-none"
+          className="absolute bottom-0 left-0 right-0 h-24 sm:h-36 z-10 pointer-events-none"
           style={{
-            background: "linear-gradient(to top, #FAF7EE 15%, rgba(250, 247, 238, 0.85) 55%, rgba(250, 247, 238, 0.3) 80%, transparent 100%)"
+            background: "linear-gradient(to bottom, transparent 0%, rgba(250, 247, 238, 0.4) 35%, rgba(250, 247, 238, 0.85) 75%, #FAF7EE 100%)"
           }}
         />
       </div>
