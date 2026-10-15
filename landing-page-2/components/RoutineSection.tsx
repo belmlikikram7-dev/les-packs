@@ -399,7 +399,7 @@ export default function RoutineSection() {
         </div>
 
         {/* Winding Circular Sequence with Curved Connecting Line (Mediast Architecture) */}
-        <div className="relative max-w-6xl mx-auto w-full my-auto py-4">
+        <div dir="ltr" className="relative max-w-6xl mx-auto w-full my-auto py-4">
 
           {/* Mediast SVG Wave Canvas with Dotted Guide & Active Red Line & Radial Glow Marker */}
           <div className="hidden lg:block absolute inset-0 pointer-events-none z-0">
@@ -513,18 +513,18 @@ export default function RoutineSection() {
                   </div>
 
                   {/* Product Info & "Voir" Button below Circle */}
-                  <div className="mt-2.5 sm:mt-3 text-center flex flex-col items-center">
-                    <h4 className="font-sans text-[11px] sm:text-[13px] font-bold text-[#310F10] leading-snug max-w-[140px] sm:max-w-[160px] min-h-[30px] sm:min-h-[34px] flex items-center justify-center text-center">
+                  <div className="mt-4 sm:mt-5 text-center flex flex-col items-center">
+                    <h4 className="font-sans text-[11px] sm:text-[13px] font-bold text-[#310F10] leading-snug max-w-[150px] sm:max-w-[175px] min-h-[32px] sm:min-h-[36px] flex items-center justify-center text-center">
                       {isArabic ? item.arabicProduct : item.product}
                     </h4>
-                    <span className="text-[10px] sm:text-[11px] text-[#46462A] font-semibold mt-0.5">
+                    <span className="text-[10px] sm:text-[11px] text-[#46462A] font-semibold mt-1">
                       {item.volume}
                     </span>
 
                     {/* Button "Voir" */}
                     <button
                       onClick={() => setSelectedStep(item)}
-                      className="mt-1.5 sm:mt-2 px-3 sm:px-3.5 py-0.5 sm:py-1 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-[10px] sm:text-[11px] font-bold tracking-wide shadow-xs hover:shadow-sm transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
+                      className="mt-2 px-3 sm:px-3.5 py-0.5 sm:py-1 rounded-full bg-[#74070D] hover:bg-[#8D0910] text-[#F3E3B2] text-[10px] sm:text-[11px] font-bold tracking-wide shadow-xs hover:shadow-sm transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
                     >
                       <Eye className="w-3 h-3" />
                       <span>{isArabic ? "عرض" : "Voir"}</span>
