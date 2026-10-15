@@ -14,23 +14,24 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("fr");
+  const [locale, setLocaleState] = useState<Locale>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("seoul1988_locale") as Locale;
+        if (saved === "fr" || saved === "ar") {
+          return saved;
+        }
+      } catch {
+        // ignore
+      }
+    }
+    return "fr";
+  });
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("seoul1988_locale") as Locale;
-      if (saved === "fr" || saved === "ar") {
-        setLocaleState(saved);
-        document.documentElement.dir = saved === "ar" ? "rtl" : "ltr";
-        document.documentElement.lang = saved;
-      } else {
-        document.documentElement.dir = "ltr";
-        document.documentElement.lang = "fr";
-      }
-    } catch {
-      // ignore
-    }
-  }, []);
+    document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   const setLocale = (newLocale: Locale) => {
     setLocaleState(newLocale);

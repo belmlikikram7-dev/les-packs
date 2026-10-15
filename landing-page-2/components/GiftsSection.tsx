@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
 import { GIFTS } from "@/data/products";
-import { Gift, Check, PackageCheck, Heart } from "lucide-react";
+import { Gift, PackageCheck } from "lucide-react";
 
 export default function GiftsSection() {
   const { locale, isArabic } = useLanguage();

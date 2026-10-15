@@ -1,5 +1,3 @@
-import type { Locale } from "@/context/LanguageContext";
-
 export interface ProductItem {
   id: string;
   name: string;

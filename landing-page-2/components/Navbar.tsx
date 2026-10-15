@@ -7,7 +7,7 @@ import { TRANSLATIONS } from "@/translations/content";
 import { ShoppingBag } from "lucide-react";
 
 export default function Navbar() {
-  const { locale, setLocale, isArabic } = useLanguage();
+  const { locale, setLocale } = useLanguage();
   const t = TRANSLATIONS[locale].navbar;
   const [isScrolled, setIsScrolled] = useState(false);
 

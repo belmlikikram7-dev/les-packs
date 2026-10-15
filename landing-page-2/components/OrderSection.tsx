@@ -12,7 +12,6 @@ import {
   Truck,
   ShieldCheck,
   Banknote,
-  Gift,
   ArrowRight,
   Loader2,
 } from "lucide-react";

@@ -1,10 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
-import { Sun, Moon, ArrowRight, Eye, X, Droplets } from "lucide-react";
+import { Sun, Moon, Eye, X, Droplets } from "lucide-react";
 
 interface StepItem {
   id: string;
@@ -26,6 +26,18 @@ interface StepItem {
   modelImage?: string;
 }
 
+// Exact 4 Node Coordinates matching the wave (viewBox="0 90 1600 740")
+const nodeCoords = [
+  [220, 560],
+  [610, 340],
+  [1000, 560],
+  [1390, 340],
+];
+
+// Exact wave path from Mediast:
+const mediastWavePath =
+  "M 60,560 L 220,560 C 400,560 430,340 610,340 C 790,340 820,560 1000,560 C 1180,560 1210,340 1390,340 L 1540,340";
+
 export default function RoutineSection() {
   const { locale, isArabic } = useLanguage();
   const t = TRANSLATIONS[locale].routineSection;
@@ -33,11 +45,6 @@ export default function RoutineSection() {
   const [selectedStep, setSelectedStep] = useState<StepItem | null>(null);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const pathRef = useRef<SVGPathElement>(null);
-
-  const [scrollProgress, setScrollProgress] = useState<number>(0);
-  const [totalLength, setTotalLength] = useState<number>(1000);
-  const [tipPosition, setTipPosition] = useState<{ x: number; y: number } | null>(null);
 
   const scrollTo = (hash: string) => {
     const el = document.querySelector(hash);
@@ -204,19 +211,6 @@ export default function RoutineSection() {
 
   const currentSteps = activeTab === "morning" ? morningSteps : nightSteps;
 
-  // Exact 4 Node Coordinates matching the wave (viewBox="0 90 1600 740")
-  const nodeCoords = [
-    [220, 560],
-    [610, 340],
-    [1000, 560],
-    [1390, 340],
-  ];
-
-  // Exact wave path from Mediast:
-  // Starts flat at 60,560 -> node 1 at 220,560 -> rises to node 2 at 610,340 -> dips to node 3 at 1000,560 -> rises to node 4 at 1390,340 -> exits flat at 1540,340
-  const mediastWavePath =
-    "M 60,560 L 220,560 C 400,560 430,340 610,340 C 790,340 820,560 1000,560 C 1180,560 1210,340 1390,340 L 1540,340";
-
   // Mobile automatic cross-fade: toggles every 1.5s between product and model photo
   const [mobileShowModel, setMobileShowModel] = useState(false);
 
@@ -285,7 +279,6 @@ export default function RoutineSection() {
       if (totalScrollable <= 0) return;
 
       const rawProgress = Math.min(Math.max(-rect.top / totalScrollable, 0), 1);
-      setScrollProgress(rawProgress);
 
       const pathEl = activePathRef.current;
       const markerEl = markerRef.current;

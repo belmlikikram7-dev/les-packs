@@ -33,12 +33,13 @@ export default function CitySelect({ value, onChange, error }: CitySelectProps) 
   const inputRef = useRef<HTMLInputElement>(null);
   const customInputRef = useRef<HTMLInputElement>(null);
 
-  // Sync external value
-  useEffect(() => {
+  const [prevValue, setPrevValue] = useState(value);
+  if (value !== prevValue) {
+    setPrevValue(value);
     if (!isCustomMode) {
       setQuery(value || "");
     }
-  }, [value, isCustomMode]);
+  }
 
   // Click outside to close
   useEffect(() => {

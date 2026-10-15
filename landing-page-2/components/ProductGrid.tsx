@@ -2,12 +2,10 @@
 
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
-import { TRANSLATIONS } from "@/translations/content";
 import { ArrowRight } from "lucide-react";
 
 export default function ProductGrid() {
-  const { locale, isArabic } = useLanguage();
-  const t = TRANSLATIONS[locale].productsSection;
+  const { isArabic } = useLanguage();
 
   const scrollTo = (hash: string) => {
     const el = document.querySelector(hash);
