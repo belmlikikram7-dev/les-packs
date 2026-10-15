@@ -20,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" dir="ltr" className="scroll-smooth">
-      <body className="antialiased selection:bg-[#74070D] selection:text-[#F3E3B2]">
+    <html lang="fr" dir="ltr" className="scroll-smooth" suppressHydrationWarning>
+      <body className="antialiased selection:bg-[#74070D] selection:text-[#F3E3B2]" suppressHydrationWarning>
         <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
