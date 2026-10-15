@@ -30,6 +30,9 @@ export default function PackIntro() {
   return (
     <section id="pack" className="relative pt-6 pb-2 lg:pt-8 lg:pb-2 bg-[#FAF7EE] text-[#310F10] overflow-hidden">
       
+      {/* Soft ambient drop shadow extending from Hero photo above */}
+      <div className="absolute inset-x-0 top-0 h-8 sm:h-10 bg-gradient-to-b from-black/15 via-black/5 to-transparent pointer-events-none z-10" />
+
       {/* Top Transition Wave */}
       <div className="w-full overflow-hidden leading-none -mb-1">
         <svg
