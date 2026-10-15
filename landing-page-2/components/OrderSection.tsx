@@ -136,24 +136,24 @@ export default function OrderSection() {
 
             {/* Left Side: Hand + Product Image with soft colored circle & shadow */}
             <div className="lg:col-span-5 hidden lg:flex items-center justify-center relative overflow-visible">
-              <div className="relative -ml-12 xl:-ml-20 w-full max-w-[500px] flex items-center justify-center">
+              <div className="relative -ml-12 xl:-ml-20 w-full max-w-[520px] flex items-center justify-center">
                 {/* Soft ambient colored glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[460px] h-[460px] rounded-full bg-gradient-to-br from-[#74070D]/10 via-[#F3E3B2]/30 to-transparent blur-3xl pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] rounded-full bg-gradient-to-br from-[#74070D]/10 via-[#F3E3B2]/30 to-transparent blur-3xl pointer-events-none" />
 
                 {/* Soft colored luxury circle backdrop */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[390px] h-[390px] rounded-full bg-gradient-to-br from-[#FAF7EE] via-[#F4EEDC] to-[#E9DCBF] border border-[#F3E3B2] shadow-[0_20px_50px_rgba(49,15,16,0.08)] pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] rounded-full bg-gradient-to-br from-[#FAF7EE] via-[#F4EEDC] to-[#E9DCBF] border border-[#F3E3B2] shadow-[0_20px_50px_rgba(49,15,16,0.08)] pointer-events-none" />
 
                 {/* Delicate outer concentric accent ring */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[430px] h-[430px] rounded-full border border-[#F3E3B2]/50 pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[460px] h-[460px] rounded-full border border-[#F3E3B2]/50 pointer-events-none" />
 
                 <Image
-                  src="/images/order-hand-cream.webp"
+                  src="/images/seoul-1988-cream-hands-duo.webp"
                   alt="Seoul 1988 Cream — Snail Mucin 93% + Rice"
-                  width={1080}
-                  height={1080}
+                  width={1000}
+                  height={1000}
                   className="relative z-10 w-full h-auto drop-shadow-[0_22px_35px_rgba(49,15,16,0.20)]"
                   quality={98}
-                  priority={false}
+                  priority={true}
                 />
               </div>
             </div>
