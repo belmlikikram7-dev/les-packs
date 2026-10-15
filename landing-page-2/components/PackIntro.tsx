@@ -39,7 +39,7 @@ export default function PackIntro() {
   ];
 
   return (
-    <section id="pack" className="relative pt-6 pb-2 lg:pt-8 lg:pb-2 bg-[#FAF7EE] text-[#310F10] overflow-hidden">
+    <section id="pack" className="relative pt-6 pb-0 lg:pt-8 lg:pb-0 bg-[#FAF7EE] text-[#310F10] overflow-hidden">
       
 
       {/* Top Transition Wave */}
@@ -105,13 +105,23 @@ export default function PackIntro() {
         </div>
       </div>
 
-      {/* Bottom Transition Wave */}
-      <div className="w-full overflow-hidden leading-none -mt-1">
+      {/* Bottom Transition Wave with Soft Beige Shadow from top & White Shadow from bottom */}
+      <div className="w-full overflow-hidden leading-none -mt-1 relative bg-gradient-to-b from-[#FAF7EE] via-white/80 to-white">
+        
+        {/* Soft Beige Shadow from the top (shadow blbage mn lfo9) */}
+        <div 
+          className="absolute top-0 left-0 right-0 h-8 sm:h-10 pointer-events-none z-10"
+          style={{
+            background: "linear-gradient(to bottom, rgba(239, 231, 213, 0.85) 0%, rgba(250, 247, 238, 0.4) 60%, transparent 100%)"
+          }}
+        />
+
+        {/* Organic wave with soft luxury drop-shadow */}
         <svg
           viewBox="0 0 1440 120"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-8 sm:h-12 lg:h-14 text-[#EFE7D5]"
+          className="w-full h-10 sm:h-14 lg:h-16 text-[#EFE7D5] drop-shadow-[0_8px_16px_rgba(216,198,168,0.55)] relative z-0"
           preserveAspectRatio="none"
         >
           <path
@@ -119,6 +129,14 @@ export default function PackIntro() {
             fill="currentColor"
           />
         </svg>
+
+        {/* Soft White Shadow from the bottom (shadow b lbyad mn ltaht) */}
+        <div 
+          className="absolute bottom-0 left-0 right-0 h-10 sm:h-14 pointer-events-none z-10"
+          style={{
+            background: "linear-gradient(to top, #FFFFFF 15%, rgba(255, 255, 255, 0.85) 60%, transparent 100%)"
+          }}
+        />
       </div>
 
     </section>
