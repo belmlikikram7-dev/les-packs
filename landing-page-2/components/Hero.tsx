@@ -29,13 +29,9 @@ export default function Hero() {
           sizes="100vw"
           className="object-cover object-[right_top]"
         />
-        {/* Soft subtle bottom shadow so the photo doesn't look abruptly cut off at the bottom */}
-        <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 lg:h-44 bg-gradient-to-t from-black/35 via-black/15 to-transparent pointer-events-none" />
-        <div className="absolute inset-x-0 bottom-0 h-12 sm:h-16 bg-gradient-to-t from-black/30 via-black/10 to-transparent pointer-events-none" />
+        {/* Soft light/cream bottom fade so the photo edge dissolves naturally into the background */}
+        <div className="absolute inset-x-0 bottom-0 h-14 sm:h-20 bg-gradient-to-b from-transparent via-[#FAF7EE]/40 to-[#FAF7EE] pointer-events-none" />
       </div>
-
-      {/* Bottom section ambient shadow */}
-      <div className="absolute inset-x-0 bottom-0 h-16 sm:h-24 bg-gradient-to-t from-black/25 via-black/5 to-transparent pointer-events-none z-10" />
 
       {/* Main Container - Left-Aligned Headline, Gift Card & CTA Button (Lifted slightly up) */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -64,8 +60,8 @@ export default function Hero() {
               priority
               className="w-full h-auto object-cover"
             />
-            {/* Soft bottom shadow on mobile image */}
-            <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/25 to-transparent pointer-events-none" />
+            {/* Soft light/cream bottom fade on mobile image */}
+            <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-b from-transparent via-[#FAF7EE]/40 to-[#FAF7EE] pointer-events-none" />
           </div>
 
 
