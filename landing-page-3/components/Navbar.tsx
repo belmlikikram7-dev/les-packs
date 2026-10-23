@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight, Menu, X, Languages } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
@@ -8,23 +8,8 @@ import { TRANSLATIONS } from "@/translations/content";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const { locale, setLocale, isArabic } = useLanguage();
   const t = TRANSLATIONS[locale].navbar;
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 25) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const scrollToSection = (id: string) => {
     setMobileMenuOpen(false);
@@ -38,20 +23,12 @@ export default function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 pt-3 sm:pt-4 pb-2 sm:pb-3 flex justify-center pointer-events-none transition-all duration-300 bg-transparent">
       {/* Navigation Bar */}
       <div className="flex items-center justify-between sm:justify-center gap-2 sm:gap-3 pointer-events-auto w-full max-w-sm sm:max-w-none">
-        {/* Main Pill Capsule: Frosted blur at top of page -> Solid white with pink border on scroll */}
-        <nav
-          className={`flex items-center gap-1 sm:gap-1.5 px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 ease-out text-[#C97F91] ${
-            isScrolled
-              ? "bg-white/95 backdrop-blur-md border border-[#F7D1D8] shadow-lg"
-              : "bg-white/30 backdrop-blur-xl border border-white/50 shadow-none"
-          }`}
-        >
+        {/* Main Pill Capsule: Always clean white with pink border and shadow */}
+        <nav className="flex items-center gap-1 sm:gap-1.5 px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 ease-out text-[#C97F91] bg-white/95 backdrop-blur-md border border-[#F7D1D8] shadow-md">
           {/* Vinilia Logo in Rose */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className={`flex items-center sm:pr-3 sm:border-r sm:mr-1 hover:opacity-85 transition-opacity cursor-pointer ${
-              isScrolled ? "sm:border-[#F7D1D8]" : "sm:border-white/50"
-            }`}
+            className="flex items-center sm:pr-3 sm:border-r sm:border-[#F7D1D8] sm:mr-1 hover:opacity-85 transition-opacity cursor-pointer"
             aria-label="Vinilia Accueil"
           >
             <Image
@@ -123,25 +100,15 @@ export default function Navbar() {
           </div>
         </nav>
 
-        {/* Right Actions on mobile: Commander Button + Hamburger Menu */}
+        {/* Right Actions: Commander Button + Hamburger Menu */}
         <div className="flex items-center gap-1.5 sm:gap-2">
-          {/* Commander Button: Frosted blur with rose text at top -> Solid rose with white text when scrolled */}
+          {/* Commander Button: Always solid rose with white text matching Image 1 */}
           <button
             onClick={() => scrollToSection("order")}
-            className={`flex items-center gap-1.5 text-xs sm:text-sm font-semibold px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-full transition-all duration-300 ease-out group shrink-0 cursor-pointer ${
-              isScrolled
-                ? "bg-[#C97F91] hover:bg-[#B3687B] text-white shadow-md hover:shadow-lg border border-transparent"
-                : "bg-white/30 backdrop-blur-xl border border-white/50 text-[#C97F91] hover:bg-white/45 shadow-none"
-            }`}
+            className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-full transition-all duration-300 ease-out group shrink-0 cursor-pointer bg-[#C97F91] hover:bg-[#B3687B] text-white shadow-md hover:shadow-lg border border-transparent"
           >
             <span>{t.order}</span>
-            <div
-              className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
-                isScrolled
-                  ? "bg-white/20 text-white"
-                  : "bg-[#C97F91]/15 text-[#C97F91]"
-              }`}
-            >
+            <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 bg-white/20 text-white">
               <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
             </div>
           </button>
@@ -149,11 +116,7 @@ export default function Navbar() {
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`sm:hidden flex items-center justify-center w-9 h-9 rounded-full transition-all duration-300 ease-out cursor-pointer text-[#C97F91] ${
-              isScrolled
-                ? "bg-white/95 backdrop-blur-md border border-[#F7D1D8] shadow-sm hover:bg-[#FDF2F4]"
-                : "bg-white/30 backdrop-blur-xl border border-white/50 shadow-none hover:bg-white/45"
-            }`}
+            className="sm:hidden flex items-center justify-center w-9 h-9 rounded-full transition-all duration-300 ease-out cursor-pointer text-[#C97F91] bg-white/95 backdrop-blur-md border border-[#F7D1D8] shadow-sm hover:bg-[#FDF2F4]"
             aria-label="Menu de navigation"
           >
             {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -180,7 +143,7 @@ export default function Navbar() {
                     : "text-[#C97F91] hover:text-[#9B3D55]"
                 }`}
               >
-                Français
+                FR
               </button>
               <button
                 type="button"
@@ -191,41 +154,40 @@ export default function Navbar() {
                     : "text-[#C97F91] hover:text-[#9B3D55]"
                 }`}
               >
-                العربية
+                AR
               </button>
             </div>
           </div>
 
           <button
             onClick={() => scrollToSection("hero")}
-            className="text-left px-4 py-2.5 rounded-2xl hover:bg-[#FDF2F4] font-semibold transition text-[#C97F91]"
+            className="text-left px-3 py-2 rounded-2xl hover:bg-[#FAE6E7]/60 text-[#C97F91] font-semibold transition-colors"
           >
             {t.home}
           </button>
           <button
             onClick={() => scrollToSection("products")}
-            className="text-left px-4 py-2.5 rounded-2xl hover:bg-[#FDF2F4] transition text-[#C97F91]"
+            className="text-left px-3 py-2 rounded-2xl hover:bg-[#FAE6E7]/60 text-[#C97F91] transition-colors"
           >
             {t.products}
           </button>
           <button
             onClick={() => scrollToSection("spotlight")}
-            className="text-left px-4 py-2.5 rounded-2xl hover:bg-[#FDF2F4] transition text-[#C97F91]"
+            className="text-left px-3 py-2 rounded-2xl hover:bg-[#FAE6E7]/60 text-[#C97F91] transition-colors"
           >
             {t.gift}
           </button>
           <button
             onClick={() => scrollToSection("routine")}
-            className="text-left px-4 py-2.5 rounded-2xl hover:bg-[#FDF2F4] transition text-[#C97F91]"
+            className="text-left px-3 py-2 rounded-2xl hover:bg-[#FAE6E7]/60 text-[#C97F91] transition-colors"
           >
             {t.routine}
           </button>
           <button
             onClick={() => scrollToSection("order")}
-            className="mt-2 text-center bg-[#C97F91] text-white py-3 rounded-2xl font-semibold flex items-center justify-center gap-2 shadow-md cursor-pointer"
+            className="mt-2 text-center py-3 rounded-full bg-[#C97F91] text-white font-bold text-sm shadow-md"
           >
-            <span>{locale === "ar" ? "اطلبي الباك (1300 درهم)" : "Commander le Pack (1300 DH)"}</span>
-            <ArrowUpRight className="w-4 h-4" />
+            {t.order}
           </button>
         </div>
       )}
