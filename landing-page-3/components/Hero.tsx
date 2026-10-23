@@ -140,11 +140,11 @@ export default function Hero() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-xl sm:text-2xl font-serif-luxury tracking-tight leading-[1.22] text-[#5C1D2E]">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif-luxury tracking-tight leading-[1.2] text-[#5C1D2E]">
             <span className="font-normal text-[#5C1D2E]">
               {t.titlePart1}
             </span>{" "}
-            <span className="italic font-normal text-[#C97F91] text-lg sm:text-xl px-1">
+            <span className="italic font-normal text-[#C97F91] text-xl sm:text-2xl px-1">
               {t.titlePart2}
             </span>
             <br />
@@ -200,12 +200,12 @@ export default function Hero() {
         {/* Bottom Content Row: Left = Headline & CTA; Right = 3 Floating Cards (Desktop only) */}
         <div className="relative z-10 mt-auto flex flex-row items-end justify-between gap-6">
           {/* Main Headline & CTA */}
-          <div className="max-w-xl xl:max-w-2xl">
-            <h1 className="text-3xl lg:text-[34px] xl:text-[42px] tracking-tight leading-[1.18] font-serif-luxury">
-              <span className="font-normal text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.7)]">
+          <div className="max-w-2xl xl:max-w-3xl">
+            <h1 className="text-3xl lg:text-[46px] xl:text-[54px] 2xl:text-[62px] tracking-tight leading-[1.14] font-serif-luxury">
+              <span className="font-normal text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
                 {t.titlePart1}
               </span>{" "}
-              <span className="italic font-normal text-[#F4BBC9] text-2xl lg:text-3xl px-1">
+              <span className="italic font-normal text-[#F4BBC9] text-2xl lg:text-4xl xl:text-5xl px-1.5 drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
                 {t.titlePart2}
               </span>
               <br />
@@ -215,7 +215,7 @@ export default function Hero() {
                   background: "linear-gradient(180deg, #FFFFFF 15%, #FCD5E0 55%, #EA7A99 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
-                  filter: "drop-shadow(0 3px 14px rgba(234, 122, 153, 0.45))",
+                  filter: "drop-shadow(0 4px 18px rgba(234, 122, 153, 0.55))",
                 }}
               >
                 {t.titleHighlight}
