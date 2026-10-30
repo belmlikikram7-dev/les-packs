@@ -1,0 +1,9 @@
+<svg width="320" height="80" viewBox="0 0 320 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(10, 14)">
+    <path d="M24 6 C12 6 4 16 4 28 C4 40 14 48 26 48 C38 48 48 38 48 24 C48 10 36 6 24 6 Z" fill="none" stroke="#0F3554" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M8 32 C16 30 28 26 44 14" stroke="#0F3554" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M22 28 C26 34 32 38 40 40" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="68" y="38" font-family="'Playfair Display', Georgia, serif" font-size="26" font-weight="600" fill="#0F3554" letter-spacing="0.5">PureGlow</text>
+  <text x="70" y="54" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="600" fill="#5A7B9A" letter-spacing="2.8">NATURAL SKINCARE</text>
+</svg>
