@@ -1,332 +1,233 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Droplets, ShieldCheck, Shield, Sun, Smile } from "lucide-react";
+import Image from "next/image";
+import { Sparkles, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
 
+interface ModelPhoto {
+  id: string;
+  src: string;
+  alt: string;
+  brandFr: string;
+  nameFr: string;
+  brandAr: string;
+  nameAr: string;
+  step: string;
+}
+
+const MODEL_PHOTOS: ModelPhoto[] = [
+  {
+    id: "la-roche-posay",
+    src: "/images/model-4/la-roche-posay-effaclar-purifying-foaming-gel-model.webp",
+    alt: "Modèle avec La Roche-Posay Effaclar Gel Moussant Purifiant",
+    brandFr: "La Roche-Posay",
+    nameFr: "Effaclar Gel Moussant",
+    brandAr: "لا روش بوزيه",
+    nameAr: "غسول إيفاكلار المنقي",
+    step: "01",
+  },
+  {
+    id: "anua",
+    src: "/images/model-4/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-model.webp",
+    alt: "Modèle avec Anua Azelaic Acid 10+ Hyaluron Redness Soothing Serum",
+    brandFr: "Anua",
+    nameFr: "Acide Azélaïque 10+",
+    brandAr: "أنوا",
+    nameAr: "سيروم حمض الأزيليك",
+    step: "02",
+  },
+  {
+    id: "axis-y",
+    src: "/images/model-4/axis-y-vegan-collagen-eye-serum-model.webp",
+    alt: "Modèle avec AXIS-Y Vegan Collagen Eye Serum",
+    brandFr: "AXIS-Y",
+    nameFr: "Collagène Contour Yeux",
+    brandAr: "أكسس واي",
+    nameAr: "سيروم كولاجين العيون",
+    step: "03",
+  },
+  {
+    id: "embryolisse",
+    src: "/images/model-4/embryolisse-lait-creme-concentre-model.webp",
+    alt: "Modèle avec Embryolisse Lait-Crème Concentré",
+    brandFr: "Embryolisse",
+    nameFr: "Lait-Crème Concentré",
+    brandAr: "إمبريوليس",
+    nameAr: "كريم الترطيب المكثف",
+    step: "04",
+  },
+  {
+    id: "seoul-1988",
+    src: "/images/model-4/k-secret-seoul-1988-sun-pine-tree-ceramide-model.webp",
+    alt: "Modèle avec K-SECRET Seoul 1988 Sun Pine Tree + Ceramide",
+    brandFr: "Seoul 1988",
+    nameFr: "Écran Solaire & Céramides",
+    brandAr: "سيول 1988",
+    nameAr: "واقي شمس كوري بالصنوبر",
+    step: "05",
+  },
+  {
+    id: "vaseline",
+    src: "/images/model-4/vaseline-gluta-hya-dewy-radiance-model.webp",
+    alt: "Modèle avec Vaseline Gluta-Hya Dewy Radiance",
+    brandFr: "Vaseline",
+    nameFr: "Gluta-Hya Dewy Radiance",
+    brandAr: "فازلين",
+    nameAr: "لوشن جلوتا-هيا النضر",
+    step: "06",
+  },
+];
+
 export default function WhySection() {
-  const { locale, dir } = useLanguage();
+  const { locale, isArabic, dir } = useLanguage();
   const t = TRANSLATIONS[locale].why;
 
-  const ICONS = [
-    Droplets,
-    ShieldCheck,
-    Smile,
-    Sun,
-    Shield,
-  ];
-
-  const trackRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-  const slotRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  const [progress, setProgress] = useState(0);
-  const [deltaCenters, setDeltaCenters] = useState<number[]>([0, 0, 0, 0, 0]);
-  const [isDesktop, setIsDesktop] = useState(true);
-
-  // Measure natural distance from each slot to the container center
-  const updateLayout = () => {
-    if (typeof window === "undefined") return;
-    const desktop = window.innerWidth >= 1024;
-    setIsDesktop(desktop);
-
-    if (!gridRef.current) return;
-    const gridRect = gridRef.current.getBoundingClientRect();
-    const gridCenter = gridRect.left + gridRect.width / 2;
-
-    const deltas = slotRefs.current.map((slot) => {
-      if (!slot) return 0;
-      const rect = slot.getBoundingClientRect();
-      const slotCenter = rect.left + rect.width / 2;
-      return gridCenter - slotCenter;
-    });
-    setDeltaCenters(deltas);
-  };
-
-  useEffect(() => {
-    updateLayout();
-    window.addEventListener("resize", updateLayout);
-    // Re-check layout after initial render fonts/styles settle
-    const timer = setTimeout(updateLayout, 100);
-    return () => {
-      window.removeEventListener("resize", updateLayout);
-      clearTimeout(timer);
-    };
-  }, []);
-
-  // Track scroll progress through this section
-  useEffect(() => {
-    let ticking = false;
-
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          if (!trackRef.current) return;
-          const rect = trackRef.current.getBoundingClientRect();
-          const windowHeight = window.innerHeight;
-          const totalScrollable = rect.height - windowHeight;
-
-          if (totalScrollable <= 0) return;
-
-          // When top of track reaches top of viewport: rect.top = 0 -> progress = 0
-          // When bottom of track reaches bottom of viewport: rect.bottom = windowHeight -> progress = 1
-          const scrolled = -rect.top;
-          const currentProgress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
-          setProgress(currentProgress);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Compute transform and opacity for Card i based on scroll progress
-  const getCardStyle = (i: number) => {
-    // If layout not ready yet, keep safe default
-    const delta = deltaCenters[i] || 0;
-
-    // Timeline windows for the 5 cards:
-    // Card 0: starts center, then moves to slot 0 (0.16 -> 0.32)
-    // Card 1: appears and moves to slot 1 (0.18 -> 0.34)
-    // Card 2: appears and moves to slot 2 (0.36 -> 0.52)
-    // Card 3: appears and moves to slot 3 (0.54 -> 0.70)
-    // Card 4: appears and moves to slot 4 (0.72 -> 0.88)
-    const ranges = [
-      { enterStart: 0.0, enterEnd: 0.08, moveStart: 0.16, moveEnd: 0.32, rot: -3 },
-      { enterStart: 0.18, enterEnd: 0.24, moveStart: 0.20, moveEnd: 0.34, rot: -1.5 },
-      { enterStart: 0.36, enterEnd: 0.42, moveStart: 0.38, moveEnd: 0.52, rot: 0 },
-      { enterStart: 0.54, enterEnd: 0.60, moveStart: 0.56, moveEnd: 0.70, rot: 1.5 },
-      { enterStart: 0.72, enterEnd: 0.78, moveStart: 0.74, moveEnd: 0.88, rot: 3 },
-    ];
-
-    const r = ranges[i];
-
-    if (!isDesktop) {
-      // Mobile choreography: cards deal horizontally into a highlighted deck
-      const mobileActiveIdx = Math.min(Math.floor(progress * 5), 4);
-      const isCurrent = mobileActiveIdx === i;
-      const isPast = mobileActiveIdx > i;
-      return {
-        opacity: isCurrent ? 1 : isPast ? 0.4 : 0,
-        transform: isCurrent
-          ? "scale(1) translate3d(0, 0, 0)"
-          : isPast
-          ? "scale(0.92) translate3d(-10px, 0, 0)"
-          : "scale(0.9) translate3d(30px, 0, 0)",
-        transition: "opacity 0.35s ease, transform 0.35s ease",
-        zIndex: 10 + i,
-      };
-    }
-
-    // DESKTOP CARD FANNING & DEALING ANIMATION:
-    if (i === 0) {
-      // Card 0 starts in center!
-      if (progress < r.enterStart) {
-        return {
-          opacity: 0,
-          transform: `translate3d(${delta}px, 40px, 0) scale(0.9) rotate(${r.rot}deg)`,
-          pointerEvents: "none" as const,
-        };
-      }
-      if (progress < r.enterEnd) {
-        // Fading into center
-        const enterT = (progress - r.enterStart) / (r.enterEnd - r.enterStart);
-        const y = 40 * (1 - enterT);
-        return {
-          opacity: enterT,
-          transform: `translate3d(${delta}px, ${y}px, 0) scale(${0.9 + 0.1 * enterT}) rotate(${r.rot * (1 - enterT)}deg)`,
-        };
-      }
-      if (progress < r.moveStart) {
-        // Resting in center before other cards enter
-        return {
-          opacity: 1,
-          transform: `translate3d(${delta}px, 0px, 0) scale(1) rotate(0deg)`,
-        };
-      }
-      if (progress < r.moveEnd) {
-        // Sliding from center to slot 0
-        const moveT = (progress - r.moveStart) / (r.moveEnd - r.moveStart);
-        const ease = 1 - Math.pow(1 - moveT, 3);
-        const currentX = delta * (1 - ease);
-        return {
-          opacity: 1,
-          transform: `translate3d(${currentX}px, 0px, 0) scale(1) rotate(${r.rot * (1 - ease)}deg)`,
-        };
-      }
-      // Fully settled in slot 0
-      return {
-        opacity: 1,
-        transform: "translate3d(0px, 0px, 0) scale(1) rotate(0deg)",
-      };
-    }
-
-    // Cards 1, 2, 3, 4:
-    if (progress < r.enterStart) {
-      // Not yet visible
-      return {
-        opacity: 0,
-        transform: `translate3d(${delta + (i > 2 ? 80 : 0)}px, 30px, 0) scale(0.88) rotate(${r.rot}deg)`,
-        pointerEvents: "none" as const,
-      };
-    }
-
-    // Entering and dealing into position
-    const tMove = Math.min(Math.max((progress - r.moveStart) / (r.moveEnd - r.moveStart), 0), 1);
-    const ease = 1 - Math.pow(1 - tMove, 3);
-    const currentX = (delta + (i > 2 ? 60 : 0)) * (1 - ease);
-    const enterT = Math.min((progress - r.enterStart) / (r.enterEnd - r.enterStart), 1);
-    const currentRot = r.rot * (1 - ease);
-    const currentScale = 0.9 + 0.1 * ease;
-
-    return {
-      opacity: enterT,
-      transform: `translate3d(${currentX}px, 0px, 0) scale(${currentScale}) rotate(${currentRot}deg)`,
-    };
+  const scrollToRoutine = () => {
+    document.getElementById("routine")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div id="why" className="relative">
-      {/* MOBILE LAYOUT (< lg): Natural smooth scrolling, all 5 cards accessible */}
-      <section className="lg:hidden px-3 sm:px-6 py-10 sm:py-14 bg-[#F4F9FD]">
-        <div className="max-w-xl mx-auto flex flex-col items-center">
-          {/* Section Header */}
-          <div className="text-center max-w-lg mx-auto mb-7">
-            <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-white text-[#0F3554] text-xs font-semibold uppercase tracking-wider border border-[#BAE0F8] shadow-xs mb-3">
-              <span>{t.badge}</span>
-            </div>
+    <section
+      id="why"
+      dir={dir}
+      className="relative py-14 sm:py-20 md:py-24 bg-[#F4F9FD] overflow-hidden"
+    >
+      {/* Background soft ambient lighting glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-gradient-to-b from-[#BAE0F8]/35 via-[#E0F2FE]/25 to-transparent blur-3xl pointer-events-none -z-10" />
 
-            <h2 className="text-2xl sm:text-3xl font-serif-luxury tracking-tight text-[#0F3554]">
-              {t.title}
-            </h2>
-
-            <p className="mt-2 text-xs sm:text-sm text-[#4B6B88] leading-relaxed">
-              {t.subtitle}
-            </p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-[#0F3554] text-xs font-semibold uppercase tracking-wider border border-[#BAE0F8] shadow-xs mb-3.5">
+            <Sparkles className="w-3.5 h-3.5 text-[#0284C7]" />
+            <span>{t.badge}</span>
           </div>
 
-          {/* 5 Feature Cards in Clean Grid */}
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-3.5" dir={dir}>
-            {t.features.map((feat, idx) => {
-              const Icon = ICONS[idx] || Shield;
-              return (
-                <div
-                  key={idx}
-                  className="bg-white rounded-2xl p-4.5 sm:p-5 border border-[#BAE0F8] shadow-md shadow-sky-950/5 flex flex-col justify-between text-left rtl:text-right"
-                >
-                  <div>
-                    {/* Header: Icon Next to Title & Step Number */}
-                    <div className="flex items-start justify-between gap-2 mb-2">
-                      <div className="flex items-center gap-2.5 flex-1 pr-1 rtl:pr-0 rtl:pl-1">
-                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-b from-[#E0F2FE] to-[#BAE0F8]/50 text-[#0284C7] flex items-center justify-center shrink-0 border border-white shadow-xs">
-                          <Icon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
-                        </div>
-                        <h3 className="text-xs sm:text-sm font-bold text-[#0F3554] leading-snug">
-                          {feat.title}
-                        </h3>
-                      </div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-serif-luxury tracking-tight text-[#0F3554] leading-[1.25]">
+            {t.title}
+          </h2>
 
-                      <span className="text-[10px] font-bold text-[#5C7C99] px-2 py-0.5 rounded-full bg-[#F0F7FD] border border-[#BAE0F8]/50 shrink-0">
-                        0{idx + 1}
-                      </span>
-                    </div>
+          <p className="mt-3 text-xs sm:text-sm md:text-base text-[#4B6B88] max-w-xl mx-auto leading-relaxed">
+            {t.subtitle}
+          </p>
+        </div>
+      </div>
 
-                    {/* Feature Description */}
-                    <p className="text-[11px] sm:text-xs text-[#5C7C99] leading-relaxed">
-                      {feat.desc}
-                    </p>
+      {/* Infinite Seamless Marquee Loop of Circular Model Photos (Right to Left) */}
+      <div className="relative w-full overflow-hidden select-none py-4">
+        {/* Subtle left & right gradient fade masks for smooth infinity edges */}
+        <div className="absolute left-0 inset-y-0 w-12 sm:w-24 md:w-36 bg-gradient-to-r from-[#F4F9FD] to-transparent z-20 pointer-events-none" />
+        <div className="absolute right-0 inset-y-0 w-12 sm:w-24 md:w-36 bg-gradient-to-l from-[#F4F9FD] to-transparent z-20 pointer-events-none" />
+
+        {/* Marquee Track: Moving from Right to Left continuously */}
+        <div dir="ltr" className="animate-marquee-slow flex items-center">
+          {/* Sequence A */}
+          <div className="flex items-center gap-5 sm:gap-7 md:gap-9 shrink-0 pr-5 sm:pr-7 md:pr-9">
+            {MODEL_PHOTOS.map((photo) => (
+              <div
+                key={`model-a-${photo.id}`}
+                onClick={scrollToRoutine}
+                className="flex flex-col items-center group cursor-pointer"
+              >
+                {/* Circular Model Frame */}
+                <div className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden p-1.5 sm:p-2 bg-gradient-to-b from-[#BAE0F8] via-white to-[#0284C7]/30 shadow-xl shadow-sky-950/10 group-hover:shadow-2xl group-hover:shadow-sky-900/25 group-hover:scale-105 transition-all duration-500">
+                  <div className="relative w-full h-full rounded-full overflow-hidden border-2 sm:border-3 border-white">
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      sizes="(max-width: 640px) 200px, (max-width: 1024px) 260px, 300px"
+                      className="object-cover object-center group-hover:scale-110 transition-transform duration-700"
+                    />
+                    {/* Soft luxury glass overlay highlight */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/20 pointer-events-none" />
+                  </div>
+
+                  {/* Step Capsule Badge */}
+                  <div className="absolute bottom-2.5 inset-x-0 flex justify-center pointer-events-none">
+                    <span className="px-3 py-1 rounded-full bg-[#0F3554]/95 backdrop-blur-md text-white text-[10px] sm:text-[11px] font-bold border border-white/25 shadow-md tracking-wide">
+                      {isArabic ? photo.brandAr : photo.brandFr}
+                    </span>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
 
-      {/* DESKTOP LAYOUT (lg:block): Fanning cards scroll choreography pinned track */}
-      <section id="why" ref={trackRef} className="hidden lg:block relative h-[270vh] sm:h-[300vh]">
-        {/* Sticky viewport frame pinned while scrolling */}
-        <div className="sticky top-0 h-screen min-h-[640px] max-h-[1000px] flex flex-col justify-center items-center px-3 sm:px-6 md:px-8 py-6 sm:py-10 overflow-hidden bg-[#F4F9FD]">
-          
-          {/* Soft decorative background ambient glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[900px] h-[400px] bg-gradient-to-b from-[#BAE0F8]/30 via-[#E0F2FE]/20 to-transparent blur-3xl pointer-events-none -z-10" />
-
-          <div className="max-w-7xl w-full mx-auto flex flex-col items-center">
-            {/* Section Header */}
-            <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
-              <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-white text-[#0F3554] text-xs font-semibold uppercase tracking-wider border border-[#BAE0F8] shadow-xs mb-3">
-                <span>{t.badge}</span>
+                {/* Subtitle / Product Name below Circle */}
+                <div className="mt-3.5 text-center">
+                  <h4 className="text-xs sm:text-sm font-bold text-[#0F3554] tracking-tight group-hover:text-[#0284C7] transition-colors">
+                    {isArabic ? photo.nameAr : photo.nameFr}
+                  </h4>
+                  <span className="text-[10px] sm:text-[11px] font-semibold text-[#0284C7]">
+                    {isArabic ? `الخطوة ${photo.step}` : `Étape ${photo.step}`}
+                  </span>
+                </div>
               </div>
+            ))}
+          </div>
 
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif-luxury tracking-tight text-[#0F3554]">
-                {t.title}
-              </h2>
-
-              <p className="mt-2 text-xs sm:text-sm text-[#4B6B88] max-w-lg mx-auto leading-relaxed">
-                {t.subtitle}
-              </p>
-            </div>
-
-            {/* 5 Features Grid with Scroll-Dealing Card Animation */}
-            <div
-              ref={gridRef}
-              className="w-full relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4 lg:gap-5"
-              dir={dir}
-            >
-              {t.features.map((feat, idx) => {
-                const Icon = ICONS[idx] || Shield;
-                const cardStyle = getCardStyle(idx);
-
-                return (
-                  <div
-                    key={idx}
-                    ref={(el) => {
-                      slotRefs.current[idx] = el;
-                    }}
-                    className="relative w-full"
-                  >
-                    <div
-                      style={cardStyle}
-                      className="group relative bg-white rounded-3xl p-5 sm:p-5.5 border border-[#BAE0F8] hover:border-[#0284C7] shadow-lg shadow-sky-950/5 hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between text-left rtl:text-right will-change-transform min-h-[140px] sm:min-h-[155px]"
-                    >
-                      <div>
-                        {/* Header: Icon Next to Title & Step Number */}
-                        <div className="flex items-start justify-between gap-2 mb-2.5">
-                          <div className="flex items-center gap-2.5 flex-1 pr-1 rtl:pr-0 rtl:pl-1">
-                            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-b from-[#E0F2FE] to-[#BAE0F8]/50 text-[#0284C7] flex items-center justify-center shrink-0 shadow-xs border border-white group-hover:scale-105 transition-transform">
-                              <Icon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
-                            </div>
-                            <h3 className="text-xs sm:text-sm font-bold text-[#0F3554] leading-snug">
-                              {feat.title}
-                            </h3>
-                          </div>
-
-                          {/* Step tag */}
-                          <span className="text-[10px] font-bold text-[#5C7C99] px-2 py-0.5 rounded-full bg-[#F0F7FD] border border-[#BAE0F8]/50 shrink-0">
-                            0{idx + 1}
-                          </span>
-                        </div>
-
-                        {/* Feature Description */}
-                        <p className="text-[11px] sm:text-xs text-[#5C7C99] leading-relaxed">
-                          {feat.desc}
-                        </p>
-                      </div>
-                    </div>
+          {/* Sequence B (Duplicated for 100% Gapless Seamless Infinite Loop) */}
+          <div
+            className="flex items-center gap-5 sm:gap-7 md:gap-9 shrink-0 pr-5 sm:pr-7 md:pr-9"
+            aria-hidden="true"
+          >
+            {MODEL_PHOTOS.map((photo) => (
+              <div
+                key={`model-b-${photo.id}`}
+                onClick={scrollToRoutine}
+                className="flex flex-col items-center group cursor-pointer"
+              >
+                {/* Circular Model Frame */}
+                <div className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden p-1.5 sm:p-2 bg-gradient-to-b from-[#BAE0F8] via-white to-[#0284C7]/30 shadow-xl shadow-sky-950/10 group-hover:shadow-2xl group-hover:shadow-sky-900/25 group-hover:scale-105 transition-all duration-500">
+                  <div className="relative w-full h-full rounded-full overflow-hidden border-2 sm:border-3 border-white">
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      sizes="(max-width: 640px) 200px, (max-width: 1024px) 260px, 300px"
+                      className="object-cover object-center group-hover:scale-110 transition-transform duration-700"
+                    />
+                    {/* Soft luxury glass overlay highlight */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/20 pointer-events-none" />
                   </div>
-                );
-              })}
-            </div>
 
+                  {/* Step Capsule Badge */}
+                  <div className="absolute bottom-2.5 inset-x-0 flex justify-center pointer-events-none">
+                    <span className="px-3 py-1 rounded-full bg-[#0F3554]/95 backdrop-blur-md text-white text-[10px] sm:text-[11px] font-bold border border-white/25 shadow-md tracking-wide">
+                      {isArabic ? photo.brandAr : photo.brandFr}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Subtitle / Product Name below Circle */}
+                <div className="mt-3.5 text-center">
+                  <h4 className="text-xs sm:text-sm font-bold text-[#0F3554] tracking-tight group-hover:text-[#0284C7] transition-colors">
+                    {isArabic ? photo.nameAr : photo.nameFr}
+                  </h4>
+                  <span className="text-[10px] sm:text-[11px] font-semibold text-[#0284C7]">
+                    {isArabic ? `الخطوة ${photo.step}` : `Étape ${photo.step}`}
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+
+      {/* Sleek CTA pill beneath the carousel */}
+      <div className="mt-8 sm:mt-10 flex justify-center px-4">
+        <button
+          type="button"
+          onClick={scrollToRoutine}
+          className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 rounded-full bg-white hover:bg-[#F0F7FD] text-[#0F3554] font-bold text-xs sm:text-sm border border-[#BAE0F8] shadow-md shadow-sky-900/5 hover:scale-105 active:scale-95 transition-all cursor-pointer group"
+        >
+          <span>
+            {isArabic
+              ? "اكتشفي تفاصيل روتين المنتجات الـ 6"
+              : "Découvrir la routine des 6 soins en détail"}
+          </span>
+          <ArrowUpRight className="w-4 h-4 text-[#0284C7] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+        </button>
+      </div>
+    </section>
   );
 }
