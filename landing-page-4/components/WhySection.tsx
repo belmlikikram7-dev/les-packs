@@ -1,135 +1,190 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Sparkles, ArrowUpRight } from "lucide-react";
+import { Sparkles, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
 
-interface ModelPhoto {
+interface StepItem {
   id: string;
-  src: string;
-  alt: string;
+  stepNum: string;
   brandFr: string;
-  nameFr: string;
+  titleFr: string;
+  noteFr: string;
   brandAr: string;
-  nameAr: string;
-  step: string;
+  titleAr: string;
+  noteAr: string;
+  modelImage: string;
+  alt: string;
+  gradient: string;
+  accentColor: string;
 }
 
-const MODEL_PHOTOS: ModelPhoto[] = [
+const STEPS: StepItem[] = [
   {
     id: "la-roche-posay",
-    src: "/images/model-4/la-roche-posay-effaclar-purifying-foaming-gel-model.webp",
-    alt: "Modèle avec La Roche-Posay Effaclar Gel Moussant Purifiant",
+    stepNum: "01",
     brandFr: "La Roche-Posay",
-    nameFr: "Effaclar Gel Moussant",
+    titleFr: "Effaclar Gel Moussant Purifiant",
+    noteFr:
+      "Purifie en douceur, élimine l'excès de sébum et rééquilibre le microbiome cutané dès le premier lavage.",
     brandAr: "لا روش بوزيه",
-    nameAr: "غسول إيفاكلار المنقي",
-    step: "01",
+    titleAr: "غسول إيفاكلار المنقي والرغوي",
+    noteAr:
+      "ينظف المسام بعمق ولطف، ينظم الإفرازات الدهنية ويعيد التوازن الطبيعي للبشرة.",
+    modelImage:
+      "/images/model-4/la-roche-posay-effaclar-purifying-foaming-gel-model.webp",
+    alt: "Modèle avec La Roche-Posay Effaclar Gel Moussant",
+    gradient: "from-[#0284C7] via-[#0378b5] to-[#0EA5E9]",
+    accentColor: "#0284C7",
   },
   {
     id: "anua",
-    src: "/images/model-4/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-model.webp",
-    alt: "Modèle avec Anua Azelaic Acid 10+ Hyaluron Redness Soothing Serum",
+    stepNum: "02",
     brandFr: "Anua",
-    nameFr: "Acide Azélaïque 10+",
+    titleFr: "Azelaic Acid 10+ Hyaluron Redness Serum",
+    noteFr:
+      "Sérum concentré à 10% d'acide azélaïque qui apaise instantanément les rougeurs, lisse le grain et estompe les taches.",
     brandAr: "أنوا",
-    nameAr: "سيروم حمض الأزيليك",
-    step: "02",
+    titleAr: "سيروم حمض الأزيليك 10+ المهدئ",
+    noteAr:
+      "تركيبة كورية بـ 10% أزيليك لتهدئة الاحمرار، تصفية آثار الحبوب وتوحيد لون البشرة.",
+    modelImage:
+      "/images/model-4/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-model.webp",
+    alt: "Modèle avec Anua Azelaic Acid 10+ Serum",
+    gradient: "from-[#0369A1] via-[#0284C7] to-[#0284C7]",
+    accentColor: "#0369A1",
   },
   {
     id: "axis-y",
-    src: "/images/model-4/axis-y-vegan-collagen-eye-serum-model.webp",
-    alt: "Modèle avec AXIS-Y Vegan Collagen Eye Serum",
+    stepNum: "03",
     brandFr: "AXIS-Y",
-    nameFr: "Collagène Contour Yeux",
+    titleFr: "Vegan Collagen Eye Serum",
+    noteFr:
+      "Embout applicateur roll-on cryo-massage et collagène végétal pour décongestionner le regard et lisser les cernes.",
     brandAr: "أكسس واي",
-    nameAr: "سيروم كولاجين العيون",
-    step: "03",
+    titleAr: "سيروم كولاجين العيون مع رول-أون",
+    noteAr:
+      "مساج بارد بتقنية الكريو مع كولاجين نباتي وببتيدات لشد محيط العين وإزالة الهالات.",
+    modelImage:
+      "/images/model-4/axis-y-vegan-collagen-eye-serum-model.webp",
+    alt: "Modèle avec AXIS-Y Vegan Collagen Eye Serum",
+    gradient: "from-[#0F3554] via-[#15466d] to-[#1C5A8B]",
+    accentColor: "#0F3554",
   },
   {
     id: "embryolisse",
-    src: "/images/model-4/embryolisse-lait-creme-concentre-model.webp",
-    alt: "Modèle avec Embryolisse Lait-Crème Concentré",
-    brandFr: "Embryolisse",
-    nameFr: "Lait-Crème Concentré",
+    stepNum: "04",
+    brandFr: "Laboratoires Embryolisse",
+    titleFr: "Lait-Crème Concentré Multi-fonctions",
+    noteFr:
+      "Soin hydratant culte qui nourrit intensément, restaure la barrière lipidique et laisse la peau douce et souple.",
     brandAr: "إمبريوليس",
-    nameAr: "كريم الترطيب المكثف",
-    step: "04",
+    titleAr: "كريم الترطيب المكثف والحماية",
+    noteAr:
+      "مرطب فرنسي طبي أيقوني يغذي الخلايا بعمق، يعالج الجفاف ويمنح ملمساً مخملياً ناعماً.",
+    modelImage:
+      "/images/model-4/embryolisse-lait-creme-concentre-model.webp",
+    alt: "Modèle avec Embryolisse Lait-Crème Concentré",
+    gradient: "from-[#173E63] via-[#0F3554] to-[#0D2E49]",
+    accentColor: "#173E63",
   },
   {
     id: "seoul-1988",
-    src: "/images/model-4/k-secret-seoul-1988-sun-pine-tree-ceramide-model.webp",
-    alt: "Modèle avec K-SECRET Seoul 1988 Sun Pine Tree + Ceramide",
-    brandFr: "Seoul 1988",
-    nameFr: "Écran Solaire & Céramides",
+    stepNum: "05",
+    brandFr: "K-SECRET Seoul 1988",
+    titleFr: "Sun Pine Tree + Ceramide SPF 50+",
+    noteFr:
+      "Écran solaire coréen invisible aux céramides et extrait de pin pour une haute protection UV sans aucune trace blanche.",
     brandAr: "سيول 1988",
-    nameAr: "واقي شمس كوري بالصنوبر",
-    step: "05",
+    titleAr: "واقي الشمس الكوري بالصنوبر SPF 50+",
+    noteAr:
+      "حماية فائقة وشفافة من الأشعة فوق البنفسجية غنية بالسيراميد لتقوية الحاجز الواقي.",
+    modelImage:
+      "/images/model-4/k-secret-seoul-1988-sun-pine-tree-ceramide-model.webp",
+    alt: "Modèle avec K-SECRET Seoul 1988 Sun Pine Tree",
+    gradient: "from-[#0284C7] via-[#0369A1] to-[#0F3554]",
+    accentColor: "#0284C7",
   },
   {
     id: "vaseline",
-    src: "/images/model-4/vaseline-gluta-hya-dewy-radiance-model.webp",
-    alt: "Modèle avec Vaseline Gluta-Hya Dewy Radiance",
-    brandFr: "Vaseline",
-    nameFr: "Gluta-Hya Dewy Radiance",
+    stepNum: "06",
+    brandFr: "Vaseline Healthy Bright",
+    titleFr: "Gluta-Hya Dewy Radiance Body Serum",
+    noteFr:
+      "Sérum corps 10X plus puissant que la vitamine C pour hydrater en profondeur et révéler un éclat rosé éclatant de santé.",
     brandAr: "فازلين",
-    nameAr: "لوشن جلوتا-هيا النضر",
-    step: "06",
+    titleAr: "لوشن سيروم جلوتا-هيا النضر للجسم",
+    noteAr:
+      "لوشن خفيف أقوى بـ 10 أضعاف من فيتامين C لترطيب وتفتيح بشرة الجسم بنضارة براقة.",
+    modelImage:
+      "/images/model-4/vaseline-gluta-hya-dewy-radiance-model.webp",
+    alt: "Modèle avec Vaseline Gluta-Hya Dewy Radiance",
+    gradient: "from-[#0F3554] via-[#0A263D] to-[#061B2D]",
+    accentColor: "#0F3554",
   },
 ];
-
-// Double list for a dense, continuous sequence
-const DENSE_PHOTOS = [...MODEL_PHOTOS, ...MODEL_PHOTOS];
 
 export default function WhySection() {
   const { locale, isArabic, dir } = useLanguage();
   const t = TRANSLATIONS[locale].why;
 
-  const scrollToRoutine = () => {
-    document.getElementById("routine")?.scrollIntoView({ behavior: "smooth" });
+  const [visibleSteps, setVisibleSteps] = useState<boolean[]>(
+    new Array(STEPS.length).fill(false)
+  );
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+
+    stepRefs.current.forEach((el, index) => {
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setVisibleSteps((prev) => {
+                const updated = [...prev];
+                updated[index] = true;
+                return updated;
+              });
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    return () => {
+      observers.forEach((obs) => obs.disconnect());
+    };
+  }, []);
+
+  const scrollToOrder = () => {
+    document.getElementById("order")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section
       id="why"
       dir={dir}
-      className="relative py-14 sm:py-20 md:py-24 bg-[#F4F9FD] overflow-hidden"
+      className="relative py-14 sm:py-20 md:py-28 bg-[#F4F9FD] overflow-hidden"
     >
-      {/* Embedded GPU hardware-accelerated continuous right-to-left marquee animation */}
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-            @keyframes marqueeLoopRightToLeft {
-              0% {
-                transform: translate3d(0, 0, 0);
-              }
-              100% {
-                transform: translate3d(-50%, 0, 0);
-              }
-            }
-            .model-marquee-continuous {
-              display: flex !important;
-              width: max-content !important;
-              animation: marqueeLoopRightToLeft 24s linear infinite !important;
-              will-change: transform;
-            }
-          `,
-        }}
-      />
-
-      {/* Background soft ambient lighting glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-gradient-to-b from-[#BAE0F8]/35 via-[#E0F2FE]/25 to-transparent blur-3xl pointer-events-none -z-10" />
+      {/* Background ambient lighting glow */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] bg-gradient-to-b from-[#BAE0F8]/30 via-[#E0F2FE]/20 to-transparent blur-3xl pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
+        <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-20">
           <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-[#0F3554] text-xs font-semibold uppercase tracking-wider border border-[#BAE0F8] shadow-xs mb-3.5">
             <Sparkles className="w-3.5 h-3.5 text-[#0284C7]" />
             <span>{t.badge}</span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-serif-luxury tracking-tight text-[#0F3554] leading-[1.25]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-serif-luxury tracking-tight text-[#0F3554] leading-[1.25]">
             {t.title}
           </h2>
 
@@ -137,121 +192,274 @@ export default function WhySection() {
             {t.subtitle}
           </p>
         </div>
-      </div>
 
-      {/* Infinite Seamless Marquee Loop of Circular Model Photos (Continuously moving from Right to Left) */}
-      <div className="relative w-full overflow-hidden select-none py-4">
-        {/* Subtle left & right gradient fade masks for smooth infinity edges */}
-        <div className="absolute left-0 inset-y-0 w-12 sm:w-24 md:w-36 bg-gradient-to-r from-[#F4F9FD] to-transparent z-20 pointer-events-none" />
-        <div className="absolute right-0 inset-y-0 w-12 sm:w-24 md:w-36 bg-gradient-to-l from-[#F4F9FD] to-transparent z-20 pointer-events-none" />
-
-        {/* Marquee Track: Moving from Right to Left continuously without stopping */}
-        <div dir="ltr" className="model-marquee-continuous flex items-center">
-          {/* Sequence 1 */}
-          <div className="flex items-center gap-5 sm:gap-7 md:gap-9 shrink-0 pr-5 sm:pr-7 md:pr-9">
-            {DENSE_PHOTOS.map((photo, idx) => (
-              <div
-                key={`model-s1-${photo.id}-${idx}`}
-                onClick={scrollToRoutine}
-                className="flex flex-col items-center group cursor-pointer"
-              >
-                {/* Circular Model Frame */}
-                <div className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden p-1.5 sm:p-2 bg-gradient-to-b from-[#BAE0F8] via-white to-[#0284C7]/30 shadow-xl shadow-sky-950/10 group-hover:shadow-2xl group-hover:shadow-sky-900/25 group-hover:scale-105 transition-all duration-500">
-                  <div className="relative w-full h-full rounded-full overflow-hidden border-2 sm:border-3 border-white">
-                    <Image
-                      src={photo.src}
-                      alt={photo.alt}
-                      fill
-                      sizes="(max-width: 640px) 200px, (max-width: 1024px) 260px, 300px"
-                      className="object-cover object-center group-hover:scale-110 transition-transform duration-700"
-                    />
-                    {/* Soft luxury glass overlay highlight */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/20 pointer-events-none" />
-                  </div>
-
-                  {/* Step Capsule Badge */}
-                  <div className="absolute bottom-2.5 inset-x-0 flex justify-center pointer-events-none">
-                    <span className="px-3 py-1 rounded-full bg-[#0F3554]/95 backdrop-blur-md text-white text-[10px] sm:text-[11px] font-bold border border-white/25 shadow-md tracking-wide">
-                      {isArabic ? photo.brandAr : photo.brandFr}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Subtitle / Product Name below Circle */}
-                <div className="mt-3.5 text-center">
-                  <h4 className="text-xs sm:text-sm font-bold text-[#0F3554] tracking-tight group-hover:text-[#0284C7] transition-colors">
-                    {isArabic ? photo.nameAr : photo.nameFr}
-                  </h4>
-                  <span className="text-[10px] sm:text-[11px] font-semibold text-[#0284C7]">
-                    {isArabic ? `الخطوة ${photo.step}` : `Étape ${photo.step}`}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Sequence 2 (Duplicated for 100% Gapless Seamless Infinite Loop) */}
-          <div
-            className="flex items-center gap-5 sm:gap-7 md:gap-9 shrink-0 pr-5 sm:pr-7 md:pr-9"
-            aria-hidden="true"
+        {/* ======================================================== */}
+        {/* DESKTOP ZIGZAG ROADMAP LAYOUT (lg:block) matching design */}
+        {/* ======================================================== */}
+        <div className="hidden lg:block relative max-w-5xl mx-auto py-6">
+          {/* Central S-Curved Dotted Connecting Line */}
+          <svg
+            className="absolute left-1/2 top-4 bottom-4 -translate-x-1/2 h-[calc(100%-32px)] w-28 pointer-events-none z-0 overflow-visible text-[#7DD3FC]"
+            viewBox="0 0 100 1200"
+            fill="none"
+            preserveAspectRatio="none"
           >
-            {DENSE_PHOTOS.map((photo, idx) => (
-              <div
-                key={`model-s2-${photo.id}-${idx}`}
-                onClick={scrollToRoutine}
-                className="flex flex-col items-center group cursor-pointer"
-              >
-                {/* Circular Model Frame */}
-                <div className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden p-1.5 sm:p-2 bg-gradient-to-b from-[#BAE0F8] via-white to-[#0284C7]/30 shadow-xl shadow-sky-950/10 group-hover:shadow-2xl group-hover:shadow-sky-900/25 group-hover:scale-105 transition-all duration-500">
-                  <div className="relative w-full h-full rounded-full overflow-hidden border-2 sm:border-3 border-white">
-                    <Image
-                      src={photo.src}
-                      alt={photo.alt}
-                      fill
-                      sizes="(max-width: 640px) 200px, (max-width: 1024px) 260px, 300px"
-                      className="object-cover object-center group-hover:scale-110 transition-transform duration-700"
-                    />
-                    {/* Soft luxury glass overlay highlight */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/20 pointer-events-none" />
+            <path
+              d="M50 0 C75 100, 25 200, 50 300 C75 400, 25 500, 50 600 C75 700, 25 800, 50 900 C75 1000, 25 1100, 50 1200"
+              stroke="#7DD3FC"
+              strokeWidth="3.5"
+              strokeDasharray="6 8"
+              strokeLinecap="round"
+              opacity="0.8"
+            />
+          </svg>
+
+          {/* 6 Alternating Steps */}
+          <div className="space-y-16 xl:space-y-20 relative z-10">
+            {STEPS.map((step, idx) => {
+              const isEven = idx % 2 === 1; // 0: Left, 1: Right, 2: Left, 3: Right...
+              const isVisible = visibleSteps[idx];
+
+              // In RTL (Arabic), the visual sides are naturally mirrored or adapted
+              const pillOnLeft = !isEven;
+
+              return (
+                <div
+                  key={step.id}
+                  ref={(el) => {
+                    stepRefs.current[idx] = el;
+                  }}
+                  className={`grid grid-cols-2 items-center gap-8 xl:gap-12 transition-all duration-700 ease-out will-change-transform ${
+                    isVisible
+                      ? "opacity-100 translate-x-0"
+                      : isEven
+                      ? "opacity-0 translate-x-16"
+                      : "opacity-0 -translate-x-16"
+                  }`}
+                >
+                  {/* LEFT COLUMN */}
+                  <div
+                    className={`flex items-center ${
+                      pillOnLeft ? "justify-end" : "justify-start pl-8"
+                    }`}
+                  >
+                    {pillOnLeft ? (
+                      /* PILL ON LEFT */
+                      <div className="relative group max-w-[460px] w-full">
+                        {/* Pill capsule container */}
+                        <div
+                          className={`relative rounded-full p-2.5 sm:p-3 bg-gradient-to-r ${step.gradient} text-white shadow-xl shadow-sky-950/15 flex items-center justify-between gap-4 transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-2xl`}
+                        >
+                          {/* Text info on left */}
+                          <div className="pl-5 pr-2 py-1 flex-1 text-left rtl:text-right">
+                            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-white/80 block">
+                              {isArabic ? step.brandAr : step.brandFr}
+                            </span>
+                            <h3 className="text-sm sm:text-base font-bold font-serif-luxury text-white leading-snug line-clamp-1 mt-0.5">
+                              {isArabic ? step.titleAr : step.titleFr}
+                            </h3>
+                            <p className="text-[11px] sm:text-xs text-white/90 leading-relaxed line-clamp-2 mt-1">
+                              {isArabic ? step.noteAr : step.noteFr}
+                            </p>
+                          </div>
+
+                          {/* Circular Model Photo on right end */}
+                          <div className="relative shrink-0">
+                            <div className="relative w-28 h-28 xl:w-32 xl:h-32 rounded-full overflow-hidden border-4 border-white shadow-xl bg-white">
+                              <Image
+                                src={step.modelImage}
+                                alt={step.alt}
+                                fill
+                                sizes="140px"
+                                className="object-cover object-center group-hover:scale-108 transition-transform duration-500"
+                              />
+                            </div>
+
+                            {/* Small triangle pointer pointing to central dot */}
+                            <div
+                              className="absolute top-1/2 -right-2 -translate-y-1/2 w-0 h-0 border-y-[8px] border-y-transparent border-l-[10px] border-l-white drop-shadow-sm"
+                              aria-hidden="true"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      /* STEP NUMBER ON LEFT (when pill is on right) */
+                      <div className="flex items-center gap-4 text-left rtl:text-right">
+                        {/* Central connection ring */}
+                        <div className="w-9 h-9 rounded-full bg-white border-3 border-[#0284C7] shadow-md flex items-center justify-center shrink-0">
+                          <div className="w-3.5 h-3.5 rounded-full bg-[#0284C7]" />
+                        </div>
+
+                        <div>
+                          <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#5A7B9A] block">
+                            {isArabic ? "المرحلة" : "ÉTAPE"}
+                          </span>
+                          <span className="text-3xl sm:text-4xl xl:text-5xl font-extrabold text-[#0F3554] tracking-tight">
+                            {step.stepNum}
+                          </span>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
-                  {/* Step Capsule Badge */}
-                  <div className="absolute bottom-2.5 inset-x-0 flex justify-center pointer-events-none">
-                    <span className="px-3 py-1 rounded-full bg-[#0F3554]/95 backdrop-blur-md text-white text-[10px] sm:text-[11px] font-bold border border-white/25 shadow-md tracking-wide">
-                      {isArabic ? photo.brandAr : photo.brandFr}
-                    </span>
+                  {/* RIGHT COLUMN */}
+                  <div
+                    className={`flex items-center ${
+                      pillOnLeft ? "justify-start pl-8" : "justify-start"
+                    }`}
+                  >
+                    {!pillOnLeft ? (
+                      /* PILL ON RIGHT */
+                      <div className="relative group max-w-[460px] w-full">
+                        {/* Pill capsule container */}
+                        <div
+                          className={`relative rounded-full p-2.5 sm:p-3 bg-gradient-to-r ${step.gradient} text-white shadow-xl shadow-sky-950/15 flex items-center justify-between gap-4 transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-2xl`}
+                        >
+                          {/* Circular Model Photo on left end */}
+                          <div className="relative shrink-0">
+                            {/* Small triangle pointer pointing to central dot */}
+                            <div
+                              className="absolute top-1/2 -left-2 -translate-y-1/2 w-0 h-0 border-y-[8px] border-y-transparent border-r-[10px] border-r-white drop-shadow-sm z-10"
+                              aria-hidden="true"
+                            />
+
+                            <div className="relative w-28 h-28 xl:w-32 xl:h-32 rounded-full overflow-hidden border-4 border-white shadow-xl bg-white">
+                              <Image
+                                src={step.modelImage}
+                                alt={step.alt}
+                                fill
+                                sizes="140px"
+                                className="object-cover object-center group-hover:scale-108 transition-transform duration-500"
+                              />
+                            </div>
+                          </div>
+
+                          {/* Text info on right */}
+                          <div className="pr-5 pl-2 py-1 flex-1 text-left rtl:text-right">
+                            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-white/80 block">
+                              {isArabic ? step.brandAr : step.brandFr}
+                            </span>
+                            <h3 className="text-sm sm:text-base font-bold font-serif-luxury text-white leading-snug line-clamp-1 mt-0.5">
+                              {isArabic ? step.titleAr : step.titleFr}
+                            </h3>
+                            <p className="text-[11px] sm:text-xs text-white/90 leading-relaxed line-clamp-2 mt-1">
+                              {isArabic ? step.noteAr : step.noteFr}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      /* STEP NUMBER ON RIGHT (when pill is on left) */
+                      <div className="flex items-center gap-4 text-left rtl:text-right">
+                        {/* Central connection ring */}
+                        <div className="w-9 h-9 rounded-full bg-white border-3 border-[#0284C7] shadow-md flex items-center justify-center shrink-0">
+                          <div className="w-3.5 h-3.5 rounded-full bg-[#0284C7]" />
+                        </div>
+
+                        <div>
+                          <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#5A7B9A] block">
+                            {isArabic ? "المرحلة" : "ÉTAPE"}
+                          </span>
+                          <span className="text-3xl sm:text-4xl xl:text-5xl font-extrabold text-[#0F3554] tracking-tight">
+                            {step.stepNum}
+                          </span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-
-                {/* Subtitle / Product Name below Circle */}
-                <div className="mt-3.5 text-center">
-                  <h4 className="text-xs sm:text-sm font-bold text-[#0F3554] tracking-tight group-hover:text-[#0284C7] transition-colors">
-                    {isArabic ? photo.nameAr : photo.nameFr}
-                  </h4>
-                  <span className="text-[10px] sm:text-[11px] font-semibold text-[#0284C7]">
-                    {isArabic ? `الخطوة ${photo.step}` : `Étape ${photo.step}`}
-                  </span>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
-      </div>
 
-      {/* Sleek CTA pill beneath the carousel */}
-      <div className="mt-8 sm:mt-10 flex justify-center px-4">
-        <button
-          type="button"
-          onClick={scrollToRoutine}
-          className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 rounded-full bg-white hover:bg-[#F0F7FD] text-[#0F3554] font-bold text-xs sm:text-sm border border-[#BAE0F8] shadow-md shadow-sky-900/5 hover:scale-105 active:scale-95 transition-all cursor-pointer group"
-        >
-          <span>
-            {isArabic
-              ? "اكتشفي تفاصيل روتين المنتجات الـ 6"
-              : "Découvrir la routine des 6 soins en détail"}
-          </span>
-          <ArrowUpRight className="w-4 h-4 text-[#0284C7] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-        </button>
+        {/* ======================================================== */}
+        {/* MOBILE & TABLET ROADMAP LAYOUT (< lg) */}
+        {/* ======================================================== */}
+        <div className="lg:hidden relative max-w-xl mx-auto space-y-8 sm:space-y-10 py-4">
+          {/* Vertical dashed line running along the side */}
+          <div className="absolute left-6 sm:left-8 top-6 bottom-6 w-0.5 border-l-2 border-dashed border-[#7DD3FC] pointer-events-none -z-0" />
+
+          {STEPS.map((step, idx) => {
+            const isVisible = visibleSteps[idx];
+
+            return (
+              <div
+                key={`mobile-${step.id}`}
+                ref={(el) => {
+                  if (!stepRefs.current[idx]) {
+                    stepRefs.current[idx] = el;
+                  }
+                }}
+                className={`relative flex items-start gap-4 transition-all duration-700 ease-out ${
+                  isVisible
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 translate-x-8"
+                }`}
+              >
+                {/* Step indicator node on the dashed line */}
+                <div className="relative z-10 shrink-0 mt-3">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white border-3 border-[#0284C7] shadow-md flex flex-col items-center justify-center text-[#0F3554]">
+                    <span className="text-[8px] font-bold uppercase tracking-tighter text-[#5A7B9A]">
+                      {isArabic ? "مرحلة" : "ÉTAPE"}
+                    </span>
+                    <span className="text-xs sm:text-sm font-extrabold leading-none">
+                      {step.stepNum}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Pill card container */}
+                <div className="flex-1">
+                  <div
+                    className={`rounded-3xl p-3 sm:p-4 bg-gradient-to-r ${step.gradient} text-white shadow-xl shadow-sky-950/15 flex items-center gap-3 sm:gap-4`}
+                  >
+                    {/* Circle Model Photo */}
+                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-3 border-white shadow-lg shrink-0 bg-white">
+                      <Image
+                        src={step.modelImage}
+                        alt={step.alt}
+                        fill
+                        sizes="96px"
+                        className="object-cover object-center"
+                      />
+                    </div>
+
+                    {/* Petite Note & Product Info */}
+                    <div className="flex-1 min-w-0 text-left rtl:text-right">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-white/80 block truncate">
+                        {isArabic ? step.brandAr : step.brandFr}
+                      </span>
+                      <h3 className="text-xs sm:text-sm font-bold font-serif-luxury text-white leading-snug line-clamp-1 mt-0.5">
+                        {isArabic ? step.titleAr : step.titleFr}
+                      </h3>
+                      <p className="text-[10px] sm:text-xs text-white/90 leading-relaxed line-clamp-2 mt-1">
+                        {isArabic ? step.noteAr : step.noteFr}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Global CTA button below the 6 étapes roadmap */}
+        <div className="mt-14 sm:mt-16 text-center">
+          <button
+            type="button"
+            onClick={scrollToOrder}
+            className="inline-flex items-center gap-2.5 px-8 sm:px-10 py-3.5 sm:py-4 rounded-full bg-[#0F3554] hover:bg-[#0B273F] text-white font-bold text-xs sm:text-sm shadow-xl shadow-sky-900/20 hover:scale-105 active:scale-95 transition-all cursor-pointer group"
+          >
+            <span>
+              {isArabic
+                ? "طلب الباك الكامل مع الهدية بالمجان (1 349 درهم)"
+                : "Commander le Pack Complet (1 349 DH)"}
+            </span>
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </button>
+        </div>
       </div>
     </section>
   );
