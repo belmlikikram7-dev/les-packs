@@ -79,6 +79,9 @@ const MODEL_PHOTOS: ModelPhoto[] = [
   },
 ];
 
+// Double list for a dense, continuous sequence
+const DENSE_PHOTOS = [...MODEL_PHOTOS, ...MODEL_PHOTOS];
+
 export default function WhySection() {
   const { locale, isArabic, dir } = useLanguage();
   const t = TRANSLATIONS[locale].why;
@@ -93,6 +96,28 @@ export default function WhySection() {
       dir={dir}
       className="relative py-14 sm:py-20 md:py-24 bg-[#F4F9FD] overflow-hidden"
     >
+      {/* Embedded GPU hardware-accelerated continuous right-to-left marquee animation */}
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes marqueeLoopRightToLeft {
+              0% {
+                transform: translate3d(0, 0, 0);
+              }
+              100% {
+                transform: translate3d(-50%, 0, 0);
+              }
+            }
+            .model-marquee-continuous {
+              display: flex !important;
+              width: max-content !important;
+              animation: marqueeLoopRightToLeft 24s linear infinite !important;
+              will-change: transform;
+            }
+          `,
+        }}
+      />
+
       {/* Background soft ambient lighting glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-gradient-to-b from-[#BAE0F8]/35 via-[#E0F2FE]/25 to-transparent blur-3xl pointer-events-none -z-10" />
 
@@ -114,19 +139,19 @@ export default function WhySection() {
         </div>
       </div>
 
-      {/* Infinite Seamless Marquee Loop of Circular Model Photos (Right to Left) */}
+      {/* Infinite Seamless Marquee Loop of Circular Model Photos (Continuously moving from Right to Left) */}
       <div className="relative w-full overflow-hidden select-none py-4">
         {/* Subtle left & right gradient fade masks for smooth infinity edges */}
         <div className="absolute left-0 inset-y-0 w-12 sm:w-24 md:w-36 bg-gradient-to-r from-[#F4F9FD] to-transparent z-20 pointer-events-none" />
         <div className="absolute right-0 inset-y-0 w-12 sm:w-24 md:w-36 bg-gradient-to-l from-[#F4F9FD] to-transparent z-20 pointer-events-none" />
 
-        {/* Marquee Track: Moving from Right to Left continuously */}
-        <div dir="ltr" className="animate-marquee-slow flex items-center">
-          {/* Sequence A */}
+        {/* Marquee Track: Moving from Right to Left continuously without stopping */}
+        <div dir="ltr" className="model-marquee-continuous flex items-center">
+          {/* Sequence 1 */}
           <div className="flex items-center gap-5 sm:gap-7 md:gap-9 shrink-0 pr-5 sm:pr-7 md:pr-9">
-            {MODEL_PHOTOS.map((photo) => (
+            {DENSE_PHOTOS.map((photo, idx) => (
               <div
-                key={`model-a-${photo.id}`}
+                key={`model-s1-${photo.id}-${idx}`}
                 onClick={scrollToRoutine}
                 className="flex flex-col items-center group cursor-pointer"
               >
@@ -165,14 +190,14 @@ export default function WhySection() {
             ))}
           </div>
 
-          {/* Sequence B (Duplicated for 100% Gapless Seamless Infinite Loop) */}
+          {/* Sequence 2 (Duplicated for 100% Gapless Seamless Infinite Loop) */}
           <div
             className="flex items-center gap-5 sm:gap-7 md:gap-9 shrink-0 pr-5 sm:pr-7 md:pr-9"
             aria-hidden="true"
           >
-            {MODEL_PHOTOS.map((photo) => (
+            {DENSE_PHOTOS.map((photo, idx) => (
               <div
-                key={`model-b-${photo.id}`}
+                key={`model-s2-${photo.id}-${idx}`}
                 onClick={scrollToRoutine}
                 className="flex flex-col items-center group cursor-pointer"
               >
