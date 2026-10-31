@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Sparkles, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { Sparkles, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { TRANSLATIONS } from "@/translations/content";
 
@@ -24,7 +24,7 @@ interface StepItem {
 const STEPS: StepItem[] = [
   {
     id: "la-roche-posay",
-    stepNum: "01",
+    stepNum: "1",
     brandFr: "La Roche-Posay",
     titleFr: "Effaclar Gel Moussant Purifiant",
     noteFr:
@@ -41,7 +41,7 @@ const STEPS: StepItem[] = [
   },
   {
     id: "anua",
-    stepNum: "02",
+    stepNum: "2",
     brandFr: "Anua",
     titleFr: "Azelaic Acid 10+ Hyaluron Redness Serum",
     noteFr:
@@ -58,7 +58,7 @@ const STEPS: StepItem[] = [
   },
   {
     id: "axis-y",
-    stepNum: "03",
+    stepNum: "3",
     brandFr: "AXIS-Y",
     titleFr: "Vegan Collagen Eye Serum",
     noteFr:
@@ -75,7 +75,7 @@ const STEPS: StepItem[] = [
   },
   {
     id: "embryolisse",
-    stepNum: "04",
+    stepNum: "4",
     brandFr: "Laboratoires Embryolisse",
     titleFr: "Lait-Crème Concentré Multi-fonctions",
     noteFr:
@@ -92,7 +92,7 @@ const STEPS: StepItem[] = [
   },
   {
     id: "seoul-1988",
-    stepNum: "05",
+    stepNum: "5",
     brandFr: "K-SECRET Seoul 1988",
     titleFr: "Sun Pine Tree + Ceramide SPF 50+",
     noteFr:
@@ -109,7 +109,7 @@ const STEPS: StepItem[] = [
   },
   {
     id: "vaseline",
-    stepNum: "06",
+    stepNum: "6",
     brandFr: "Vaseline Healthy Bright",
     titleFr: "Gluta-Hya Dewy Radiance Body Serum",
     noteFr:
@@ -135,6 +135,9 @@ export default function WhySection() {
   );
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // IntersectionObserver with bidirectional reset:
+  // When scrolling down, step animates in.
+  // When scrolling back up above the step, it resets so it can re-animate when scrolling down again!
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
 
@@ -145,14 +148,25 @@ export default function WhySection() {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               setVisibleSteps((prev) => {
+                if (prev[index]) return prev;
                 const updated = [...prev];
                 updated[index] = true;
                 return updated;
               });
+            } else {
+              // If the element exited below the viewport (user scrolled back up past it)
+              if (entry.boundingClientRect.top > 0) {
+                setVisibleSteps((prev) => {
+                  if (!prev[index]) return prev;
+                  const updated = [...prev];
+                  updated[index] = false;
+                  return updated;
+                });
+              }
             }
           });
         },
-        { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }
+        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
       );
       obs.observe(el);
       observers.push(obs);
@@ -179,11 +193,6 @@ export default function WhySection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-20">
-          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-[#0F3554] text-xs font-semibold uppercase tracking-wider border border-[#BAE0F8] shadow-xs mb-3.5">
-            <Sparkles className="w-3.5 h-3.5 text-[#0284C7]" />
-            <span>{t.badge}</span>
-          </div>
-
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-serif-luxury tracking-tight text-[#0F3554] leading-[1.25]">
             {t.title}
           </h2>
@@ -197,21 +206,30 @@ export default function WhySection() {
         {/* DESKTOP ZIGZAG ROADMAP LAYOUT (lg:block) matching design */}
         {/* ======================================================== */}
         <div className="hidden lg:block relative max-w-5xl mx-auto py-6">
-          {/* Central S-Curved Dotted Connecting Line */}
+          {/* Central S-Curved Dotted Connecting Line with Start & End Dots */}
           <svg
-            className="absolute left-1/2 top-4 bottom-4 -translate-x-1/2 h-[calc(100%-32px)] w-28 pointer-events-none z-0 overflow-visible text-[#7DD3FC]"
+            className="absolute left-1/2 top-4 bottom-4 -translate-x-1/2 h-[calc(100%-32px)] w-28 pointer-events-none z-0 overflow-visible"
             viewBox="0 0 100 1200"
             fill="none"
             preserveAspectRatio="none"
           >
+            {/* Start Node Dot at the very beginning of the line */}
+            <circle cx="50" cy="8" r="6" fill="#0284C7" />
+            <circle cx="50" cy="8" r="10" stroke="#BAE0F8" strokeWidth="2.5" fill="none" opacity="0.8" />
+
+            {/* Dotted Winding Curve */}
             <path
-              d="M50 0 C75 100, 25 200, 50 300 C75 400, 25 500, 50 600 C75 700, 25 800, 50 900 C75 1000, 25 1100, 50 1200"
+              d="M50 8 C75 100, 25 200, 50 300 C75 400, 25 500, 50 600 C75 700, 25 800, 50 900 C75 1000, 25 1100, 50 1192"
               stroke="#7DD3FC"
               strokeWidth="3.5"
               strokeDasharray="6 8"
               strokeLinecap="round"
-              opacity="0.8"
+              opacity="0.85"
             />
+
+            {/* End Node Dot at the very end of the line */}
+            <circle cx="50" cy="1192" r="6" fill="#0284C7" />
+            <circle cx="50" cy="1192" r="10" stroke="#BAE0F8" strokeWidth="2.5" fill="none" opacity="0.8" />
           </svg>
 
           {/* 6 Alternating Steps */}
@@ -219,8 +237,6 @@ export default function WhySection() {
             {STEPS.map((step, idx) => {
               const isEven = idx % 2 === 1; // 0: Left, 1: Right, 2: Left, 3: Right...
               const isVisible = visibleSteps[idx];
-
-              // In RTL (Arabic), the visual sides are naturally mirrored or adapted
               const pillOnLeft = !isEven;
 
               return (
@@ -233,8 +249,8 @@ export default function WhySection() {
                     isVisible
                       ? "opacity-100 translate-x-0"
                       : isEven
-                      ? "opacity-0 translate-x-16"
-                      : "opacity-0 -translate-x-16"
+                      ? "opacity-0 translate-x-20"
+                      : "opacity-0 -translate-x-20"
                   }`}
                 >
                   {/* LEFT COLUMN */}
@@ -284,21 +300,17 @@ export default function WhySection() {
                         </div>
                       </div>
                     ) : (
-                      /* STEP NUMBER ON LEFT (when pill is on right) */
-                      <div className="flex items-center gap-4 text-left rtl:text-right">
-                        {/* Central connection ring */}
-                        <div className="w-9 h-9 rounded-full bg-white border-3 border-[#0284C7] shadow-md flex items-center justify-center shrink-0">
-                          <div className="w-3.5 h-3.5 rounded-full bg-[#0284C7]" />
+                      /* STEP LABEL ON LEFT (when pill is on right): Small circle + "Étape 2" on same line */
+                      <div className="flex items-center gap-3 text-left rtl:text-right">
+                        {/* Compact delicate connection node */}
+                        <div className="w-5 h-5 rounded-full bg-white border-2 border-[#0284C7] shadow-xs flex items-center justify-center shrink-0">
+                          <div className="w-2 h-2 rounded-full bg-[#0284C7]" />
                         </div>
 
-                        <div>
-                          <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#5A7B9A] block">
-                            {isArabic ? "المرحلة" : "ÉTAPE"}
-                          </span>
-                          <span className="text-3xl sm:text-4xl xl:text-5xl font-extrabold text-[#0F3554] tracking-tight">
-                            {step.stepNum}
-                          </span>
-                        </div>
+                        {/* Étape X on one single line */}
+                        <span className="text-base sm:text-lg xl:text-xl font-extrabold text-[#0F3554] tracking-tight whitespace-nowrap">
+                          {isArabic ? `المرحلة ${step.stepNum}` : `Étape ${step.stepNum}`}
+                        </span>
                       </div>
                     )}
                   </div>
@@ -350,21 +362,17 @@ export default function WhySection() {
                         </div>
                       </div>
                     ) : (
-                      /* STEP NUMBER ON RIGHT (when pill is on left) */
-                      <div className="flex items-center gap-4 text-left rtl:text-right">
-                        {/* Central connection ring */}
-                        <div className="w-9 h-9 rounded-full bg-white border-3 border-[#0284C7] shadow-md flex items-center justify-center shrink-0">
-                          <div className="w-3.5 h-3.5 rounded-full bg-[#0284C7]" />
+                      /* STEP LABEL ON RIGHT (when pill is on left): Small circle + "Étape 1" on same line */
+                      <div className="flex items-center gap-3 text-left rtl:text-right">
+                        {/* Compact delicate connection node */}
+                        <div className="w-5 h-5 rounded-full bg-white border-2 border-[#0284C7] shadow-xs flex items-center justify-center shrink-0">
+                          <div className="w-2 h-2 rounded-full bg-[#0284C7]" />
                         </div>
 
-                        <div>
-                          <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#5A7B9A] block">
-                            {isArabic ? "المرحلة" : "ÉTAPE"}
-                          </span>
-                          <span className="text-3xl sm:text-4xl xl:text-5xl font-extrabold text-[#0F3554] tracking-tight">
-                            {step.stepNum}
-                          </span>
-                        </div>
+                        {/* Étape X on one single line */}
+                        <span className="text-base sm:text-lg xl:text-xl font-extrabold text-[#0F3554] tracking-tight whitespace-nowrap">
+                          {isArabic ? `المرحلة ${step.stepNum}` : `Étape ${step.stepNum}`}
+                        </span>
                       </div>
                     )}
                   </div>
@@ -377,9 +385,9 @@ export default function WhySection() {
         {/* ======================================================== */}
         {/* MOBILE & TABLET ROADMAP LAYOUT (< lg) */}
         {/* ======================================================== */}
-        <div className="lg:hidden relative max-w-xl mx-auto space-y-8 sm:space-y-10 py-4">
+        <div className="lg:hidden relative max-w-xl mx-auto space-y-6 sm:space-y-8 py-4">
           {/* Vertical dashed line running along the side */}
-          <div className="absolute left-6 sm:left-8 top-6 bottom-6 w-0.5 border-l-2 border-dashed border-[#7DD3FC] pointer-events-none -z-0" />
+          <div className="absolute left-4 sm:left-6 top-6 bottom-6 w-0.5 border-l-2 border-dashed border-[#7DD3FC] pointer-events-none -z-0" />
 
           {STEPS.map((step, idx) => {
             const isVisible = visibleSteps[idx];
@@ -392,19 +400,16 @@ export default function WhySection() {
                     stepRefs.current[idx] = el;
                   }
                 }}
-                className={`relative flex items-start gap-4 transition-all duration-700 ease-out ${
+                className={`relative flex items-start gap-3 sm:gap-4 transition-all duration-700 ease-out will-change-transform ${
                   isVisible
                     ? "opacity-100 translate-x-0"
-                    : "opacity-0 translate-x-8"
+                    : "opacity-0 translate-x-10"
                 }`}
               >
                 {/* Step indicator node on the dashed line */}
                 <div className="relative z-10 shrink-0 mt-3">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white border-3 border-[#0284C7] shadow-md flex flex-col items-center justify-center text-[#0F3554]">
-                    <span className="text-[8px] font-bold uppercase tracking-tighter text-[#5A7B9A]">
-                      {isArabic ? "مرحلة" : "ÉTAPE"}
-                    </span>
-                    <span className="text-xs sm:text-sm font-extrabold leading-none">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border-2 border-[#0284C7] shadow-sm flex items-center justify-center text-[#0F3554]">
+                    <span className="text-[11px] sm:text-xs font-extrabold leading-none">
                       {step.stepNum}
                     </span>
                   </div>
@@ -416,22 +421,27 @@ export default function WhySection() {
                     className={`rounded-3xl p-3 sm:p-4 bg-gradient-to-r ${step.gradient} text-white shadow-xl shadow-sky-950/15 flex items-center gap-3 sm:gap-4`}
                   >
                     {/* Circle Model Photo */}
-                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-3 border-white shadow-lg shrink-0 bg-white">
+                    <div className="relative w-18 h-18 sm:w-22 sm:h-22 rounded-full overflow-hidden border-3 border-white shadow-lg shrink-0 bg-white">
                       <Image
                         src={step.modelImage}
                         alt={step.alt}
                         fill
-                        sizes="96px"
+                        sizes="90px"
                         className="object-cover object-center"
                       />
                     </div>
 
                     {/* Petite Note & Product Info */}
                     <div className="flex-1 min-w-0 text-left rtl:text-right">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-white/80 block truncate">
-                        {isArabic ? step.brandAr : step.brandFr}
-                      </span>
-                      <h3 className="text-xs sm:text-sm font-bold font-serif-luxury text-white leading-snug line-clamp-1 mt-0.5">
+                      <div className="flex items-center justify-between gap-1 mb-0.5">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-white/80 block truncate">
+                          {isArabic ? step.brandAr : step.brandFr}
+                        </span>
+                        <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-white/20 text-white shrink-0">
+                          {isArabic ? `مرحلة ${step.stepNum}` : `Étape ${step.stepNum}`}
+                        </span>
+                      </div>
+                      <h3 className="text-xs sm:text-sm font-bold font-serif-luxury text-white leading-snug line-clamp-1">
                         {isArabic ? step.titleAr : step.titleFr}
                       </h3>
                       <p className="text-[10px] sm:text-xs text-white/90 leading-relaxed line-clamp-2 mt-1">

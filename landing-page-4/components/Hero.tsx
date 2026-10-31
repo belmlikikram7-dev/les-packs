@@ -42,11 +42,6 @@ export default function Hero() {
 
         {/* Text & CTA Card */}
         <div className="rounded-[24px] sm:rounded-[32px] bg-white border border-[#BAE0F8] p-5 sm:p-6 shadow-md shadow-sky-900/5 flex flex-col items-center text-center">
-          {/* Luxury Badge */}
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0F2FE] text-[#0284C7] text-[11px] sm:text-xs font-bold border border-[#BAE0F8] mb-2.5">
-            <span>{t.badge}</span>
-          </div>
-
           {/* Main Headline */}
           <h1 className="text-2xl sm:text-3xl font-serif-luxury tracking-tight leading-[1.2] text-[#0F3554]">
             <span className="font-normal text-[#0F3554]">{t.titlePart1}</span>{" "}
@@ -54,11 +49,6 @@ export default function Hero() {
             <br />
             <span className="font-bold text-[#0F3554]">{t.titleHighlight}</span>
           </h1>
-
-          {/* Subtitle */}
-          <p className="mt-2 text-xs sm:text-sm text-[#4B6B88] max-w-sm leading-relaxed">
-            {t.subtitle}
-          </p>
 
           {/* Primary CTA Button - Formatted cleanly without awkward line wrapping */}
           <div className="w-full mt-4">
@@ -118,7 +108,7 @@ export default function Hero() {
         <div className="absolute -bottom-6 sm:-bottom-8 inset-x-0 h-6 sm:h-8 bg-gradient-to-b from-[#0F3554]/10 via-[#0F3554]/3 to-transparent pointer-events-none z-20" />
 
         {/* Content Container */}
-        <div className="relative z-10 max-w-[1520px] mx-auto px-8 lg:px-12 xl:px-16 w-full pb-4 sm:pb-6">
+        <div className="relative z-10 max-w-[1520px] mx-auto px-8 lg:px-12 xl:px-16 w-full pb-10 sm:pb-14 xl:pb-16">
           <div
             style={{
               marginLeft: isArabic ? "auto" : "0px",
@@ -130,11 +120,6 @@ export default function Hero() {
                 : "items-start text-left sm:translate-x-4 md:translate-x-8 lg:translate-x-12"
             }`}
           >
-            {/* Luxury Badge */}
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/95 backdrop-blur-xs text-[#0F3554] text-xs font-semibold uppercase tracking-wider mb-3.5 border border-[#BAE0F8] shadow-md">
-              <span>{t.badge}</span>
-            </div>
-
             {/* Main Headline */}
             <h1
               className={`text-3xl lg:text-[44px] xl:text-[50px] font-serif-luxury tracking-tight text-white leading-[1.16] drop-shadow-[0_2px_18px_rgba(0,0,0,0.8)] ${
@@ -146,11 +131,6 @@ export default function Hero() {
               <br />
               <span className="font-bold text-white">{t.titleHighlight}</span>
             </h1>
-
-            {/* Subtitle */}
-            <p className="mt-3 text-sm text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.7)] max-w-md leading-relaxed">
-              {t.subtitle}
-            </p>
 
             {/* Primary CTA Button */}
             <div className={`mt-6 flex ${isArabic ? "justify-end" : "justify-start"}`}>
