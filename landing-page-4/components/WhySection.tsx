@@ -36,8 +36,8 @@ const STEPS: StepItem[] = [
     modelImage:
       "/images/model-4/la-roche-posay-effaclar-purifying-foaming-gel-model.webp",
     alt: "Modèle avec La Roche-Posay Effaclar Gel Moussant",
-    gradient: "from-[#0284C7] via-[#0378b5] to-[#0EA5E9]",
-    accentColor: "#0284C7",
+    gradient: "from-[#164268] via-[#1B4E7A] to-[#205A8D]",
+    accentColor: "#1B4E7A",
   },
   {
     id: "anua",
@@ -53,8 +53,8 @@ const STEPS: StepItem[] = [
     modelImage:
       "/images/model-4/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-model.webp",
     alt: "Modèle avec Anua Azelaic Acid 10+ Serum",
-    gradient: "from-[#0369A1] via-[#0284C7] to-[#0284C7]",
-    accentColor: "#0369A1",
+    gradient: "from-[#133C60] via-[#17466E] to-[#1B507D]",
+    accentColor: "#17466E",
   },
   {
     id: "axis-y",
@@ -104,8 +104,8 @@ const STEPS: StepItem[] = [
     modelImage:
       "/images/model-4/k-secret-seoul-1988-sun-pine-tree-ceramide-model.webp",
     alt: "Modèle avec K-SECRET Seoul 1988 Sun Pine Tree",
-    gradient: "from-[#0284C7] via-[#0369A1] to-[#0F3554]",
-    accentColor: "#0284C7",
+    gradient: "from-[#143F66] via-[#194B77] to-[#0F3554]",
+    accentColor: "#143F66",
   },
   {
     id: "vaseline",
@@ -214,22 +214,22 @@ export default function WhySection() {
             preserveAspectRatio="none"
           >
             {/* Start Node Dot at the very beginning of the line */}
-            <circle cx="50" cy="8" r="6" fill="#0284C7" />
-            <circle cx="50" cy="8" r="10" stroke="#BAE0F8" strokeWidth="2.5" fill="none" opacity="0.8" />
+            <circle cx="50" cy="8" r="6" fill="#0F3554" />
+            <circle cx="50" cy="8" r="10" stroke="#BAE0F8" strokeWidth="2.5" fill="none" opacity="0.85" />
 
             {/* Dotted Winding Curve */}
             <path
               d="M50 8 C75 100, 25 200, 50 300 C75 400, 25 500, 50 600 C75 700, 25 800, 50 900 C75 1000, 25 1100, 50 1192"
-              stroke="#7DD3FC"
-              strokeWidth="3.5"
+              stroke="#93C5FD"
+              strokeWidth="3"
               strokeDasharray="6 8"
               strokeLinecap="round"
-              opacity="0.85"
+              opacity="0.8"
             />
 
             {/* End Node Dot at the very end of the line */}
-            <circle cx="50" cy="1192" r="6" fill="#0284C7" />
-            <circle cx="50" cy="1192" r="10" stroke="#BAE0F8" strokeWidth="2.5" fill="none" opacity="0.8" />
+            <circle cx="50" cy="1192" r="6" fill="#0F3554" />
+            <circle cx="50" cy="1192" r="10" stroke="#BAE0F8" strokeWidth="2.5" fill="none" opacity="0.85" />
           </svg>
 
           {/* 6 Alternating Steps */}
@@ -303,8 +303,8 @@ export default function WhySection() {
                       /* STEP LABEL ON LEFT (when pill is on right): Small circle + "Étape 2" on same line */
                       <div className="flex items-center gap-3 text-left rtl:text-right">
                         {/* Compact delicate connection node */}
-                        <div className="w-5 h-5 rounded-full bg-white border-2 border-[#0284C7] shadow-xs flex items-center justify-center shrink-0">
-                          <div className="w-2 h-2 rounded-full bg-[#0284C7]" />
+                        <div className="w-5 h-5 rounded-full bg-white border-2 border-[#0F3554] shadow-xs flex items-center justify-center shrink-0">
+                          <div className="w-2 h-2 rounded-full bg-[#0F3554]" />
                         </div>
 
                         {/* Étape X on one single line */}
@@ -365,8 +365,8 @@ export default function WhySection() {
                       /* STEP LABEL ON RIGHT (when pill is on left): Small circle + "Étape 1" on same line */
                       <div className="flex items-center gap-3 text-left rtl:text-right">
                         {/* Compact delicate connection node */}
-                        <div className="w-5 h-5 rounded-full bg-white border-2 border-[#0284C7] shadow-xs flex items-center justify-center shrink-0">
-                          <div className="w-2 h-2 rounded-full bg-[#0284C7]" />
+                        <div className="w-5 h-5 rounded-full bg-white border-2 border-[#0F3554] shadow-xs flex items-center justify-center shrink-0">
+                          <div className="w-2 h-2 rounded-full bg-[#0F3554]" />
                         </div>
 
                         {/* Étape X on one single line */}
@@ -408,7 +408,7 @@ export default function WhySection() {
               >
                 {/* Step indicator node on the dashed line */}
                 <div className="relative z-10 shrink-0 mt-3">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border-2 border-[#0284C7] shadow-sm flex items-center justify-center text-[#0F3554]">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border-2 border-[#0F3554] shadow-sm flex items-center justify-center text-[#0F3554]">
                     <span className="text-[11px] sm:text-xs font-extrabold leading-none">
                       {step.stepNum}
                     </span>

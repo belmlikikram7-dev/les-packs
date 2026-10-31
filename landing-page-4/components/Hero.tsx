@@ -88,24 +88,21 @@ export default function Hero() {
             priority
             unoptimized
             sizes="100vw"
-            className="object-cover object-top w-full h-full"
+            className="object-cover object-center w-full h-full"
           />
 
-          {/* Lateral gradient overlay for text readability while leaving products glowing */}
+          {/* Very light lateral vignette just for text contrast - 100% sharp clear view of products */}
           <div
             className={`absolute inset-0 pointer-events-none ${
               isArabic
-                ? "bg-gradient-to-l from-black/45 via-black/15 to-transparent"
-                : "bg-gradient-to-r from-black/45 via-black/15 to-transparent"
+                ? "bg-gradient-to-l from-black/25 via-transparent to-transparent"
+                : "bg-gradient-to-r from-black/25 via-transparent to-transparent"
             }`}
           />
-
-          {/* Soft bottom edge transition fade to dissolve smoothly into page */}
-          <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#F4F9FD] via-[#F4F9FD]/60 to-transparent pointer-events-none" />
         </div>
 
-        {/* Soft downward ambient shadow casting onto the section below */}
-        <div className="absolute -bottom-6 sm:-bottom-8 inset-x-0 h-6 sm:h-8 bg-gradient-to-b from-[#0F3554]/10 via-[#0F3554]/3 to-transparent pointer-events-none z-20" />
+        {/* Soft elegant white/background gradient fade at the bottom edge so it dissolves seamlessly into the page background */}
+        <div className="absolute bottom-0 inset-x-0 h-16 sm:h-20 md:h-24 bg-gradient-to-t from-[#F4F9FD] via-[#F4F9FD]/60 to-transparent pointer-events-none z-10" />
 
         {/* Content Container */}
         <div className="relative z-10 max-w-[1520px] mx-auto px-8 lg:px-12 xl:px-16 w-full pb-10 sm:pb-14 xl:pb-16">
