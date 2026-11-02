@@ -208,6 +208,7 @@ export default function WhySection() {
         <div className="hidden lg:block relative max-w-5xl mx-auto py-6">
           {/* Central S-Curved Dotted Connecting Line with Start & End Dots */}
           <svg
+            suppressHydrationWarning
             className="absolute left-1/2 top-4 bottom-4 -translate-x-1/2 h-[calc(100%-32px)] w-28 pointer-events-none z-0 overflow-visible"
             viewBox="0 0 100 1200"
             fill="none"
